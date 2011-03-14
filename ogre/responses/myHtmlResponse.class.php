@@ -9,16 +9,24 @@
 */
 
 
-require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
+require_once ('jResponseHtmlLess.class.php');
 
-class myHtmlResponse extends jResponseHtml {
+class myHtmlResponse extends jResponseHtmlLess {
 
     public $bodyTpl = 'ogre~main';
 
     function __construct() {
         parent::__construct();
 
-        // Include your common CSS and JS files here
+        global $gJConfig;
+ 
+        $themePath = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
+    
+        $this->addJsLink($gJConfig->urlengine['basePath'].'jelix/jquery/jquery.js');
+    
+       $this->addCSSLink($themePath.'css/base.css');
+       $this->addCSSLink($themePath.'css/form.css');
+       $this->addCssLinkLess($themePath.'css/style.less');
     }
 
     protected function doAfterActions() {
@@ -26,5 +34,20 @@ class myHtmlResponse extends jResponseHtml {
         // main template, the settings of the response etc..
 
         $this->body->assignIfNone('MAIN','<p>no content</p>');
+        
+        if($this->title == '')
+            $this->setTitle();
+    }
+    
+    
+    public function setTitle($title = null){
+        if($title) {
+            $this->body->assign('title', $title);
+            $this->title = $title . ' | Ogre';
+        }
+        else {
+            $this->body->assign('title', '');
+            $this->title = 'Ogre';
+        }
     }
 }

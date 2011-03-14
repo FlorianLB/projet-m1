@@ -15,7 +15,7 @@ theme=default
 
 pluginsPath="app:plugins/,lib:jelix-plugins/"
 
-modulesPath="lib:jelix-modules/,app:modules/"
+modulesPath="lib:jelix-modules/,app:modules/, lib:external-modules/"
 
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
@@ -72,7 +72,7 @@ html=myHtmlResponse
 
 [urlengine]
 ; name of url engine :  "simple", "basic_significant" or "significant"
-engine=basic_significant
+engine=simple
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
 ; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to

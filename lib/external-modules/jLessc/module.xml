@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="jLesscFlorianLB" name="jLessc" createdate="2010-09-26">
+        <version stability="beta" date="">0.3</version>
+        <label lang="en_EN">articles</label>
+        <description lang="en_EN" />
+        <license url="">All right reserved</license>
+        <copyright>2010 Florian LB</copyright>
+        <creator name="Florian Lonqueu-Brochard" email="contact@andromedecreations.fr" active="true"/>
+        <homepageURL>http://andromedecreations.fr/blog/less-jelix</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.1" maxversion="1.*"/>
+    </dependencies>
+</module>

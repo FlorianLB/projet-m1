@@ -7,3 +7,5 @@ startAction="default:index"
 [responses]
 [modules]
 ogre.access=2
+
+jLessc.access=2
