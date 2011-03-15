@@ -1,2 +1,7 @@
-temp/*
+temp/ogre/compiled/*
+temp/ogre/zonecache/*
+temp/ogre/*.*
+temp/ogre-cli/*.*
+temp/ogre-jelix-scripts/*.*
 *.komodoproject
+ogre.mwb.bak
