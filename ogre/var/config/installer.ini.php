@@ -22,7 +22,10 @@ ogre.installed=1
 ogre.version=0.1pre
 jLessc.installed=1
 jLessc.version=0.3
+formations.installed=1
+formations.version=0.1pre
 [__modules_data]
 jelix.contexts="db:myapp"
+
 
 

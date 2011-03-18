@@ -15,9 +15,20 @@ class defaultCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
 
-        // this is a call for the 'welcome' zone after creating a new application
-        // remove this line !
-        $rep->body->assign('MAIN', 'Ok nikel, tout marche');
+
+
+
+
+
+        $content = '<p>Ok nikel, tout marche</p>
+            <p>Liens temporaires : </p>
+            <ul>
+                    <li><a href="'.jUrl::get('formations~formations:index').'">Formations CRUD</a></li>
+            </ul>
+        ';
+        
+        $rep->body->assign('MAIN', $content);
+
 
         return $rep;
     }
