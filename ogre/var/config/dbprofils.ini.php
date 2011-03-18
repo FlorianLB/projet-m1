@@ -15,7 +15,7 @@ default = myapp
 driver="mysql"
 
 ; For most of drivers:
-database="jelix"
+database="ogre"
 host= "localhost"
 user= "root"
 password=
