@@ -18,7 +18,7 @@ driver="mysql"
 database="ogre"
 host= "localhost"
 user= "root"
-password=
+password= 
 persistent= on
 
 ; when you have charset issues, enable force_encoding so the connection will be
