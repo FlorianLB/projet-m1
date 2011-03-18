@@ -15,10 +15,10 @@ default = myapp
 driver="mysql"
 
 ; For most of drivers:
-database="jelix"
+database="ogre"
 host= "localhost"
 user= "root"
-password=
+password= 
 persistent= on
 
 ; when you have charset issues, enable force_encoding so the connection will be
