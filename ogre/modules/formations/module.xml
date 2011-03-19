@@ -2,8 +2,8 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="formations@yourwebsite.undefined" name="formations" createdate="2011-03-18">
         <version>0.1pre</version>
-        <label lang="en_EN">formations</label>
-        <description lang="en_EN" />
+        <label lang="fr_FR">formations</label>
+        <description lang="fr_FR" />
         <license URL="">All right reserved</license>
         <copyright>2010 yourname</copyright>
         <creator name="yourname" email="youremail@yourwebsite.undefined" active="true"/>
