@@ -3,7 +3,7 @@
 
 
 <input ref="code_formation" required="true" maxlength="15">
-	<label>Code Formation</label>
+	<label>Code formation</label>
 </input>
 
 <input ref="annee" required="true">

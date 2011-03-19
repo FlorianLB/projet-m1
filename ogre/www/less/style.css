@@ -1,5 +1,6 @@
 .container {
-  width:960px;
+  min-width:960px;
+  max-width:1200px;
   margin:0 auto;
   position:relative;
 }
@@ -61,6 +62,7 @@
   padding:1px;
   min-height:430px;
 }
+#main .inner { padding:8px; }
 .pannel .header {
   background:#f1f1f1;
   border-bottom:1px solid white;
