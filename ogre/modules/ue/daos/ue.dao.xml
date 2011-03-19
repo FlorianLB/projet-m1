@@ -4,7 +4,7 @@
         <primarytable name="ue" realname="ue" primarykey="id_ue" />
     </datasources>
     <record>
-        <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
+        <property name="id_ue" fieldname="id_ue" datatype="mediumint" autoincrement="true"/>
         <property name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
