@@ -26,8 +26,11 @@ formations.installed=1
 formations.version=0.1pre
 etudiants.installed=1
 etudiants.version=0.1pre
+ue.installed=1
+ue.version=0.1pre
 [__modules_data]
 jelix.contexts="db:myapp"
+
 
 
 
