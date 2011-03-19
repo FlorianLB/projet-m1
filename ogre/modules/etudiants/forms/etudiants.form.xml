@@ -14,7 +14,7 @@
 	<label>Prenom</label>
 </input>
 
-<input ref="date_naissance">
+<input ref="date_naissance" type="date">
 	<label>Date de naissance (Année-Mois-Jour)</label>
 </input>
 

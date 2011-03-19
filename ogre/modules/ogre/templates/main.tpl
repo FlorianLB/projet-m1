@@ -22,10 +22,11 @@
         <div class="container">
             
             <div id="main" class="pannel">
+                
                 <div class="header">{$title}</div>
-                <div class="inner">
+                
                 {$MAIN}
-                </div>
+                
             </div>
         </div>
     </div>
