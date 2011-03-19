@@ -1,10 +1,10 @@
 <div id="header">
     <div class="container">
     
-        <img id="ogre" src="{$j_themepath}img/ogre.png" alt="Ogre" />
+        <a href="{$j_basepath}"><img id="ogre" src="{$j_themepath}img/ogre.png" alt="Ogre" /></a>
     
         <ul id="menu">
-            <li><a href="#">Accueil</a></li>
+            <li><a href="{$j_basepath}">Accueil</a></li>
             <li><a href="#">Etudiants</a></li>
             <li><a href="#">Examens</a></li>
             <li><a href="#">Paramètres</a></li>
@@ -23,7 +23,9 @@
             
             <div id="main" class="pannel">
                 <div class="header">{$title}</div>
+                <div class="inner">
                 {$MAIN}
+                </div>
             </div>
         </div>
     </div>

@@ -9,3 +9,7 @@ startAction="default:index"
 ogre.access=2
 
 jLessc.access=2
+
+formations.access=2
+
+etudiants.access=2
