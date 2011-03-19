@@ -17,10 +17,6 @@
 	<label>Libelle</label>
 </input>
 
-<input ref="last_version" required="true" type="integer">
-	<label>Last Version</label>
-</input>
-
 <submit ref="_submit">
 	<label>ok</label>
 </submit>
