@@ -6,7 +6,7 @@
 	<label>Code formation</label>
 </input>
 
-<input ref="annee" required="true" type="date">
+<input ref="annee" required="true">
 	<label>Annee</label>
 </input>
 
