@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+
+<input ref="id_ue" required="true" type="integer">
+	<label>Id Ue</label>
+</input>
+
+<input ref="code_ue" required="true" maxlength="15">
+	<label>Code Ue</label>
+</input>
+
+<input ref="coeff" required="true" type="integer">
+	<label>Coeff</label>
+</input>
+
+<input ref="credits" required="true" type="integer">
+	<label>Credits</label>
+</input>
+
+<input ref="libelle" required="true" maxlength="30">
+	<label>Libelle</label>
+</input>
+
+<input ref="last_version" required="true" type="integer">
+	<label>Last Version</label>
+</input>
+
+<submit ref="_submit">
+	<label>ok</label>
+</submit>
+</form>

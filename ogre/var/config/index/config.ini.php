@@ -13,3 +13,5 @@ jLessc.access=2
 formations.access=2
 
 etudiants.access=2
+
+ue.access=2
