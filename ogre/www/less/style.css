@@ -1,3 +1,8 @@
+.border-radius {
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
 .container {
   min-width:960px;
   max-width:1200px;
@@ -51,31 +56,27 @@
   background:#00527a;
 }
 #main {
+  border-radius:5px;
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
-  border-radius:5px;
   background:white;
-  border:1px solid #bbbbbb;
   margin-bottom:20px;
   margin-top:20px;
   overflow:hidden;
   padding:1px;
   min-height:430px;
 }
-#main .inner { padding:8px; }
-.pannel .header {
-  background:#f1f1f1;
-  border-bottom:1px solid white;
-  color:#666666;
-  margin:0;
-  font-size:1.2em;
+#main .header {
+  background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
+  text-shadow:0 1px 0 #ffffff;
+  color:#464646;
+  padding:7px 9px;
   font-weight:bold;
-  padding:12px 15px 13px;
-  text-shadow:0 1px 1px white;
-}
-.pannel .content {
-  border-top:1px solid #cccccc;
-  padding:15px;
+  border:1px solid #dfdfdf;
+  margin-bottom:15px;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
 }
 label {
   display:inline-block;
@@ -84,9 +85,9 @@ label {
 abbr[title="required"] { border:0; }
 input[type="text"] :focus, input[type="password"] :focus { -moz-box-shadow:0 0 5px #005987; }
 .btn {
-  -moz-border-radius:8px;
-  -webkit-border-radius:12px;
   border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
   cursor:pointer;
   font-weight:bold;
   display:inline-block;
@@ -100,11 +101,11 @@ input[type="submit"]:hover, input[type="submit"]:focus, input[type="reset"]:hove
   border-color:#666666;
   color:#000000;
 }
-input[type="submit"]:active, input[type="reset"]:active, .button:active { background:url(../img/white-grad-active.png) repeat-x #21759b; }
+input[type="submit"]:active, input[type="reset"]:active, .button:active { background:url(../themes/default/img/white-grad-active.png) repeat-x #21759b; }
 input[type="submit"], input[type="reset"], .button {
-  -moz-border-radius:8px;
-  -webkit-border-radius:12px;
   border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
   cursor:pointer;
   font-weight:bold;
   display:inline-block;
@@ -113,7 +114,7 @@ input[type="submit"], input[type="reset"], .button {
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
-  background-image:url(../img/white-grad.png);
+  background-image:url(../themes/default/img/white-grad.png);
   color:#464646;
   border-color:#bbbbbb;
   text-shadow:0 1px 0 #ffffff;
@@ -122,11 +123,11 @@ body .button-2:hover, body .button-2:focus {
   border-color:#13455b;
   color:#eaf2fa;
 }
-body .button-2:active { background:url(../img/blue-grad-active.png) repeat-x #21759b; }
+body .button-2:active { background:url(../themes/default/img/blue-grad-active.png) repeat-x #21759b; }
 body .button-2 {
-  -moz-border-radius:8px;
-  -webkit-border-radius:12px;
   border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
   cursor:pointer;
   font-weight:bold;
   display:inline-block;
@@ -135,7 +136,7 @@ body .button-2 {
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
-  background:url(../img/blue-grad.png) repeat-x #21759b;
+  background:url(../themes/default/img/blue-grad.png) repeat-x #21759b;
   color:white;
   border-color:#298cba;
   text-shadow:0 -1px 0 black;
@@ -145,9 +146,9 @@ body .button-valid:hover, body .button-valid:focus {
   color:#eeeeee;
 }
 body .button-valid {
-  -moz-border-radius:8px;
-  -webkit-border-radius:12px;
   border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
   cursor:pointer;
   font-weight:bold;
   display:inline-block;
@@ -156,7 +157,7 @@ body .button-valid {
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
-  background-image:url(../img/green-grad.png);
+  background-image:url(../themes/default/img/green-grad.png);
   background-color:#5b6732;
   color:#ffffff;
   border-color:#56612f;
@@ -167,9 +168,9 @@ body .button-error:hover, body .button-error:focus {
   color:#eeeeee;
 }
 body .button-error {
-  -moz-border-radius:8px;
-  -webkit-border-radius:12px;
   border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
   cursor:pointer;
   font-weight:bold;
   display:inline-block;
@@ -178,7 +179,7 @@ body .button-error {
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
-  background-image:url(../img/red-grad.png);
+  background-image:url(../themes/default/img/red-grad.png);
   background-color:#ab332d;
   color:#ffffff;
   border-color:#a6302a;
@@ -194,7 +195,20 @@ a.icon.right span {
   background-repeat:no-repeat;
   padding:1px 23px 1px 0;
 }
-a.add span { background-image:url(../img/add.png); }
-a.delete span { background-image:url(../img/delete.png); }
-a.next span { background-image:url(../img/arrow_right.png); }
-a.save span { background-image:url(../img/disk.png); }
+a.add span { background-image:url(../themes/default/img/add.png); }
+a.delete span { background-image:url(../themes/default/img/delete.png); }
+a.next span { background-image:url(../themes/default/img/arrow_right.png); }
+a.save span { background-image:url(../themes/default/img/disk.png); }
+table { border:1px solid #dfdfdf; }
+thead th {
+  background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
+  text-shadow:0 1px 0 #ffffff;
+  color:#464646;
+  font-weight:bold;
+}
+tr.odd td { background:#ffffff; }
+tr.even td { background:#f9f9f9; }
+tr.even td, tr.odd td {
+  border:0;
+  border-top:1px solid #dfdfdf;
+}

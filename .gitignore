@@ -5,3 +5,4 @@ temp/ogre-cli/*.*
 temp/ogre-jelix-scripts/*.*
 *.komodoproject
 ogre.mwb.bak
+*Thumbs.db*

@@ -1,4 +1,11 @@
 
+@img = '../themes/default/img/';
+
+.border-radius (@radius: 5px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
 
 
 .container{
@@ -69,36 +76,29 @@
 
 
 #main{
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+
+    .border-radius(5px);
     
     background: white;
-    border: 1px solid #BBBBBB;
     margin-bottom: 20px;
     margin-top: 20px;
     overflow: hidden;
     padding: 1px;
     min-height: 430px;
 }
-#main .inner{
-    padding:8px;
+
+
+#main .header{
+    background:url({@img}gray-grad.png) repeat-x #DFDFDF;
+    text-shadow:0 1px 0 #FFFFFF;
+    color:#464646;
+    padding:7px 9px;
+    font-weight:bold;
+    border:1px solid #DFDFDF;
+    margin-bottom:15px;
+    .border-radius(5px);
 }
 
-.pannel .header{
-    background: #F1F1F1;
-    border-bottom: 1px solid white;
-    color: #666666;
-    margin: 0;
-    font-size:1.2em;
-    font-weight:bold;
-    padding: 12px 15px 13px;
-    text-shadow: 0 1px 1px white;
-}
-.pannel .content{
-    border-top: 1px solid #CCCCCC;
-    padding: 15px;
-}
 
 
 label{
@@ -111,9 +111,7 @@ input[type="text"]:focus, input[type="password"]:focus{
 
 
 .btn(){
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 12px;
-    border-radius: 12px;
+    .border-radius(12px);
     
     cursor:pointer;
     font-weight:bold;
@@ -130,7 +128,7 @@ input[type="text"]:focus, input[type="password"]:focus{
 input[type="submit"], input[type="reset"], .button{
     .btn;
     
-    background-image:url(../img/white-grad.png);
+    background-image:url({@img}white-grad.png);
     color: #464646;
     border-color: #bbb;
     text-shadow: 0 1px 0 #FFFFFF;
@@ -140,14 +138,14 @@ input[type="submit"], input[type="reset"], .button{
         color:#000;
     }
     &:active{
-        background:url(../img/white-grad-active.png) repeat-x #21759B
+        background:url({@img}white-grad-active.png) repeat-x #21759B
     }
 }
 
 body .button-2{
     .btn;
     
-    background:url(../img/blue-grad.png) repeat-x #21759B;
+    background:url({@img}blue-grad.png) repeat-x #21759B;
     color:white;
     border-color : #298CBA;
     text-shadow:0 -1px 0 black;
@@ -157,7 +155,7 @@ body .button-2{
         color:#eaf2fa;
     }
     &:active{
-        background:url(../img/blue-grad-active.png) repeat-x #21759B
+        background:url({@img}blue-grad-active.png) repeat-x #21759B
     }
 }
 
@@ -165,7 +163,7 @@ body .button-valid{
     
     .btn;
     
-    background-image:url(../img/green-grad.png);
+    background-image:url({@img}green-grad.png);
     background-color: #5b6732;
     color: #fff;
     border-color: #56612f;
@@ -181,7 +179,7 @@ body .button-error{
     
     .btn;
     
-    background-image:url(../img/red-grad.png);
+    background-image:url({@img}red-grad.png);
     background-color: #AB332D;
     color: #fff;
     border-color: #a6302a;
@@ -204,7 +202,33 @@ a.icon.right span{
     padding:1px 23px 1px 0;
 }
 
-a.add span{background-image: url(../img/add.png);}
-a.delete span{background-image: url(../img/delete.png);}
-a.next span{background-image: url(../img/arrow_right.png);}
-a.save span{background-image: url(../img/disk.png);}
+a.add span{background-image: url({@img}add.png);}
+a.delete span{background-image: url({@img}delete.png);}
+a.next span{background-image: url({@img}arrow_right.png);}
+a.save span{background-image: url({@img}disk.png);}
+
+
+
+table{
+    border:1px solid #DFDFDF;
+}
+
+thead th{
+    background:url({@img}gray-grad.png) repeat-x #DFDFDF;
+    text-shadow:0 1px 0 #FFFFFF;
+    color:#464646;
+    font-weight:bold;
+}
+
+
+tr.odd td{
+    background: #FFF;
+}
+tr.even td{
+    background: #F9F9F9;
+}
+
+tr.even td, tr.odd td{
+    border:0;
+    border-top:1px solid #dfdfdf;
+}
