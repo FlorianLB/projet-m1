@@ -6,8 +6,9 @@
 	<label>Code formation</label>
 </input>
 
-<input ref="annee" required="true" type="date">
+<input ref="annee" required="true" pattern="/2[0-9]{3}-2[0-9]{3}/" maxlength="9">
 	<label>Annee</label>
+	<help>exemple : "2010-2011"</help>
 </input>
 
 <input ref="libelle" maxlength="30">
