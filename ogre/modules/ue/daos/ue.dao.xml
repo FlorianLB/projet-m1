@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="ue" realname="ue" primarykey="id_ue" />
+    </datasources>
+    <record>
+        <property name="id_ue" fieldname="id_ue" datatype="mediumint" autoincrement="true"/>
+        <property name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
+        <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
+        <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
+        <property name="libelle" fieldname="libelle" datatype="varchar" required="true" maxlength="30"/>
+        <property name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>

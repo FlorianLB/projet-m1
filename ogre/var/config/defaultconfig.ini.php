@@ -42,6 +42,7 @@ jWSDL.access=0
 ogre.access=2
 formations.access=2
 etudiants.access=2
+ue.access=2
 [coordplugins]
 ;name = file_ini_name or 1
 
@@ -208,6 +209,7 @@ name=
 
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
+
 
 
 
