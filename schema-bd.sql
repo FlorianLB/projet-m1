@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 -- Table `ogre`.`ue`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
-  `id_ue` MEDIUMINT NOT NULL ,
+  `id_ue` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `code_ue` VARCHAR(15) NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `credits` TINYINT NOT NULL ,
@@ -99,7 +99,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`epreuve` (
   `id_epreuve` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `id_ue` MEDIUMINT NOT NULL ,
+  `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `type_epreuve` CHAR(3) NOT NULL ,
   PRIMARY KEY (`id_epreuve`) ,
