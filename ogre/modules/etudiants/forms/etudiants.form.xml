@@ -15,7 +15,7 @@
 </input>
 
 <input ref="date_naissance">
-	<label>Date de naissance</label>
+	<label>Date de naissance (Année-Mois-Jour)</label>
 </input>
 
 <submit ref="_submit">
