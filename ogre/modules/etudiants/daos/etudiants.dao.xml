@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="etudiants" realname="etudiants" primarykey="num_etudiant" />
+    </datasources>
+    <record>
+        <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="nom" fieldname="nom" datatype="varchar" required="true" default="" maxlength="50"/>
+        <property name="prenom" fieldname="prenom" datatype="varchar" required="true" default="" maxlength="50"/>
+        <property name="date_naissance" fieldname="date_naissance" datatype="date" default=""/>
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
