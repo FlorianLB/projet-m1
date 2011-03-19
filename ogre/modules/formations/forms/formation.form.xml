@@ -6,11 +6,7 @@
 	<label>Code formation</label>
 </input>
 
-<<<<<<< HEAD
 <input ref="annee" required="true" pattern="/2[0-9]{3}-2[0-9]{3}/" maxlength="9">
-=======
-<input ref="annee" required="true">
->>>>>>> f1039eb7872053fea163f73d30a255c5b59f1070
 	<label>Annee</label>
 	<help>exemple : "2010-2011"</help>
 </input>
