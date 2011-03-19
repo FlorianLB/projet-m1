@@ -24,6 +24,7 @@ class defaultCtrl extends jController {
             <p>Liens temporaires : </p>
             <ul>
                     <li><a href="'.jUrl::get('formations~formations:index').'">Formations CRUD</a></li>
+                    <li><a href="'.jUrl::get('etudiants~etudiants:index').'">Etudiants CRUD</a></li>
             </ul>
         ';
         
