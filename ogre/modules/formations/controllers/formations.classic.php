@@ -17,7 +17,19 @@ class formationsCtrl extends jControllerDaoCrud {
     }
     
     protected function _view($form, $resp, $tpl){
-        $resp->setTitle('Détails de la formation');
+        
+        $formation = $form->getData('code_formation');
+        
+        $resp->setTitle('Détails de '.$formation);
+    
+        $semestresTmp = jDao::get('formations~semestre')->getByFormation($this->param('id',0));
+
+        $semestres = array();
+        foreach($semestresTmp as $s){
+            array_push($semestres, array('id' => $s->id_semestre, 'libelle' => 'Semestre '.$s->num_semestre));
+        }
+        
+        $tpl->assign('semestres', $semestres);
     }
     
     protected function _create($form, $resp, $tpl){

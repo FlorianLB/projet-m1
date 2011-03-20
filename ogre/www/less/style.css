@@ -214,3 +214,8 @@ tr.even td, tr.odd td {
   border:0;
   border-top:1px solid #dfdfdf;
 }
+ul.semestre li {
+  list-style:none;
+  background:url(../themes/default/img/bullet_arrow_right.png) left center no-repeat;
+  padding-left:20px;
+}
