@@ -12,4 +12,4 @@
 
 
 
-<p><a href="{jurl $listAction}" class="crud-link">Retourner à la liste des formations</a>.</p>
+<p><a href="{jurl $listAction}" class="button icon back"><span>Retourner à la liste des formations</span></a></p>

@@ -197,8 +197,10 @@ a.icon.right span {
 }
 a.add span { background-image:url(../themes/default/img/add.png); }
 a.delete span { background-image:url(../themes/default/img/delete.png); }
+a.edit span { background-image:url(../themes/default/img/pencil.png); }
 a.next span { background-image:url(../themes/default/img/arrow_right.png); }
 a.save span { background-image:url(../themes/default/img/disk.png); }
+a.back span { background-image:url(../themes/default/img/arrow_undo.png); }
 table { border:1px solid #dfdfdf; }
 thead th {
   background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
