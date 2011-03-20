@@ -9,26 +9,22 @@
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
         <property name="libelle" fieldname="libelle" datatype="varchar" required="true" maxlength="30"/>
-        <property name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
+        <property name="last_version" fieldname="last_version" datatype="tinyint" default="1"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
+        <method name="setOldUeVersion" type="update">
+            <parameter name="id_ue" />
+            <parameter name="code_ue" />
             <values>
-                <value property="" value="" />
+                <value property="last_version" value="0" />
             </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
+            <conditions logic="and">
+                <neq property="id_ue" expr="$id_ue" />
+                <eq property="code_ue" expr="$code_ue" />
             </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>-->
+        </method>
     </factory>
 </dao>
