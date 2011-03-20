@@ -27,5 +27,5 @@
 {if $recordCount > $listPageSize}
 <p class="record-pages-list">{@jelix~crud.title.pages@} : {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }</p>
 {/if}
-<p><a class="button icon add" href="{jurl $createAction}" class="crud-link"><span>Créer une nouvelle formation</span></a>.</p>
+<p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvelle formation</span></a>.</p>
 
