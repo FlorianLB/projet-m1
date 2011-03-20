@@ -23,10 +23,13 @@ class myHtmlResponse extends jResponseHtmlLess {
         $themePath = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
     
         $this->addJsLink($gJConfig->urlengine['basePath'].'jelix/jquery/jquery.js');
-    
+        
+        $this->addJsLink($gJConfig->urlengine['basePath'].'js/jquery.flubar.min.js');
+        
        $this->addCSSLink($themePath.'css/base.css');
        $this->addCSSLink($themePath.'css/form.css');
        $this->addCssLinkLess($themePath.'css/style.less');
+       $this->addCSSLink($themePath.'css/flubar.css');
     }
 
     protected function doAfterActions() {
