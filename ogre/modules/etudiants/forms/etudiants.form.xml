@@ -14,8 +14,9 @@
 	<label>Prenom</label>
 </input>
 
-<input ref="date_naissance" type="date">
-	<label>Date de naissance (Année-Mois-Jour)</label>
+<input ref="date_naissance" pattern="/[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]/" maxlength="10">
+	<label>Date de naissance</label>
+    <help>Année-Mois-Jour</help>
 </input>
 
 <submit ref="_submit">
