@@ -12,20 +12,46 @@ class formationsCtrl extends jControllerDaoCrud {
  
     protected $propertiesForList = array('code_formation', 'annee', 'libelle');
     
-    public function _index($resp, $tpl){
+    protected function _index($resp, $tpl){
         $resp->setTitle('Liste des formations');
     }
     
-    public function _view($form, $resp, $tpl){
+    protected function _view($form, $resp, $tpl){
         $resp->setTitle('Détails de la formation');
     }
     
-    public function _create($form, $resp, $tpl){
+    protected function _create($form, $resp, $tpl){
         $resp->setTitle('Créer une nouvelle formation');
     }
     
-    public function _editUpdate($form, $resp, $tpl){
+    protected function _editUpdate($form, $resp, $tpl){
         $resp->setTitle('Modifier une formation');
     }
+    
+    protected function _afterCreate($form, $id, $resp){
+        //On créer le 1er semestre
+        $semestre1 = jDao::createRecord('formations~semestre');
+        $semestre1->id_formation = $id;
+        $semestre1->num_semestre = 1;
+        
+        //On créer le 2eme
+        $semestre2 = jDao::createRecord('formations~semestre');
+        $semestre2->id_formation = $id;
+        $semestre2->num_semestre = 2;
+        
+        // On insère via la factory DAO
+        $factory = jDao::get('formations~semestre');
+        $factory->insert($semestre1);
+        $factory->insert($semestre2);
+    }
+    
+    /**
+     * Suppresion des elements dependants de formation
+     */
+    protected function _delete($id, $resp) {
+        jDao::get('formations~semestre')->deleteByFormation($id);
+        return true;
+    }
+    
  
 }

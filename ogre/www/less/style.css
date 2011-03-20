@@ -92,7 +92,7 @@ input[type="text"] :focus, input[type="password"] :focus { -moz-box-shadow:0 0 5
   font-weight:bold;
   display:inline-block;
   zoom:1;
-  padding:3px 10px;
+  padding:3px 10px 2px;
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
@@ -110,7 +110,7 @@ input[type="submit"], input[type="reset"], .button {
   font-weight:bold;
   display:inline-block;
   zoom:1;
-  padding:3px 10px;
+  padding:3px 10px 2px;
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
@@ -132,7 +132,7 @@ body .button-2 {
   font-weight:bold;
   display:inline-block;
   zoom:1;
-  padding:3px 10px;
+  padding:3px 10px 2px;
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
@@ -153,7 +153,7 @@ body .button-valid {
   font-weight:bold;
   display:inline-block;
   zoom:1;
-  padding:3px 10px;
+  padding:3px 10px 2px;
   text-decoration:none;
   margin-right:10px;
   border:1px solid;
@@ -175,7 +175,7 @@ body .button-error {
   font-weight:bold;
   display:inline-block;
   zoom:1;
-  padding:3px 10px;
+  padding:3px 10px 2px;
   text-decoration:none;
   margin-right:10px;
   border:1px solid;

@@ -54,7 +54,7 @@ html=myHtmlResponse
 
 [error_handling]
 ;messageLogFormat = "%date%\t%url%\n\t[%code%]\t%msg%\t%file%\t%line%\n"
-;logFile = error.log
+logFile = error.log
 ;email = root@localhost
 ;emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
 ;quietMessage="An error occured. Sorry for the inconvenience."
@@ -68,6 +68,8 @@ html=myHtmlResponse
 ;strict       =
 ;deprecated   = 
 ;exception    = ECHOQUIET LOGFILE TRACE EXIT
+
+default = ECHO LOGFILE TRACE
 
 ;[compilation]
 ;checkCacheFiletime  = on
