@@ -209,6 +209,19 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`compensation_semestre` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `ogre`.`jlx_user`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jlx_user` (
+  `usr_login` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `usr_password` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `usr_email` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`usr_login`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

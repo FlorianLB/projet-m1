@@ -15,3 +15,11 @@ formations.access=2
 etudiants.access=2
 
 ue.access=2
+
+jauth.access=2
+jauthdb.access=2
+jauthdb.installparam=defaultuser
+[coordplugins]
+auth="index/auth.coord.ini.php"
+
+

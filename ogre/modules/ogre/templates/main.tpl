@@ -1,7 +1,7 @@
 <div id="header">
     <div class="container">
     
-        <a href="{$j_basepath}"><img id="ogre" src="{$j_themepath}img/ogre.png" alt="Ogre" /></a>
+        <a href="{$j_basepath}"><img id="ogre" src="{$j_themepath}img/ogre.png" alt="Ogre" width="111" height="33"/></a>
     
         <ul id="menu">
             <li><a href="{$j_basepath}">Accueil</a></li>

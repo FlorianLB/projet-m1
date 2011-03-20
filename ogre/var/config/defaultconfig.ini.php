@@ -51,6 +51,7 @@ defaultJformsBuilder=html
 
 [responses]
 html=myHtmlResponse
+htmlauth=myHtmlResponse
 
 [error_handling]
 ;messageLogFormat = "%date%\t%url%\n\t[%code%]\t%msg%\t%file%\t%line%\n"

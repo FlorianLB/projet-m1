@@ -10,10 +10,8 @@ jacl2db.installed=0
 jacl2db.version=
 jacldb.installed=0
 jacldb.version=
-jauth.installed=0
-jauth.version=
-jauthdb.installed=0
-jauthdb.version=
+jauth.installed=1
+jauth.version=1.2
 junittests.installed=0
 junittests.version=
 jWSDL.installed=0
@@ -28,6 +26,8 @@ etudiants.installed=1
 etudiants.version=0.1pre
 ue.installed=1
 ue.version=0.1pre
+jauthdb.installed=1
+jauthdb.version=1.2
 [__modules_data]
 jelix.contexts="db:myapp"
 
@@ -35,3 +35,7 @@ jelix.contexts="db:myapp"
 
 
 
+
+jauth.contexts="auth:index/auth.coord.ini.php"
+
+jauthdb.contexts="index/auth.coord.ini.php,db:myapp"

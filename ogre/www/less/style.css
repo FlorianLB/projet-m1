@@ -78,6 +78,29 @@
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 }
+.login #ogre {
+  position:static;
+  margin-top:15px;
+}
+.login #header a {
+  display:block;
+  margin:0 auto;
+  width:111px;
+}
+.login #header .container { min-height:2px; }
+.login fieldset {
+  border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
+  margin-top:15px;
+  text-align:center;
+}
+.login table { border:none; }
+.login form {
+  width:300px;
+  margin:0 auto;
+}
+.login th { text-align:right; }
 label {
   display:inline-block;
   zoom:1;
