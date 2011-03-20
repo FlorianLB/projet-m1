@@ -11,6 +11,13 @@
             <li><a href="#">Examens</a></li>
             <li><a href="#">Paramètres</a></li>
         </ul>
+        
+        <div class="log">
+            <span>
+                {$authLogin} | <a href="{jurl 'jauth~login:out'}">Deconnexion</a>
+            </span>
+        </div>
+        
     </div>
 </div>
     

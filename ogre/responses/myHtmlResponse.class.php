@@ -38,6 +38,8 @@ class myHtmlResponse extends jResponseHtmlLess {
 
         $this->body->assignIfNone('MAIN','<p>no content</p>');
         
+        $this->body->assign('authLogin', jAuth::getUserSession()->login);
+        
         if($this->title == '')
             $this->setTitle();
     }
