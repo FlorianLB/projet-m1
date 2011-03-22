@@ -50,4 +50,12 @@ class etudiantsCtrl extends jControllerDaoCrud {
     public function _editUpdate($form, $resp, $tpl){
        $resp->setTitle('Modifier un etudiant');
     }  
+    /**
+     * Suppresion des elements dependants de etudiants
+     */
+    protected function _delete($id, $resp) {
+        jDao::get('etudiants~etudiants_semestre')->deleteByEtudiants($id);
+        return true;
+    }
+    
 }
