@@ -24,7 +24,7 @@ class semestreCtrl extends jController{
         $tpl->assign('form', $form);
         $tpl->assign('submitAction', 'formations~semestre:save_ues');
         $tpl->assign('id', $id);
-        $tpl->assign('id_formation', $this->param('id_formation', ''));
+        $tpl->assign('id_formation', $this->param('id_formation', 0));
         
         $rep->body->assign('MAIN', $tpl->fetch('semestre_view'));
         
@@ -43,8 +43,8 @@ class semestreCtrl extends jController{
         jMessage::add('Changements validés', 'confirm');
         
         $rep = $this->getResponse('redirect');
-        $rep->action = 'formations~semestre:view';
-        $rep->params = array('id' => $id);
+        $rep->action = 'formations~formations:editupdate';
+        $rep->params = array('id' => $this->param('id_formation', 0));
         return $rep;
     }
     
