@@ -11,6 +11,27 @@ class etudiantsCtrl extends jControllerDaoCrud {
     protected $viewTemplate = 'etudiants~etudiant_view';
 
     protected $propertiesForList = array('num_etudiant', 'nom', 'prenom','date_naissance');
+	
+	 /**
+     * Après l'insertion de l'etudiant, on l'ajoute dans tous les semestres de sa formation
+     */    
+	protected function _afterCreate($form, $id, $resp){
+	
+		$semestre = jDao::get('formations~semestre');
+// Probleme comment recuperer la valeur id_formation a partir du formulaire
+		$list_semestre = $semestre->getByFormation($form->getData('formations'));
+		
+		foreach ($list_semestre as $row) {
+			//On créer le 1er semestre
+			$etudiant_semestre1 = jDao::createRecord('etudiants_semestre');
+			$etudiant_semestre1->num_etudiant = $form->getData('num_etudiant');
+			$etudiant_semestre1->id_semestre = $row->id_semestre;
+			$etudiant_semestre1->statut = 'NOK';
+			$factory = jDao::get('etudiants_semestre');
+			$factory->insert($etudiant_semestre1);
+		}
+		
+    }
    
     public function _index($resp, $tpl){
         $resp->setTitle('Liste des etudiants');

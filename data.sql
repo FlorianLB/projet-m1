@@ -36,3 +36,7 @@ INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 (4, 2, 0),
 (5, 1, 0),
 (5, 2, 0);
+
+INSERT INTO `statut_semestre` (`statut`, `libelle`) VALUES
+('OK', 'Valide'),
+('NOK', 'Non Valide');
