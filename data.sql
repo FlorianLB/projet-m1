@@ -21,6 +21,13 @@ INSERT INTO `semestre` (`id_semestre`, `id_formation`, `num_semestre`) VALUES
 (3, 2, '1'),
 (4, 2, '2');
 
+INSERT INTO `ue` (`id_ue`, `code_ue`, `coeff`, `credits`, `libelle`, `last_version`) VALUES
+(1, 'G2MA1', 2, 2, 'Analyse et AlgÃ¨bre 2', 1),
+(2, 'G2MA3', 3, 3, 'Géometrie et Algèbre linéaire', 1),
+(3, 'G2MA5', 2, 2, 'Algorithmique numÃ©rique', 1),
+(4, 'ANG', 1, 1, 'Anglais', 1),
+(5, 'TEC', 1, 1, 'Technique Expression Communica', 1);
+
 INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 (1, 1, 0),
 (2, 1, 0),
@@ -29,11 +36,3 @@ INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 (4, 2, 0),
 (5, 1, 0),
 (5, 2, 0);
-
-
-INSERT INTO `ue` (`id_ue`, `code_ue`, `coeff`, `credits`, `libelle`, `last_version`) VALUES
-(1, 'G2MA1', 2, 2, 'Analyse et AlgÃ¨bre 2', 1),
-(2, 'G2MA3', 3, 3, 'Géometrie et Algèbre linéaire', 1),
-(3, 'G2MA5', 2, 2, 'Algorithmique numÃ©rique', 1),
-(4, 'ANG', 1, 1, 'Anglais', 1),
-(5, 'TEC', 1, 1, 'Technique Expression Communica', 1);
