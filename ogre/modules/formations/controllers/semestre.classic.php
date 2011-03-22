@@ -24,7 +24,7 @@ class semestreCtrl extends jController{
         $tpl->assign('form', $form);
         $tpl->assign('submitAction', 'formations~semestre:save_ues');
         $tpl->assign('id', $id);
-        $tpl->assign('formation', $this->param('formation', ''));
+        $tpl->assign('id_formation', $this->param('id_formation', ''));
         
         $rep->body->assign('MAIN', $tpl->fetch('semestre_view'));
         

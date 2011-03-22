@@ -21,14 +21,14 @@ class formationsCtrl extends jControllerDaoCrud {
         $formation = $form->getData('code_formation');
         
         $resp->setTitle('Détails de '.$formation);
-    
-        $semestresTmp = jDao::get('formations~semestre')->getByFormation($this->param('id',0));
-
-        $semestres = array();
-        foreach($semestresTmp as $s){
-            array_push($semestres, array('id' => $s->id_semestre, 'libelle' => 'Semestre '.$s->num_semestre));
-        }
         
+        
+        $semestres = array();
+        $factory = jDao::get('formations~ue_semestre_ue');
+        foreach(jDao::get('formations~semestre')->getByFormation($this->param('id',0)) as $sem){
+            $semestres[$sem->num_semestre] = $factory->getBySemestre($sem->id_semestre);
+        }
+
         $tpl->assign('semestres', $semestres);
     }
     
@@ -38,6 +38,16 @@ class formationsCtrl extends jControllerDaoCrud {
     
     protected function _editUpdate($form, $resp, $tpl){
         $resp->setTitle('Modifier une formation');
+        
+        $semestresTmp = jDao::get('formations~semestre')->getByFormation($this->param('id',0));
+
+        $semestres = array();
+        foreach($semestresTmp as $s){
+            array_push($semestres, array('id' => $s->id_semestre, 'libelle' => 'Semestre '.$s->num_semestre));
+        }
+        
+        $tpl->assign('semestres', $semestres);
+
     }
     
     protected function _afterCreate($form, $id, $resp){
