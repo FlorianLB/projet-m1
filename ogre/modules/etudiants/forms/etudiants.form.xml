@@ -19,6 +19,11 @@
     <help>Année-Mois-Jour</help>
 </input>
 
+<checkboxes ref="formations">
+	<label>Formation Disponible</label>
+	<datasource dao="formations~formation" labelproperty="code_formation,libelle" labelseparator=" : " valueproperty="id_formation" method="findAll"/>
+</checkboxes>
+
 <submit ref="_submit">
 	<label>Ok</label>
 </submit>
