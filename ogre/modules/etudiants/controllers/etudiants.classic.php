@@ -32,9 +32,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 				$factory = jDao::get('etudiants_semestre');
 				$factory->insert($etudiant_semestre1);
 			}
-		
 		}
-		
     }
    
     public function _index($resp, $tpl){

@@ -1,4 +1,4 @@
-{form $form, $submitAction, array('id'=>$id)}
+{form $form, $submitAction, array('id'=>$id, 'id_formation' => $id_formation)}
 
     {formcontrols}
         <p>{ctrl_label} : </p>
