@@ -212,6 +212,7 @@ name=
 
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
+birthday = jelix/js/jforms/datepickers/birthday/init.js
 
 
 
