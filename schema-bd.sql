@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 -- Table `ogre`.`semestre_ue`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`semestre_ue` (
-  `id_ue` MEDIUMINT NOT NULL ,
+  `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `optionelle` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_ue`, `id_semestre`) ,
@@ -85,31 +85,15 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `ogre`.`type_epreuve`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `ogre`.`type_epreuve` (
-  `type` CHAR(3) NOT NULL ,
-  `libelle` VARCHAR(30) NULL ,
-  PRIMARY KEY (`type`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `ogre`.`epreuve`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`epreuve` (
   `id_epreuve` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `coeff` TINYINT NOT NULL ,
-  `type_epreuve` CHAR(3) NOT NULL ,
+  `type_epreuve` VARCHAR(5) NOT NULL ,
   PRIMARY KEY (`id_epreuve`) ,
-  INDEX `fk_epreuve_type_epreuve1` (`type_epreuve` ASC) ,
   INDEX `fk_epreuve_ue1` (`id_ue` ASC) ,
-  CONSTRAINT `fk_epreuve_type_epreuve1`
-    FOREIGN KEY (`type_epreuve` )
-    REFERENCES `ogre`.`type_epreuve` (`type` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_epreuve_ue1`
     FOREIGN KEY (`id_ue` )
     REFERENCES `ogre`.`ue` (`id_ue` )
