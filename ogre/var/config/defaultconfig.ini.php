@@ -209,6 +209,7 @@ name=
 ;controls.datetime.months.labels = "names"
 ; define the default config for datepickers in jforms
 ;datepicker = default
+datepicker = birthday
 
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
