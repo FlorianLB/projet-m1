@@ -262,3 +262,4 @@ ul.semestre li {
   background:url(../themes/default/img/bullet_arrow_right.png) left center no-repeat;
   padding-left:20px;
 }
+form { margin-bottom:15px; }
