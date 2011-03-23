@@ -30,6 +30,8 @@ jauthdb.installed=1
 jauthdb.version=1.2
 utils.installed=1
 utils.version=0.1pre
+phpexcel.installed=1
+phpexcel.version=0.1pre
 [__modules_data]
 jelix.contexts="db:myapp"
 
@@ -41,4 +43,5 @@ jelix.contexts="db:myapp"
 jauth.contexts="auth:index/auth.coord.ini.php"
 
 jauthdb.contexts="index/auth.coord.ini.php,db:myapp"
+
 

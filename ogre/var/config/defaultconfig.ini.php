@@ -44,6 +44,7 @@ formations.access=2
 etudiants.access=2
 ue.access=2
 utils.access=2
+phpexcel.access=2
 [coordplugins]
 ;name = file_ini_name or 1
 
@@ -215,6 +216,7 @@ datepicker=birthday
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
 birthday="jelix/js/jforms/datepickers/birthday/init.js"
+
 
 
 

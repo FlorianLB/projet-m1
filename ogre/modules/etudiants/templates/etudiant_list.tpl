@@ -28,4 +28,4 @@
 <p class="record-pages-list">{@jelix~crud.title.pages@} : {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }</p>
 {/if}
 <p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvel etudiant</span></a>.</p>
-
+<p><a class="button icon add" href="{jurl 'phpexcel~exportetudiants'}"><span>Exporter au format Excel</span></a>.</p>
