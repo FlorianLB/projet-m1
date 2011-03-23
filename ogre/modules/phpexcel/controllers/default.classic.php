@@ -14,9 +14,17 @@ class defaultCtrl extends jController {
     */
     
     function index() {
-        $rep = $this->getResponse("html");
+        $rep = $this->getResponse('html');
+        $content = '<p>Ok nikel, tout marche</p>
+            <p>Liens temporaires : </p>
+            <ul>
+                    <li><a href="'.jUrl::get('phpexcel~exportetudiants').'">Exporter Etudiants</a></li>
+            </ul>
+        ';
         
-        $rep->body->assign('MAIN',"OK");
+        $rep->body->assign('MAIN', $content);
+
+
         return $rep;
     }
 
