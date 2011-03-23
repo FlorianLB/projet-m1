@@ -43,6 +43,7 @@ ogre.access=2
 formations.access=2
 etudiants.access=2
 ue.access=2
+utils.access=2
 [coordplugins]
 ;name = file_ini_name or 1
 
@@ -55,7 +56,7 @@ htmlauth=myHtmlResponse
 
 [error_handling]
 ;messageLogFormat = "%date%\t%url%\n\t[%code%]\t%msg%\t%file%\t%line%\n"
-logFile = error.log
+logFile=error.log
 ;email = root@localhost
 ;emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
 ;quietMessage="An error occured. Sorry for the inconvenience."
@@ -70,7 +71,7 @@ logFile = error.log
 ;deprecated   = 
 ;exception    = ECHOQUIET LOGFILE TRACE EXIT
 
-default = ECHO LOGFILE TRACE
+default="ECHO LOGFILE TRACE"
 
 ;[compilation]
 ;checkCacheFiletime  = on
@@ -209,10 +210,12 @@ name=
 ;controls.datetime.months.labels = "names"
 ; define the default config for datepickers in jforms
 ;datepicker = default
+datepicker=birthday
 
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
-birthday = jelix/js/jforms/datepickers/birthday/init.js
+birthday="jelix/js/jforms/datepickers/birthday/init.js"
+
 
 
 

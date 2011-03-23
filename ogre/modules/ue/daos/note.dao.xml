@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="etudiants_semestre" realname="etudiants_semestre" primarykey="num_etudiant,id_semestre" />
+        <primarytable name="note" realname="note" primarykey="id_note" />
     </datasources>
     <record>
-        <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="id_note" fieldname="id_note" datatype="int" autoincrement="true"/>
+        <property name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
-        <property name="statut" fieldname="statut" datatype="char" required="true"/>
+        <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-    <method name="deleteByEtudiants" type="delete">
-            <parameter name="num_etudiant" />
-            <conditions>
-                <eq property="num_etudiant" expr="$num_etudiant" />
-            </conditions>
-        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

@@ -14,10 +14,10 @@
 	<label>Prenom</label>
 </input>
 
-<date ref="date_naissance" datepicker="birthday" >
+<input ref="date_naissance" type="localedate"  >
 	<label>Date de naissance</label>
     <help>Année-Mois-Jour</help>
-</date>
+</input>
 
 <checkboxes ref="formations">
 	<label>Formation Disponible</label>

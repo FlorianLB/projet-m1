@@ -7,7 +7,7 @@
     
         <ul id="menu">
             <li><a href="{$j_basepath}">Accueil</a></li>
-            <li><a href="#">Etudiants</a></li>
+            <li><a href="{jurl 'etudiants~etudiants:index'}">Etudiants</a></li>
             <li><a href="#">Examens</a></li>
             <li><a href="#">Paramètres</a></li>
         </ul>
