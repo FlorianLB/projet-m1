@@ -10,9 +10,11 @@ USE `ogre`;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`etudiants` (
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
-  `nom` VARCHAR(50) NULL ,
+  `nom` VARCHAR(50) NOT NULL ,
   `prenom` VARCHAR(50) NULL ,
   `date_naissance` DATE NULL ,
+  `nom_usuel` VARCHAR(50) NULL ,
+  `sexe` ENUM('F', 'M') NOT NULL ,
   PRIMARY KEY (`num_etudiant`) )
 ENGINE = InnoDB;
 

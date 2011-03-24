@@ -9,7 +9,7 @@
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="statut" fieldname="statut" datatype="char" required="true"/>
 		
-		<property table="semestre" name="id_semestre" fieldname="id_semestre" datatype="smallint" autoincrement="true"/>
+        <property table="semestre" name="id_semestre" fieldname="id_semestre" datatype="smallint" autoincrement="true"/>
         <property table="semestre" name="id_formation" fieldname="id_formation" datatype="smallint" required="true"/>
         <property table="semestre" name="num_semestre" fieldname="num_semestre" datatype="varchar" required="true" maxlength="45"/>
 		
