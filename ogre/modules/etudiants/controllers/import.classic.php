@@ -44,7 +44,6 @@ class importCtrl extends jController {
         $csvParser = new etudiantsApogee(JELIX_APP_VAR_PATH.'uploads/csv_apogee/'.$name);
         $etudiants = $csvParser->parse();
 
-
         $factory = jDao::get('etudiants~etudiants');
         foreach($etudiants as $etu){
             if(!customSQL::etudiantsExisteDeja($etu->num_etudiant)) {
@@ -52,9 +51,9 @@ class importCtrl extends jController {
                 
                 $etudiant->num_etudiant = $etu->num_etudiant;
                 $etudiant->sexe = $etu->sexe;
-                $etudiant->nom = $etu->nom;
-                $etudiant->prenom = $etu->prenom;
-                $etudiant->nom_usuel = $etu->nom_usuel;
+                $etudiant->nom = utf8_encode($etu->nom);
+                $etudiant->prenom = utf8_encode($etu->prenom);
+                $etudiant->nom_usuel = utf8_encode($etu->nom_usuel);
                 $etudiant->date_naissance = $etu->date_naissance;
                 
                 $factory->insert($etudiant);

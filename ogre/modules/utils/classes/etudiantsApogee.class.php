@@ -16,8 +16,7 @@ class etudiantsApogee{
         foreach(customSQL::findAllDistinctCodeFormation() as $f){
             $this->formations[] = $f->code_formation;
         }
-        
-        
+
     }
     
     /**
