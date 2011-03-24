@@ -11,8 +11,8 @@ INSERT INTO `jlx_user` (`usr_login`, `usr_password`, `usr_email`) VALUES
 
 
 INSERT INTO `formation` (`id_formation`, `code_formation`, `annee`, `libelle`) VALUES
-(1, 'L2MATH', '2010-2011', 'L2 MathÃ©matiques'),
-(2, 'L2INFO', '2010-2011', 'L2 Informatique');
+(1, 'G1MAT', '2010-2011', 'Licence 1 Maths'),
+(2, 'G1INF', '2010-2011', 'Licence 1 Informatique');
 
 
 INSERT INTO `semestre` (`id_semestre`, `id_formation`, `num_semestre`) VALUES

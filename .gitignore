@@ -5,4 +5,7 @@ temp/ogre-cli/*.*
 temp/ogre-jelix-scripts/*.*
 *.komodoproject
 ogre.mwb.bak
+ogre.wb51.mwb.bak
 *Thumbs.db*
+ogre/var/log/messages.log
+ogre/var/uploads/csv_apogee/*.csv

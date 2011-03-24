@@ -5,9 +5,11 @@
     </datasources>
     <record>
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
-        <property name="nom" fieldname="nom" datatype="varchar" required="true" default="" maxlength="50"/>
-        <property name="prenom" fieldname="prenom" datatype="varchar" required="true" default="" maxlength="50"/>
+        <property name="nom" fieldname="nom" datatype="varchar" required="true" maxlength="50"/>
+        <property name="prenom" fieldname="prenom" datatype="varchar" default="" maxlength="50"/>
         <property name="date_naissance" fieldname="date_naissance" datatype="date" default=""/>
+        <property name="nom_usuel" fieldname="nom_usuel" datatype="varchar" default="" maxlength="50"/>
+        <property name="sexe" fieldname="sexe" datatype="enum" required="true"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
