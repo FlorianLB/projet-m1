@@ -141,6 +141,7 @@ rdf=on
 
 [logfiles]
 default=messages.log
+import = import.log
 
 [mailer]
 webmasterEmail="root@localhost"

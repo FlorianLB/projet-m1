@@ -27,6 +27,8 @@ class importCtrl extends jController {
         
         $form = jForms::fill('import_apogee');
         
+        $realname = $_FILES['csv_apogee']['name'];
+        
         $name = date('dMY') . '-' . time() . '.csv' ;
         
         if( !$form->saveFile('csv_apogee', JELIX_APP_VAR_PATH.'uploads/csv_apogee/', $name)) {
@@ -45,6 +47,7 @@ class importCtrl extends jController {
         $etudiants = $csvParser->parse();
 
         $factory = jDao::get('etudiants~etudiants');
+        $nb = 0;
         foreach($etudiants as $etu){
             if(!customSQL::etudiantsExisteDeja($etu->num_etudiant)) {
                 $etudiant = jDao::createRecord('etudiants~etudiants');
@@ -57,9 +60,12 @@ class importCtrl extends jController {
                 $etudiant->date_naissance = $etu->date_naissance;
                 
                 $factory->insert($etudiant);
+                
+                $nb++;
             }
         }
 
+        Logger::log('import_apogee', $realname,$nb);
 
         jMessage::add("L'importation a reussie !");
 
