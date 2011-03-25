@@ -22,11 +22,38 @@ class ueCtrl extends jControllerDaoCrud {
     
     /**
      * Après l'insertion de l'ue, on passe toute les ue avec le meme code en tant que non-active
+     * On crée les epreuves avec leur coef en fonction de la formule
      */
     protected function _afterCreate($form, $id, $resp){
         jDao::get('ue~ue')->setOldUeVersion($id, $form->getData('code_ue'));
         
-        //TODO ajouté la creation des epreuve apres l'insertion de la formule
+        //exctraction de la formule
+        jClasses::inc('utils~Formule');
+        $var = Formule::parseFormuleUe($form->getData('formule'));
+        
+        //initialisation des dao
+        $factory = jDao::get('ue~epreuve');
+        $epreuve = jDao::createRecord('ue~epreuve');
+       
+       //pour chaqun des element de la formule on crée une epreuve
+       for($i=0; $i < count($var[0]); $i++){
+       
+        $epreuve = jDao::createRecord('ue~epreuve');
+        $epreuve->id_ue = $id;
+        //si le coeficient est a 0 on le met par defaut a 1
+        if($var[1][$i] == 0){
+            $epreuve->coeff=1;
+        }
+        else{
+            $epreuve->coeff = $var[1][$i];
+        }
+        $epreuve->coeff = $var[1][$i];
+        $epreuve->type_epreuve = $var[2][$i];
+        $factory = jDao::get('ue~epreuve');
+        $factory->insert($epreuve);
+       
+       }
+	
     }
  
  
@@ -47,6 +74,11 @@ class ueCtrl extends jControllerDaoCrud {
     
     protected function _editUpdate($form, $resp, $tpl){
         $resp->setTitle('Modifier une UE');
+    }
+    
+    protected function _delete($id, $resp) {
+        jDao::get('ue~epreuve')->deleteByUe($id);
+        return true;
     }
  
 }
