@@ -18,6 +18,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	protected function _afterCreate($form, $id, $resp){
 	
 		$semestre = jDao::get('formations~semestre');
+		$factory = jDao::get('etudiants_semestre');
 		// On recupere les formations selectionné
 		foreach ($form->getData('formations') as $row1) {
 			// On recupere les semestres de la formation
@@ -29,7 +30,6 @@ class etudiantsCtrl extends jControllerDaoCrud {
 				$etudiant_semestre1->num_etudiant = $id;
 				$etudiant_semestre1->id_semestre = $row->id_semestre;
 				$etudiant_semestre1->statut = 'NOK';
-				$factory = jDao::get('etudiants_semestre');
 				$factory->insert($etudiant_semestre1);
 			}
 		}
