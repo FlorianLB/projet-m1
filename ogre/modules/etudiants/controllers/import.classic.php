@@ -48,6 +48,8 @@ class importCtrl extends jController {
 
         $factory = jDao::get('etudiants~etudiants');
         $nb = 0;
+        $dt = new jDateTime();
+        
         foreach($etudiants as $etu){
             if(!customSQL::etudiantsExisteDeja($etu->num_etudiant)) {
                 $etudiant = jDao::createRecord('etudiants~etudiants');
@@ -57,10 +59,18 @@ class importCtrl extends jController {
                 $etudiant->nom = utf8_encode($etu->nom);
                 $etudiant->prenom = utf8_encode($etu->prenom);
                 $etudiant->nom_usuel = utf8_encode($etu->nom_usuel);
-                $etudiant->date_naissance = $etu->date_naissance;
+                
+                //transformation de la date en format francais en format anglais
+                $dt->setFromString($etu->date_naissance, jDateTime::LANG_DFORMAT);
+                $etudiant->date_naissance = $dt->toString(jDateTime::DB_DFORMAT);
                 
                 $factory->insert($etudiant);
                 
+                // teste pour la gestion des dates
+                if($nb > 10 && $nb < 20){
+                    jLog::dump($etu);
+                    jLog::dump($etudiant);
+                }
                 $nb++;
             }
         }

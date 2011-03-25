@@ -5,6 +5,10 @@
 	<label>Code Ue</label>
 </input>
 
+<input ref="libelle" required="true" maxlength="30">
+	<label>Libelle</label>
+</input>
+
 <input ref="coeff" required="true" type="integer">
 	<label>Coefficient</label>
 </input>
@@ -13,8 +17,8 @@
 	<label>Credits</label>
 </input>
 
-<input ref="libelle" required="true" maxlength="30">
-	<label>Libelle</label>
+<input ref="formule" required="true" pattern="/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/" maxlength="50">
+	<label>Formule</label>
 </input>
 
 <submit ref="_submit">

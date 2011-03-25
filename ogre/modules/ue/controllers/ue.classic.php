@@ -10,7 +10,7 @@ class ueCtrl extends jControllerDaoCrud {
     protected $editTemplate = 'ue~ue_edit';
     protected $viewTemplate = 'ue~ue_view';
     
-    protected $propertiesForList = array('code_ue', 'coeff', 'credits', 'libelle');
+    protected $propertiesForList = array('code_ue', 'coeff', 'credits', 'libelle','formule');
  
  
     /**
@@ -25,6 +25,8 @@ class ueCtrl extends jControllerDaoCrud {
      */
     protected function _afterCreate($form, $id, $resp){
         jDao::get('ue~ue')->setOldUeVersion($id, $form->getData('code_ue'));
+        
+        //TODO ajouté la creation des epreuve apres l'insertion de la formule
     }
  
  

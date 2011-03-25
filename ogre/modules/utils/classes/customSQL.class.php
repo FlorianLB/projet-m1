@@ -19,7 +19,7 @@ class customSQL{
     public static function etudiantsExisteDeja($num_etudiant){
         $cnx = jDb::getConnection();
         
-        $sql = 'SELECT num_etudiant FROM etudiants WHERE num_etudiant = '.$cnx->quote($num_etudiant);
+        $sql = 'SELECT 1 FROM etudiants WHERE num_etudiant = '.$cnx->quote($num_etudiant);
          
         $rs = $cnx->query($sql);
        
