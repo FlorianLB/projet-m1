@@ -21,7 +21,7 @@
 
 <checkboxes ref="formations">
 	<label>Formation Disponible</label>
-	<datasource dao="formations~formation" labelproperty="code_formation,libelle" labelseparator=" : " valueproperty="id_formation" method="findAll"/>
+	<datasource dao="formations~formation" labelproperty="code_formation,libelle" labelseparator=" : " valueproperty="id_formation" method="getLastFormationByCode" criteria="code_formation"/>
 </checkboxes>
 
 <submit ref="_submit">

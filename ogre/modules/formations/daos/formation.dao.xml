@@ -13,6 +13,18 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
+        
+        <!-- SELECT id_formation
+        FROM formation
+        WHERE annee = (select Max(annee) from formation); -->
+        
+        <method name="getLastFormationByCode" type="select">
+            <parameter name="code_formation" />
+            <conditions>
+                <eq property="annee" expr="(select Max(annee) from formation where code_formation = $code_formation)" />
+            </conditions>
+        </method>
+        
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
