@@ -21,7 +21,7 @@
         <method name="getLastFormationByCode" type="select">
             <parameter name="code_formation" />
             <conditions>
-                <eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = $code_formation and f.code_formation = code_formation)" />
+                <eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = $code_formation and f.code_formation = formation.code_formation)"/>
             </conditions>
         </method>
         
