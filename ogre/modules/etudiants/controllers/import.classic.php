@@ -65,7 +65,7 @@ class importCtrl extends jController {
             }
         }
 
-        Logger::log('import_apogee', $realname,$nb);
+        //Logger::log('import_apogee', $realname,$nb);
 
         jMessage::add("L'importation a reussie !");
 

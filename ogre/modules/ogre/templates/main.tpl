@@ -1,4 +1,4 @@
-{flubar}
+{flubar '', array('position'=>'bottom')}
 
 <div id="header">
     <div class="container">
