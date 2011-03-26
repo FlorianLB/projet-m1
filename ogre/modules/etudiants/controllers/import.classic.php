@@ -47,6 +47,11 @@ class importCtrl extends jController {
         $etudiants = $csvParser->parse();
 
         $factory = jDao::get('etudiants~etudiants');
+        
+        $factoryformation = jDao::get('formations~formation');
+        $factorysemestre = jDao::get('formations~semestre');
+        $factoryetu_semestre = jDao::get('etudiants~etudiants_semestre');
+        
         $nb = 0;
         $dt = new jDateTime();
         
@@ -66,11 +71,25 @@ class importCtrl extends jController {
                 
                 $factory->insert($etudiant);
                 
+                $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');
+                $etudiant_semestre->num_etudiant = $etu->num_etudiant;
+                $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
+                foreach($idform as $idformee)
+                    $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
+                
+                foreach($liste_semestre as $semestre){
+                    $etudiant_semestre->id_semestre = $semestre->id_semestre;
+                    $etudiant_semestre->statut = "NOK";
+                    $factoryetu_semestre->insert($etudiant_semestre);
+                }
+                
+                
+                
                 // teste pour la gestion des dates
-                if($nb > 10 && $nb < 20){
+               /* if($nb > 10 && $nb < 20){
                     jLog::dump($etu);
                     jLog::dump($etudiant);
-                }
+                }*/
                 $nb++;
             }
         }
@@ -87,4 +106,3 @@ class importCtrl extends jController {
     
     
 }
-
