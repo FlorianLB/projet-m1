@@ -57,6 +57,9 @@ class formationsCtrl extends jControllerDaoCrud {
         $factory = jDao::get('formations~semestre');
         $factory->insert($semestre1);
         $factory->insert($semestre2);
+        
+        jMessage::add('Formation créée !');
+        
     }
     
     /**
@@ -65,6 +68,10 @@ class formationsCtrl extends jControllerDaoCrud {
     protected function _delete($id, $resp) {
         jDao::get('formations~semestre')->deleteByFormation($id);
         return true;
+    }
+    
+    protected function _afterUpdate($form, $id, $resp){
+        jMessage::add('Modifications effectuées !');
     }
     
  

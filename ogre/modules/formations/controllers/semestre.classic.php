@@ -40,10 +40,10 @@ class semestreCtrl extends jController{
         
         $form->saveControlToDao('ues', 'formations~semestre_ue', null, array('id_semestre', 'id_ue'));
         
-        jMessage::add('Changements validés', 'confirm');
+        jMessage::add('Modifications effectuées !', 'confirm');
         
         $rep = $this->getResponse('redirect');
-        $rep->action = 'formations~formations:editupdate';
+        $rep->action = 'formations~formations:view';
         $rep->params = array('id' => $this->param('id_formation', 0));
         return $rep;
     }
