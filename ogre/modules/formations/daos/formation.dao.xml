@@ -25,6 +25,10 @@
             </conditions>
         </method>
         
+        <method name="getAllCode" type="select" groupby="code_formation">
+            
+        </method>
+        
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

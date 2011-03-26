@@ -19,15 +19,9 @@
     <help>Année-Mois-Jour</help>
 </input>
 
-<menulist ref="liste">
-	<label>Test</label>
-	<item value="G1MAT">G1MAT</item>
-	<item value="G1INFO">G1INFO</item>
-</menulist>
-
 <checkboxes ref="formations">
 	<label>Formation Disponible</label>
-	<datasource dao="formations~formation" labelproperty="code_formation,libelle" labelseparator=" : " valueproperty="id_formation" method="getLastFormationByCode" criteriafrom="liste"/>
+	<datasource class="formations~ListData"/>
 </checkboxes>
 
 <submit ref="_submit">
