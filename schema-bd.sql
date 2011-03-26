@@ -36,6 +36,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
   `id_ue` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `formule` VARCHAR(50) NULL ,
   `code_ue` VARCHAR(15) NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `credits` TINYINT NOT NULL ,
