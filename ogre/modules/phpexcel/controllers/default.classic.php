@@ -32,10 +32,9 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse();
         $counter = 1;
         $listeunetudiant = "";
-        $name = $this->param('name');
-        $dbw = jDb::getDbWidget(); // instead of getConnection()
-         //$record = $dbw->fetchFirst("SELECT name, first_name FROM user");
-        $liste = $dbw->fetchAll("SELECT * FROM  `etudiants` ");
+        
+        $factory = jDao::get('etudiants~etudiants');
+        $liste = $factory->findAll();
         
         // Create new PHPExcel object
         $objPHPExcel = new PHPExcel();
@@ -49,13 +48,12 @@ class defaultCtrl extends jController {
                                                                  ->setKeywords("office 2007 openxml php")
                                                                  ->setCategory("Test result file");
         
-        foreach ($liste as $unStdClass) {
-            $unetudiant = get_object_vars($unStdClass);
-            //print_r($unetudiant);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$counter, $unetudiant["nom"])
-                                                ->setCellValue('B'.$counter, $unetudiant["prenom"])
-                                                ->setCellValue('C'.$counter, $unetudiant["num_etudiant"])
-                                                ->setCellValue('D'.$counter, $unetudiant["date_naissance"]);
+        foreach ($liste as $row) {
+            
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$counter, $row->nom)
+                                                ->setCellValue('B'.$counter, $row->prenom)
+                                                ->setCellValue('C'.$counter, $row->num_etudiant)
+                                                ->setCellValue('D'.$counter, $row->date_naissance);
             
             $counter++;
         }
