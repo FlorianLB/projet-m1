@@ -71,12 +71,14 @@ class importCtrl extends jController {
                 
                 $factory->insert($etudiant);
                 
+                //Creations des factories et des futur entree de la bd
                 $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');
                 $etudiant_semestre->num_etudiant = $etu->num_etudiant;
+                //Recuperation de l'id de la formation a partir de son code puis recuperation des id des semestres
                 $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                 foreach($idform as $idformee)
                     $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
-                
+                //Creation et insertion dans la table etudiant_semestre
                 foreach($liste_semestre as $semestre){
                     $etudiant_semestre->id_semestre = $semestre->id_semestre;
                     $etudiant_semestre->statut = "NOK";
@@ -106,3 +108,4 @@ class importCtrl extends jController {
     
     
 }
+
