@@ -21,6 +21,8 @@ INSERT INTO `semestre` (`id_semestre`, `id_formation`, `num_semestre`) VALUES
 (2, 1, '2'),
 (3, 2, '1'),
 (4, 2, '2');
+(4, 3, '1'),
+(5, 3, '2');
 
 INSERT INTO `ue` (`id_ue`, `code_ue`, `coeff`, `credits`, `libelle`, `last_version`) VALUES
 (1, 'G2MA1', 2, 2, 'Analyse et AlgÃ¨bre 2', 1),
