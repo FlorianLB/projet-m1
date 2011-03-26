@@ -66,6 +66,7 @@ class ueCtrl extends jControllerDaoCrud {
         $ue = $form->getData('code_ue');
         
         $resp->setTitle('Détails de '.$ue);
+        
     }
     
     protected function _create($form, $resp, $tpl){
@@ -74,6 +75,8 @@ class ueCtrl extends jControllerDaoCrud {
     
     protected function _editUpdate($form, $resp, $tpl){
         $resp->setTitle('Modifier une UE');
+        
+        $form->setReadOnly('formule');
     }
     
     protected function _delete($id, $resp) {
