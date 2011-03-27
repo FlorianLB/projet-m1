@@ -47,7 +47,6 @@ class ueCtrl extends jControllerDaoCrud {
         else{
             $epreuve->coeff = $var[1][$i];
         }
-        $epreuve->coeff = $var[1][$i];
         $epreuve->type_epreuve = $var[2][$i];
         $factory = jDao::get('ue~epreuve');
         $factory->insert($epreuve);
