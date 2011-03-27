@@ -113,6 +113,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`note` (
   `id_epreuve` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
+  `valeur` TINYINT UNSIGNED NOT NULL ,
   PRIMARY KEY (`id_note`) ,
   INDEX `fk_note_epreuve1` (`id_epreuve` ASC) ,
   INDEX `fk_note_semestre1` (`id_semestre` ASC) ,
