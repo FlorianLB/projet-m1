@@ -18,7 +18,7 @@ class defaultCtrl extends jController {
         
         $var = Formule::parseFormuleUe('PA1 +            2 PE2 + 3 * evc');
         
-        //var_dump($var);
+        var_dump($var);
         
         //$rep->body->assign('MAIN',$content);
         return $rep;
