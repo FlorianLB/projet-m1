@@ -19,3 +19,4 @@ define ('JELIX_APP_CONFIG_PATH',  JELIX_APP_PATH.'var/config/');
 define ('JELIX_APP_WWW_PATH',     JELIX_APP_PATH.'www/');
 define ('JELIX_APP_CMD_PATH',     JELIX_APP_PATH.'scripts/');
 
+require_once(JELIX_APP_PATH.'modules/utils/classes/Logger.class.php');

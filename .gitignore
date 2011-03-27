@@ -7,5 +7,5 @@ temp/ogre-jelix-scripts/*.*
 ogre.mwb.bak
 ogre.wb51.mwb.bak
 *Thumbs.db*
-ogre/var/log/messages.log
-ogre/var/uploads/csv_apogee/*.csv
+ogre/var/log/*.log
+ogre/var/uploads/csv_apogee/*

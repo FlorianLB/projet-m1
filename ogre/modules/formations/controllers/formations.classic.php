@@ -60,6 +60,7 @@ class formationsCtrl extends jControllerDaoCrud {
         
         jMessage::add('Formation créée !');
         
+        Logger::log('creation_formation', $form->getData('code_formation'),  $form->getData('annee'));
     }
     
     /**
