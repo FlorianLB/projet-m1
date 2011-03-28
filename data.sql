@@ -25,9 +25,9 @@ INSERT INTO `semestre` (`id_semestre`, `id_formation`, `num_semestre`) VALUES
 (6, 3, '2');
 
 INSERT INTO `ue` (`id_ue`, `code_ue`, `coeff`, `credits`, `libelle`, `last_version`) VALUES
-(1, 'G2MA1', 2, 2, 'Analyse et AlgÃ¨bre 2', 1),
+(1, 'G2MA1', 2, 2, 'Analyse et Algèbre 2', 1),
 (2, 'G2MA3', 3, 3, 'Géometrie et Algèbre linéaire', 1),
-(3, 'G2MA5', 2, 2, 'Algorithmique numÃ©rique', 1),
+(3, 'G2MA5', 2, 2, 'Algorithmique numérique', 1),
 (4, 'ANG', 1, 1, 'Anglais', 1),
 (5, 'TEC', 1, 1, 'Technique Expression Communica', 1);
 
