@@ -75,7 +75,7 @@ class NotePv{
                     //on cree un tableau pour chaque case contenant une UE
                     $colonne = 0;
                     //boucle sur les colonne du fichier
-                    while($line[$colonne])!= $arret){
+                    while($line[$colonne]!= $arret){
                         //si l'ue n'est pas deja cree on la cree
                         if($colonne > 0 && $line[$colonne] != $line[$colonne-1]){
                                 //si les ue font partie du deuxieme semestre
@@ -105,13 +105,14 @@ class NotePv{
                         }
                         // on enregistre en fonction de la colonne l'id_ue
                         $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
+                        $colonne++;
                     }
                 }
                  elseif($compteur = 5){
                     
                     $colonne = 0;
                     //boucle sur les colonne du fichier
-                    while($line[$colonne])!= $arret){
+                    while($line[$colonne]!= $arret){
                         //creation des epreuves
                         $epreuve = jDao::createRecord('ue~epreuve');
                         $epreuve->id_ue = $liste_ue[$colonne]["id_ue"];
@@ -121,6 +122,7 @@ class NotePv{
                         
                         //on enregistre chaque epreuve en fonction de la colonne
                         $liste_ue[$colonne]["id_epreuve"] = $epreuve->id_epreuve;
+                        $colonne++;
                     }
                 }
                  
@@ -154,22 +156,24 @@ class NotePv{
                     //les notes commence a la case 8-1
                     //boucle sur les colonne du fichier
                     $colonne = 7;
-                    while($line[$colonne])!= $arret){
+                    while($line[$colonne] != $arret){
                         if($line[$colonne] != ""){
                             $note = jDao::createRecord('ue~note');
-                            $note->epreuve = $liste_ue[$colonne]["id_epreuve"]
+                            $note->epreuve = $liste_ue[$colonne]["id_epreuve"];
                             //on assigne le semestre de la note en fonction du placement dans la colonne
                             if($colonne < $colonne_semestre){
-                                $note->semestre = = $semestre1->id_semestre;
+                                $note->semestre = $semestre1->id_semestre;
                             }
                             else{
-                                $note->semestre = = $semestre2->id_semestre;
+                                $note->semestre = $semestre2->id_semestre;
                             }
                             
                             $note->num_etudiant = $etudiant->num_etudiant;
                             $note->valeur = $line[$colonne];
                             $factoryNote->insert($note);
+                            
                         }
+                        $colonne++;
                     }
                     
                     
@@ -191,7 +195,7 @@ class NotePv{
                 }
 
                 
-                
+            $compteur++;   
             }
             fclose($handle);
         }

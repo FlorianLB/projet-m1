@@ -9,3 +9,4 @@ ogre.wb51.mwb.bak
 *Thumbs.db*
 ogre/var/log/*.log
 ogre/var/uploads/csv_apogee/*
+ogre/var/uploads/csv_pv/*
