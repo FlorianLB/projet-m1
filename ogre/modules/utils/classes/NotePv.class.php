@@ -27,7 +27,7 @@ class NotePv{
     public function parse($only_identite = true, $delimiter = ";" ){
         
         $liste_ue = array(array());
-        $compteur = 1;
+        $compteur = 0;
         $colonne_semestre;
         $arret = "stop";
         $semestre_suivant = "next";
@@ -43,7 +43,8 @@ class NotePv{
         if (($handle = fopen($this->fichier, "r")) !== FALSE) {
             //boucle sur les lignes du fichier
             while (($line = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
-                
+                $compteur = $compteur+1;
+                jLog::dump(120);
                 //si on est a la premiere ligne on lit la formation ainsi que l'année
                 if($compteur = 1){
                     
@@ -68,6 +69,7 @@ class NotePv{
                     $factorySemestre = jDao::get('formations~semestre');
                     $factorySemestre->insert($semestre1);
                     $factorySemestre->insert($semestre2);
+
                 }
                 
                 
@@ -169,7 +171,12 @@ class NotePv{
                             }
                             
                             $note->num_etudiant = $etudiant->num_etudiant;
-                            $note->valeur = $line[$colonne];
+                            if($line[$colonne] == "abs"){
+                                $note->valeur = 0;
+                            }
+                            else{
+                                $note->valeur = $line[$colonne];
+                            }
                             $factoryNote->insert($note);
                             
                         }
@@ -195,7 +202,7 @@ class NotePv{
                 }
 
                 
-            $compteur++;   
+               
             }
             fclose($handle);
         }
