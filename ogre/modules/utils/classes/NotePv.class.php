@@ -44,9 +44,9 @@ class NotePv{
             //boucle sur les lignes du fichier
             while (($line = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
                 $compteur = $compteur+1;
-                jLog::dump(120);
+                jLog::log($compteur);
                 //si on est a la premiere ligne on lit la formation ainsi que l'année
-                if($compteur = 1){
+                if($compteur == 1){
                     
                     //on cree la formation case 0
                     //de cette année
@@ -69,11 +69,10 @@ class NotePv{
                     $factorySemestre = jDao::get('formations~semestre');
                     $factorySemestre->insert($semestre1);
                     $factorySemestre->insert($semestre2);
-
                 }
                 
                 
-                elseif($compteur = 4){
+                elseif($compteur == 4){
                     //on cree un tableau pour chaque case contenant une UE
                     $colonne = 0;
                     //boucle sur les colonne du fichier
@@ -110,7 +109,7 @@ class NotePv{
                         $colonne++;
                     }
                 }
-                 elseif($compteur = 5){
+                 elseif($compteur == 5){
                     
                     $colonne = 0;
                     //boucle sur les colonne du fichier
@@ -140,7 +139,10 @@ class NotePv{
                         $etudiant->sexe = "M";
                         $factoryEtudiant->insert($etudiant);
                     }
-                    
+                    else{
+                        //sinon on le retrouve d'apres sa clef primaire
+                       $etudiant = jDao::get('etudiants~etudiants')->get($line[2]);
+                    }
                     //// ajout au 2 semestre par defaut
                     //TODO voir si ca pose des problemes
                     $etudiantSemestre1 = jDao::createRecord('etudiants~etudiants_semestre');
@@ -151,6 +153,9 @@ class NotePv{
                     
                     $etudiantSemestre1->id_semestre = $semestre1->id_semestre;
                     $etudiantSemestre2->id_semestre = $semestre2->id_semestre;
+                    
+                    $etudiantSemestre1->statut = "NOK";
+                    $etudiantSemestre2->statut = "NOK";
                     
                     $factoryEtudiantSemestre->insert($etudiantSemestre1);
                     $factoryEtudiantSemestre->insert($etudiantSemestre2);
