@@ -27,7 +27,17 @@ class NotePv{
     public function parse($only_identite = true, $delimiter = ";" ){
         
         $data = array();
+        $liste_eu = array(array());
         $compteur = 1;
+        $colonne_semestre;
+        $etudiant = jDao::createRecord('etudiants~etudiants');
+        $etudiantSemestre = jDao::createRecord('etudiants~etudiants_semestre');
+        $formation = jDao::createRecord('formations~formation');
+        $formationSemestre = jDao::createRecord('formations~semestre');
+        $semestre = jDao::createRecord('formations~semestre');
+        $semestreUe = jDao::createRecord('formations~semestre_ue');
+        $ue = jDao::createRecord('ue~ue');
+        
         if (($handle = fopen($this->fichier, "r")) !== FALSE) {
             while (($line = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
                 
@@ -35,20 +45,29 @@ class NotePv{
                 if($compteur = 1){
                     
                     //on cree la formation case 0
-                    //$line[0]
-                    
                     //de cette année
-                    //$line[1]
+                    //la verif est elle importante ??????????
+                    $factoryformation->code_formation = $line[0];
+                    $factoryformation->annee = $line[1];
+                    
+                    // creation des semestre correspondant
                 }
                 
-                $liste_eu = array(array());
+                
                 elseif($compteur = 4){
                     //on cree un tableau pour chaque case contenant une UE
                     $colone = 0;
                     while($line($colone)!= "stop"){
                         //si l'ue n'est pas deja cree on la cree
                         if($colone > 0 && $line($colone) != $line($colone-1)){
-                            ///creation de l'ue et liaison a la formation
+                                //si les ue font partie du deuxieme semestre
+                            if($line($colone) = "next"){
+                                $colonne_semestre = $colone+1;
+                            }
+                            
+                            ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
+                            
+                            
                         }
                         $liste_eu[$colone][ue] = $line($colone);
                     }
