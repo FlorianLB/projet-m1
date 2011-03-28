@@ -18,6 +18,12 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
+	<method name="getByEtudiantNum" type="select">
+            <parameter name="num_etudiant" />
+            <conditions>
+                <eq property="num_etudiant" expr="$num_etudiant" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
