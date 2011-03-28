@@ -50,7 +50,8 @@ class ueCtrl extends jControllerDaoCrud {
         $epreuve->type_epreuve = $var[2][$i];
         $factory = jDao::get('ue~epreuve');
         $factory->insert($epreuve);
-       
+        
+              
        }
 	
     }
