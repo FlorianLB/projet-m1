@@ -1,5 +1,8 @@
 {formdatafull $form}
 
+{foreach $formations as $formation}
+    <p>{$formation}</p>    
+{/foreach}
 
 <p>
     <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>

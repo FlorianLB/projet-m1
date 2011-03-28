@@ -24,7 +24,7 @@
 </input>
 
 <checkboxes ref="formations">
-	<label>Formation Disponible</label>
+	<label>Formation</label>
 	<datasource class="formations~ListData"/>
 </checkboxes>
 
