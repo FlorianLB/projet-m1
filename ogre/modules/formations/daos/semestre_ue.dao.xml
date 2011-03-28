@@ -9,6 +9,18 @@
         <property name="optionelle" fieldname="optionelle" datatype="tinyint" required="true" default="0" />
     </record>
     <factory>
+        <method name="deleteByUe" type="delete">
+            <parameter name="id_ue" />
+            <conditions>
+                <eq property="id_ue" expr="$id_ue" />
+            </conditions>
+        </method>
+        <method name="deleteBySemestre" type="delete">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

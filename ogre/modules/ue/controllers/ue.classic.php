@@ -80,7 +80,19 @@ class ueCtrl extends jControllerDaoCrud {
     }
     
     protected function _delete($id, $resp) {
-        jDao::get('ue~epreuve')->deleteByUe($id);
+        
+        $factorynote = jDao::get('ue~note');
+        $factoryepreuve = jDao::get('ue~epreuve');
+        $factorysemestre_ue = jDao::get('formations~semestre_ue');
+        
+        $liste_epreuve = $factoryepreuve->getByUe($id);
+        foreach($liste_epreuve as $epreuve){
+            $factorynote->deleteByEpreuve($epreuve->id_epreuve);
+        }
+        
+        $factoryepreuve->deleteByUe($id);
+        $factorysemestre_ue->deleteByUe($id);
+        
         return true;
     }
  

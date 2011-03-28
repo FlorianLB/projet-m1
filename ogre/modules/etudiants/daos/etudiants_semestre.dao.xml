@@ -12,10 +12,16 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-    <method name="deleteByEtudiants" type="delete">
-            <parameter name="num_etudiant" />
+        <method name="deleteByEtudiants" type="delete">
+                <parameter name="num_etudiant" />
+                <conditions>
+                    <eq property="num_etudiant" expr="$num_etudiant" />
+                </conditions>
+        </method>
+        <method name="deleteBySemestre" type="delete">
+            <parameter name="id_semestre" />
             <conditions>
-                <eq property="num_etudiant" expr="$num_etudiant" />
+                <eq property="id_semestre" expr="$id_semestre" />
             </conditions>
         </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
