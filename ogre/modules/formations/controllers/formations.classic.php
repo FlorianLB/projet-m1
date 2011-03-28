@@ -67,7 +67,21 @@ class formationsCtrl extends jControllerDaoCrud {
      * Suppresion des elements dependants de formation
      */
     protected function _delete($id, $resp) {
-        jDao::get('formations~semestre')->deleteByFormation($id);
+        
+        $factorysemestre = jDao::get('formations~semestre');
+        $factorysemestre_ue = jDao::get('formations~semestre_ue');
+        $factorynote = jDao::get('ue~note');
+        $factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre');
+        
+        $liste_semestre = $factorysemestre->getByFormation($id);
+        foreach($liste_semestre as $semestre){
+            $factorysemestre_ue->deleteBySemestre($semestre->id_semestre);
+            $factorynote->deleteBySemestre($semestre->id_semestre);
+            $factoryetudiant_semestre->deleteBySemestre($semestre->id_semestre);
+        }
+        
+        $factorysemestre->deleteByFormation($id);
+        
         return true;
     }
     

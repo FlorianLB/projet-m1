@@ -19,6 +19,12 @@
                 <eq property="id_ue" expr="$id_ue" />
             </conditions>
         </method>
+        <method name="getByUe" type="select">
+            <parameter name="id_ue" />
+            <conditions>
+                <eq property="id_ue" expr="$id_ue" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

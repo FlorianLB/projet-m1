@@ -13,6 +13,18 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
+        <method name="deleteByEpreuve" type="delete">
+            <parameter name="id_epreuve" />
+            <conditions>
+                <eq property="id_epreuve" expr="$id_epreuve" />
+            </conditions>
+        </method>
+        <method name="deleteBySemestre" type="delete">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
