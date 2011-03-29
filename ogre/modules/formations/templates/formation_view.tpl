@@ -17,7 +17,10 @@
                 </li>
             {/foreach}
         </ul>
-        <p><a href="{jurl 'formations~semestre:view', array('id'=>$semestre['id'], 'id_formation' => $id)}" class="button icon edit"><span>Modifier le semestre {$num}</span></a></p>
+        <p>
+            <a href="{jurl 'formations~semestre:view', array('id'=>$semestre['id'], 'id_formation' => $id)}" class="button icon edit"><span>Modifier le semestre {$num}</span></a>
+            <a href="{jurl 'formations~semestre:uesoptionelles', array('id'=>$semestre['id'], 'id_formation' => $id)}" class="button icon options"><span>Définir les UES optionelles</span></a>
+        </p>
 {/foreach}
 
 

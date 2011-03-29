@@ -9,6 +9,35 @@
         <property name="optionelle" fieldname="optionelle" datatype="tinyint" required="true" default="0" />
     </record>
     <factory>
+        
+        <method name="setAsOption" type="update">
+            <parameter name="id_ue" />
+            <values>
+                <value property="optionelle" value="1"/>
+            </values>
+            <conditions>
+                <eq property="id_ue" expr="$id_ue" />
+            </conditions>
+        </method>
+        <method name="resetOption" type="update">
+            <parameter name="id_sem" />
+            <values>
+                <value property="optionelle" value="0"/>
+            </values>
+            <conditions>
+                <eq property="id_semestre" expr="$id_sem" />
+            </conditions>
+        </method>
+        
+        
+        
+        <method name="getBySemestre" type="select">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
+        
         <method name="deleteByUe" type="delete">
             <parameter name="id_ue" />
             <conditions>

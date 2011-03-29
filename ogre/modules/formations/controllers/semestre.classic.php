@@ -48,4 +48,55 @@ class semestreCtrl extends jController{
         return $rep;
     }
     
+    
+    
+    public function uesoptionelles(){
+        $rep = $this->getResponse('html');
+        
+        $id = $this->param('id', 0);
+        
+    
+        $data = array();
+        foreach( jDao::get('formations~ue_semestre_ue')->getBySemestre($id) as $ue){
+            $libelle = ($ue->libelle != '') ? ' : ' .$ue->libelle : '';
+            
+            $data[$ue->id_ue]['label'] = $ue->code_ue . $libelle;
+            $data[$ue->id_ue]['checked'] = ($ue->optionelle == '1') ? true : false;
+        }
+            
+        
+        $tpl = new jTpl();
+        $tpl->assign('options', $data);
+        $tpl->assign('submitAction', 'formations~semestre:save_uesoptionelles');
+        $tpl->assign('id', $id);
+        $tpl->assign('id_formation', $this->param('id_formation', 0));
+          
+        $rep->setTitle('Définition des UEs optionelles');
+        
+        $rep->body->assign('MAIN', $tpl->fetch('optionelles'));
+        return $rep;
+    }
+    
+    public function save_uesoptionelles(){
+        $id = $this->param('id', 0);
+
+
+        $factory = jDao::get('semestre_ue');
+        $factory->resetOption($id);
+        
+        foreach($this->param('ues', array()) as $ue){
+            $factory->setAsOption($ue);
+        }
+
+
+        
+        jMessage::add('UEs optionelles définies !', 'confirm');
+        
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'formations~formations:view';
+        $rep->params = array('id' => $this->param('id_formation', 0));
+        return $rep;
+    }
+    
+    
 }
