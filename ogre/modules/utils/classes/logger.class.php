@@ -24,7 +24,17 @@ class Logger {
             case 'creation_formation' :
                 $message = self::_creationFormation($param1, $param2);
                 $file = 'creation';
-            break;  
+            break;
+        
+            case 'modif_UEs' :
+                $message = self::_modifUEs($param1, $param2, $param3);
+                $file = 'modif';
+            break;
+        
+            case 'modif_options' :
+                $message = self::_modifOptions($param1, $param2, $param3);
+                $file = 'modif';
+            break;
             
         }
         
@@ -53,6 +63,26 @@ class Logger {
     private static function _creationFormation($formation_name, $annee){
         return self::_getUser().' a créé la formation "'.$formation_name.'" pour l\'année '.$annee;
     }
+    
+    /**
+     * @param int $num_semestre Le numéro du semestre dont les UEs on été modifiées
+     * @param string $formation_name Le nom de la formation qui a été créée
+     * @param string $annee L'année de la formation
+     */
+    private static function _modifUEs($num_semestre, $formation_name, $annee){
+        return self::_getUser().' a modifié les UEs du semestre '.$num_semestre.' de la formation"'.$formation_name.'" pour l\'année '.$annee;
+    }
+    
+    
+    /**
+     * @param int $num_semestre Le numéro du semestre dont les options on été modifiées
+     * @param string $formation_name Le nom de la formation qui a été créée
+     * @param string $annee L'année de la formation
+     */
+    private static function _modifOptions($num_semestre, $formation_name, $annee){
+        return self::_getUser().' a modifié les options du semestre '.$num_semestre.' de la formation"'.$formation_name.'" pour l\'année '.$annee;
+    }
+    
     
 
 }
