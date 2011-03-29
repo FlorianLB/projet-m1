@@ -244,6 +244,7 @@ a.edit span { background-image:url(../themes/default/img/pencil.png); }
 a.next span { background-image:url(../themes/default/img/arrow_right.png); }
 a.save span { background-image:url(../themes/default/img/disk.png); }
 a.back span { background-image:url(../themes/default/img/arrow_undo.png); }
+a.options span { background-image:url(../themes/default/img/contrast.png); }
 table { border:1px solid #dfdfdf; }
 thead th {
   background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
@@ -263,3 +264,8 @@ ul.semestre li {
   padding-left:20px;
 }
 form { margin-bottom:15px; }
+.ues-options span input {
+  margin-right:10px;
+  display:inline-block;
+}
+.ues-options span { display:block; }
