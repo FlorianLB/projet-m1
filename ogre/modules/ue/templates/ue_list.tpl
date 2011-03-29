@@ -1,3 +1,4 @@
+<p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvelle UE</span></a></p>
 <table class="records-list">
 <thead>
 <tr>
@@ -27,5 +28,5 @@
 {if $recordCount > $listPageSize}
 <p class="record-pages-list">{@jelix~crud.title.pages@} : {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }</p>
 {/if}
-<p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvelle UE</span></a>.</p>
+
 
