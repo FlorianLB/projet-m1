@@ -223,16 +223,16 @@ class NotePv{
                             $note->num_etudiant = $etudiant->num_etudiant;
                             
                             
-                            jLog::log("note->");
-                            jLog::log($line[$colonne]);
-                            jLog::log(floatval($line[$colonne]));
-                            jLog::log(floatval(str_replace(",",".",$line[$colonne])));
+                            //jLog::log("note->");
+                            //jLog::log($line[$colonne]);
+                            //jLog::log(floatval($line[$colonne]));
+                            //jLog::log(floatval(str_replace(",",".",$line[$colonne])));
                             
                             
                            
                             // on remplace la virgule par un point et on converti en float
                             $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
-                            
+                            jLog::dump($note);
                             $factoryNote->insert($note);
                             
                         }

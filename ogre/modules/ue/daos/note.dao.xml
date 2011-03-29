@@ -8,6 +8,8 @@
         <property name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="valeur" fieldname="valeur" datatype="float" required="true"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
