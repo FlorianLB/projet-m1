@@ -8,15 +8,8 @@
         <property name="code_formation" fieldname="code_formation" datatype="varchar" required="true" maxlength="15"/>
         <property name="annee" fieldname="annee" datatype="char" required="true" />
         <property name="libelle" fieldname="libelle" datatype="varchar" default="" maxlength="30"/>
-        <!--<property name="" fieldname="" datatype="string/int/float/date"
-        required="yes" maxlength="" minlength="" regexp="" sequence=""
-        updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-        
-        <!-- SELECT id_formation
-        FROM formation
-        WHERE annee = (select Max(annee) from formation); -->
         
         <method name="getLastFormationByCode" type="select">
             <parameter name="code_formation" />
@@ -25,8 +18,24 @@
             </conditions>
         </method>
         
+        <method name="getByCodeAnnee" type="selectfirst">
+            <parameter name="code_formation" />
+            <parameter name="annee" />
+            <conditions>
+                <eq property="code_formation" expr="$code_formation"/>
+                <eq property="annee" expr="$annee"/>
+            </conditions>
+        </method>
+        
         <method name="getAllCode" type="select" groupby="code_formation">
             
+        </method>
+         
+        <method name="getOrderedByAnnee" type="select">
+            <order>
+                <orderitem property="annee" way="desc" />
+                <orderitem property="code_formation" way="asc" />
+            </order>
         </method>
         
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">

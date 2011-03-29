@@ -9,6 +9,7 @@
         <property name="num_semestre" fieldname="num_semestre" datatype="varchar" required="true" maxlength="45"/>
     </record>
     <factory>
+        
         <method name="getByFormation" type="select">
             <parameter name="id_formation" />
             <conditions>
@@ -17,6 +18,15 @@
             <order>
                 <orderitem property="num_semestre" way="asc" />
             </order>
+        </method>
+        
+        <method name="getByFormationNum" type="selectfirst">
+            <parameter name="id_formation" />
+            <parameter name="num" />
+            <conditions>
+                <eq property="id_formation" expr="$id_formation" />
+                <eq property="num_semestre" expr="$num" />
+            </conditions>
         </method>
         
         <method name="deleteByFormation" type="delete">

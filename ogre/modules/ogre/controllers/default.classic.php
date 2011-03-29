@@ -27,7 +27,8 @@ class defaultCtrl extends jController {
                     <li><a href="'.jUrl::get('etudiants~etudiants:index').'">Etudiants CRUD</a></li>
 	<li><a href="'.jUrl::get('ue~ue:index').'">Ue CRUD</a></li>
                     <li><a href="'.jUrl::get('etudiants~import:index').'">Import APOGEE</a></li>
-		    <li><a href="'.jUrl::get('etudiants~import:index2').'">Import PV</a></li>
+	<li><a href="'.jUrl::get('etudiants~import:index2').'">Import PV</a></li>
+                    <li><a href="'.jUrl::get('ue~saisie_epreuve:intro').'">Saisie notes/epreuve</a></li>
             </ul>
         ';
         

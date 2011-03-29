@@ -23,7 +23,10 @@
             <parameter name="id_sem" />
             <conditions>
                 <eq property="id_semestre" expr="$id_sem" />
+                <eq property="last_version" value="1" />
             </conditions>
         </method>
+        
+        
     </factory>
 </dao>

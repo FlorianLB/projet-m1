@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+    <menulist ref="formation" required="true">
+        <label>Formation</label>
+        <datasource dao="formations~formation" method="getOrderedByAnnee" labelproperty="code_formation" valueproperty="code_formation"/>
+    </menulist>
+    
+    <menulist ref="annee" required="true">
+        <label>Annee</label>
+        <datasource class="utils~anneeData"/>
+    </menulist>
+    
+    
+    <menulist ref="semestre" required="true">
+        <label>Semestre</label>
+        <item selected="true" value="1">1</item>
+        <item value="2" >2</item>
+    </menulist>
+
+    <submit ref="_submit">
+              <label>Ok</label>
+    </submit>
+    
+</form>

@@ -11,9 +11,7 @@
         <property name="libelle" fieldname="libelle" datatype="varchar" required="true" maxlength="30"/>
         <property name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
         <property name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
-        <!--<property name="" fieldname="" datatype="string/int/float/date"
-        required="yes" maxlength="" minlength="" regexp="" sequence=""
-        updatepattern="" insertpattern="" selectpattern=""/>-->
+
     </record>
     <factory>
         <method name="setOldUeVersion" type="update">
