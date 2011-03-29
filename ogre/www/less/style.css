@@ -162,12 +162,12 @@ input[type="submit"], input[type="reset"], .button {
   border-color:#bbbbbb;
   text-shadow:0 1px 0 #ffffff;
 }
-body .button-2:hover, body .button-2:focus {
+body .button-2:hover, body .button-2:focus, .button-2:hover, .button-2:focus {
   border-color:#13455b;
   color:#eaf2fa;
 }
-body .button-2:active { background:url(../themes/default/img/blue-grad-active.png) repeat-x #21759b; }
-body .button-2 {
+body .button-2:active, .button-2:active { background:url(../themes/default/img/blue-grad-active.png) repeat-x #21759b; }
+body .button-2, .button-2 {
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
@@ -269,3 +269,34 @@ form { margin-bottom:15px; }
   display:inline-block;
 }
 .ues-options span { display:block; }
+.pagelinks li {
+  display:inline-block;
+  font-weight:bold;
+}
+.pagelinks li.pagelinks-current, .pagelinks a {
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  background:url(../themes/default/img/gray-grad.png) left bottom repeat-x #dfdfdf;
+  text-shadow:0 1px 0 #ffffff;
+  color:#464646;
+  border:1px solid #dfdfdf;
+  padding:3px 10px 2px;
+}
+.pagelinks .pagelinks-disabled { display:none; }
+.pagelinks li.pagelinks-current {
+  background:url(../themes/default/img/blue-grad.png) repeat-x #21759b;
+  color:white;
+  border:1px solid #298cba;
+  text-shadow:0 -1px 0 black;
+}
+.pagelinks a:hover, .pagelinks a:focus {
+  border-color:#13455b;
+  color:#000000;
+}
+.pagelinks a { display:block; }
+.pagelinks {
+  list-style:none;
+  margin:10px 0;
+  padding:0;
+}

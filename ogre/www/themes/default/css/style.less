@@ -206,7 +206,7 @@ input[type="submit"], input[type="reset"], .button{
     }
 }
 
-body .button-2{
+body .button-2, .button-2{
     .btn;
     
     background:url({@img}blue-grad.png) repeat-x #21759B;
@@ -318,4 +318,45 @@ form{
             display:inline-block;
         }
     }
+}
+
+
+.pagelinks{
+    list-style:none;
+    margin:10px 0;
+    padding:0;
+    
+    
+    li{
+        display:inline-block;
+        font-weight:bold;
+    }
+    
+    li.pagelinks-current, a{
+        .border-radius(4px);
+        background:url({@img}gray-grad.png) left bottom repeat-x #DFDFDF;
+        text-shadow:0 1px 0 #FFFFFF;
+        color:#464646;
+        border:1px solid #DFDFDF;
+        padding:3px 10px 2px;
+    }
+    
+    .pagelinks-disabled{display:none;}
+    
+    li.pagelinks-current{
+        background:url({@img}blue-grad.png) repeat-x #21759B;
+        color:white;
+        border: 1px solid #298CBA;
+        text-shadow:0 -1px 0 black;
+    }
+    
+    a{
+        display:block;
+        
+        &:hover, &:focus{
+            border-color:#13455b;
+            color:#000;
+        }
+    }
+    
 }

@@ -26,7 +26,7 @@
 </tbody>
 </table>
 {if $recordCount > $listPageSize}
-<p class="record-pages-list">{@jelix~crud.title.pages@} : {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }</p>
+    {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }
 {/if}
 
 
