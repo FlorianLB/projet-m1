@@ -12,15 +12,10 @@ class NotePv{
     
     function __construct($fichier){
         $this->fichier = $fichier;
-        
-        //foreach(customSQL::findAllDistinctCodeFormation() as $f){
-        //    $this->formations[] = $f->code_formation;
-        //}
-
     }
     
     /**
-     * Parse le fichier CSV Apogée
+     * 
      *
      * @param boolean $only_identite Extraction faites uniquement sur l'identite de l'etudiant
      */
@@ -82,43 +77,49 @@ class NotePv{
                         //initialisation du tableau
                         $liste_ue[$colonne]["id_ue"] = -1;
                         $liste_ue[$colonne]["epreuve"] = -1;
-                        //jLog::log("compteur ->");
-                        //jLog::log($compteur);
-                        //jLog::log("colonne ue ->");
-                        //jLog::log($colonne);
-                        //jLog::log("valeur ->");
-                        //jLog::log($line[$colonne]);
+
                         //si les ue font partie du deuxieme semestre
                        if($line[$colonne] == $semestre_suivant){
                                 $colonne_semestre = $colonne+1;
                         }
                         //si l'ue n'est pas deja cree on la cree
                         if($colonne > 0){
-                            if($line[$colonne] != $line[$colonne-1]){
-                                                            
-                                $ue = jDao::createRecord('ue~ue');
-                                if($line[$colonne] != $semestre_suivant && $line[$colonne] != ""){           
-                                    $ue->code_ue = $line[$colonne];
-                                    $ue->credits = 1;
-                                    $ue->coeff = 1;
-                                    $ue->libelle = $line[$colonne];
-                                    $ue->last_version = FALSE;
-                                    $factoryUe->insert($ue);
-                                    ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
-                                    $semestre_ue = jDao::createRecord('formations~semestre_ue');
-                                    
-                                    if($colonne < $colonne_semestre){
-                                        $semestre_ue->id_semestre = $semestre1->id_semestre;
-                                    }
-                                    else{
-                                        $semestre_ue->id_semestre = $semestre2->id_semestre;
-                                    }
-                                    $semestre_ue->id_ue = $ue->id_ue;
-                                    $semestre_ue->optionelle = FAlSE;
-                                    $factorySemestreUe->insert($semestre_ue);
-                                    
-                                // on enregistre en fonction de la colonne l'id_ue
-                                    $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
+                            if($line[$colonne] != $line[$colonne-1]){                            
+                                //si le code est different du separateur de semestre et non null
+                                if($line[$colonne] != $semestre_suivant && $line[$colonne] != ""){
+                                    $ue = jDao::createRecord('ue~ue');
+                                   //TODO verif ue existe deja
+                                   // if( !customSQL::ueExisteDeja($line[$colonne])){
+                                        
+                                        $ue->code_ue = $line[$colonne];
+                                        $ue->credits = 1;
+                                        $ue->coeff = 1;
+                                        $ue->libelle = $line[$colonne];
+                                        $ue->last_version = FALSE;
+                                        $factoryUe->insert($ue);
+                                        ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
+                                        $semestre_ue = jDao::createRecord('formations~semestre_ue');
+                                        
+                                        if($colonne < $colonne_semestre){
+                                            $semestre_ue->id_semestre = $semestre1->id_semestre;
+                                        }
+                                        else{
+                                            $semestre_ue->id_semestre = $semestre2->id_semestre;
+                                        }
+                                        $semestre_ue->id_ue = $ue->id_ue;
+                                        $semestre_ue->optionelle = FAlSE;
+                                        $factorySemestreUe->insert($semestre_ue);
+                                        
+                                    // on enregistre en fonction de la colonne l'id_ue
+                                        $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
+                                   // }
+                                    // si l'ue existe deja
+                                    //else{
+                                    //    jLog::log("semstre double detecté");
+                                    //    $ue = jDao::get('ue~ue')->get($line[$colonne]);
+                                    //    jLog::dump($liste_ue);
+                                    //    $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
+                                    //}
                                 }
                             }
                             else{
@@ -137,133 +138,90 @@ class NotePv{
                     $colonne = 0;
                     //boucle sur les colonne du fichier
                     while($colonne < $colonne_arret-1){
-                        //jLog::log("compteur");
-                        //jLog::log($compteur);
-                        //jLog::log("colonne ue ->");
-                        //jLog::log($colonne);
-                        //jLog::log("valeur ->");
-                        //jLog::log($line[$colonne]);
-                        //jLog::log("comparé ->");
-                        //jLog::log($liste_ue[$colonne]["id_ue"]);
+
                         if($colonne > 7 && ($liste_ue[$colonne]["id_ue"]) != -1){
                             //creation des epreuves
                             $epreuve = jDao::createRecord('ue~epreuve');
                             $epreuve->id_ue = $liste_ue[$colonne]["id_ue"];
                             $epreuve->coeff = 1;
                             $epreuve->type_epreuve = $line[$colonne];
-                            //jLog::log("insertion ->");
-                            //jLog::log($line[$colonne]);
                             $factoryEpreuve->insert($epreuve);
                             
                             //on enregistre chaque epreuve en fonction de la colonne
                             $liste_ue[$colonne]["id_epreuve"] = $epreuve->id_epreuve;
-                        //    jLog::log("id_ue->");
-                        //    jLog::log("id_epreuve ->");
-                        //    jLog::log($liste_ue[$colonne]["id_ue"]);
-                        //jLog::log($liste_ue[$colonne]["id_epreuve"]);
-                            
                         }
                         $colonne++;
                     }
                 }
-                 
                 
                 elseif($compteur > 5){
-                    jLog::log("compteur = 5");
+                   // jLog::log("compteur = 5");
+                    if($line[2] != ""){
                     //si l'etudiant n'existe pas on le cree
-                    if(!customSQL::etudiantsExisteDeja($line[2])){
-                        jLog::log("creation d'etudiants ->");
-                        $etudiant = jDao::createRecord('etudiants~etudiants');
-                        $etudiant->num_etudiant = $line[2];
-                        $etudiant->nom = $line[0];
-                        $etudiant->prenom = $line[1];
-                        //TODO aucune info sur le sexe ... il faut le metre en non require
-                        $etudiant->sexe = "M";
-                        $factoryEtudiant->insert($etudiant);
-                    }
-                    else{
-                        jLog::log("etu existe deja ->");
-                        //sinon on le retrouve d'apres sa clef primaire
-                       $etudiant = jDao::get('etudiants~etudiants')->get($line[2]);
-                    }
-                    //// ajout au 2 semestre par defaut
-                    //TODO voir si ca pose des problemes
-                    $etudiantSemestre1 = jDao::createRecord('etudiants~etudiants_semestre');
-                    $etudiantSemestre2 = jDao::createRecord('etudiants~etudiants_semestre');
-                    
-                    $etudiantSemestre1->num_etudiant = $etudiant->num_etudiant;
-                    $etudiantSemestre2->num_etudiant = $etudiant->num_etudiant;
-                    
-                    $etudiantSemestre1->id_semestre = $semestre1->id_semestre;
-                    $etudiantSemestre2->id_semestre = $semestre2->id_semestre;
-                    
-                    $etudiantSemestre1->statut = "NOK";
-                    $etudiantSemestre2->statut = "NOK";
-                    
-                    $factoryEtudiantSemestre->insert($etudiantSemestre1);
-                    $factoryEtudiantSemestre->insert($etudiantSemestre2);
-                    
-                    //les notes commence a la case 8-1
-                    //boucle sur les colonne du fichier
-                    $colonne = 7;
-                    while($colonne < $colonne_arret){
-                        if($line[$colonne] != "" && $liste_ue[$colonne]["id_ue"] != -1){
-                            
-                            $note = jDao::createRecord('ue~note');
-                            
-                            $note->id_epreuve = $liste_ue[$colonne]["id_epreuve"];
-                            //on assigne le semestre de la note en fonction du placement dans la colonne
-                            if($colonne < $colonne_semestre){
-                                $note->id_semestre = $semestre1->id_semestre;
-                            }
-                            else{
-                                $note->id_semestre = $semestre2->id_semestre;
-                            }
-                            
-                            $note->num_etudiant = $etudiant->num_etudiant;
-                            
-                            
-                            //jLog::log("note->");
-                            //jLog::log($line[$colonne]);
-                            //jLog::log(floatval($line[$colonne]));
-                            //jLog::log(floatval(str_replace(",",".",$line[$colonne])));
-                            
-                            
-                           
-                            // on remplace la virgule par un point et on converti en float
-                            $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
-                            jLog::dump($note);
-                            $factoryNote->insert($note);
-                            
+                        if(!customSQL::etudiantsExisteDeja($line[2])){
+                           // jLog::log("creation d'etudiants ->");
+                            $etudiant = jDao::createRecord('etudiants~etudiants');
+                            $etudiant->num_etudiant = $line[2];
+                            $etudiant->nom = $line[0];
+                            $etudiant->prenom = $line[1];
+                            //TODO aucune info sur le sexe ... il faut le metre en non require
+                            $etudiant->sexe = "M";
+                            $factoryEtudiant->insert($etudiant);
                         }
-                        $colonne++;
+                        else{
+                            //sinon on le retrouve d'apres sa clef primaire
+                           $etudiant = jDao::get('etudiants~etudiants')->get($line[2]);
+                        }
+                        //// ajout au 2 semestre par defaut
+                        //TODO voir si ca pose des problemes
+                        $etudiantSemestre1 = jDao::createRecord('etudiants~etudiants_semestre');
+                        $etudiantSemestre2 = jDao::createRecord('etudiants~etudiants_semestre');
+                        
+                        $etudiantSemestre1->num_etudiant = $etudiant->num_etudiant;
+                        $etudiantSemestre2->num_etudiant = $etudiant->num_etudiant;
+                        
+                        $etudiantSemestre1->id_semestre = $semestre1->id_semestre;
+                        $etudiantSemestre2->id_semestre = $semestre2->id_semestre;
+                        
+                        $etudiantSemestre1->statut = "NOK";
+                        $etudiantSemestre2->statut = "NOK";
+                        
+                        $factoryEtudiantSemestre->insert($etudiantSemestre1);
+                        $factoryEtudiantSemestre->insert($etudiantSemestre2);
+                        
+                        //les notes commence a la case 8-1
+                        //boucle sur les colonne du fichier
+                        $colonne = 7;
+                        while($colonne < $colonne_arret){
+                            if($line[$colonne] != "" && $liste_ue[$colonne]["id_ue"] != -1){
+                                
+                                $note = jDao::createRecord('ue~note');
+                                
+                                $note->id_epreuve = $liste_ue[$colonne]["id_epreuve"];
+                                //on assigne le semestre de la note en fonction du placement dans la colonne
+                                if($colonne < $colonne_semestre){
+                                    $note->id_semestre = $semestre1->id_semestre;
+                                }
+                                else{
+                                    $note->id_semestre = $semestre2->id_semestre;
+                                }
+                                
+                                $note->num_etudiant = $etudiant->num_etudiant;
+                                // on remplace la virgule par un point et on converti en float
+                                $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
+                               // jLog::dump($note);
+                                $factoryNote->insert($note);
+                                
+                            }
+                            $colonne++;
+                        }
                     }
-                    
-                    
-                    //
-                    //$etudiantSemestre = jDao::createRecord('etudiants~etudiants_semestre');
-                    ////if l'etudiant n'existe pas deja
-                    //// on cree l'etudiant
-                    ////on l'ajoute au semestre de l'ue
-                    //// ensuite on prend chaqune des cases non vides
-                    //// et on cree une notes sur cette epreuve
-                    //$numEtudiant = $line[0];
-                    ////...
-                    //
-                    //// si le num etudiant n'est pas la on fini la lecture
-                    //    $data[] = $etu;
-                    //}
-                    //else
-                    //    $data[] = $line;
                 }
                 //sinon on fai rien
+                //pour ligne 2 3
                 else;
-               
             }
             fclose($handle);
         }
-        
-       // return $data;
-    }
-    
+    }   
 }
