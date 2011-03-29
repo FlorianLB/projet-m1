@@ -16,6 +16,12 @@ class Logger {
         
         switch($type) {
             
+            case 'default' :
+                $message = $param1;
+                if($param2)
+                    $file = $param2;
+            break;
+            
             case 'import_apogee' :
                 $message = self::_importApogee($param1, $param2);
                 $file = 'import';
