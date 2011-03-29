@@ -176,7 +176,7 @@ class NotePv{
                     //les notes commence a la case 8-1
                     //boucle sur les colonne du fichier
                     $colonne = 7;
-                    while($line[$colonne] != $arret){
+                    while($colonne < $arret){
                         if($line[$colonne] != "" && !is_null($liste_ue[$colonne]["id_ue"])){
                             
                             $note = jDao::createRecord('ue~note');
