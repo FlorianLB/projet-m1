@@ -29,4 +29,20 @@ class customSQL{
             return true;
     }
     
+    /**
+     * Retourne vrai si l'ue existe deja dans la base
+     */
+    public static function ueExisteDeja($code_ue){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM ue WHERE code_ue = '.$cnx->quote($code_ue);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
 }
