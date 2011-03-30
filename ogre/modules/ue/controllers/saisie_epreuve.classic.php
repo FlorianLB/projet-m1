@@ -18,7 +18,9 @@ class saisie_epreuveCtrl extends jController {
 
         $tpl = new jTpl();
         $tpl->assign('form', $form);
+        $tpl->assign('intro1', true);
         $tpl->assign('submitAction', 'ue~saisie_epreuve:intro2');
+
 
         $rep->body->assign('MAIN', $tpl->fetch('ue~intro_saisie_epreuve'));
         return $rep;
@@ -35,12 +37,19 @@ class saisie_epreuveCtrl extends jController {
         jForms::destroy('ue~intro_saisie_epreuve');
         
         $form = jForms::create('ue~intro2_saisie_epreuve');
-        $form->setData('id_semestre', $semestre->id_semestre);
+
+        //Remplissage de la menulist UE
+        $data = array( 0 => "Choisissez l'UE");
+        foreach(jDao::get('formations~ue_semestre_ue')->getBySemestre($semestre->id_semestre) as $ue)
+            $data[$ue->id_ue] = $ue->code_ue;
+
+        $form->getControl('ue')->datasource->data = $data;
 
         $tpl = new jTpl();
         $tpl->assign('form', $form);
-        $tpl->assign('submitAction', 'ue~saisie_epreuve:intro2');
-
+        $tpl->assign('intro2', true);
+        $tpl->assign('submitAction', 'ue~saisie_epreuve:saisie');
+        
         $rep->body->assign('MAIN', $tpl->fetch('ue~intro_saisie_epreuve'));
         return $rep;
     }
@@ -50,6 +59,7 @@ class saisie_epreuveCtrl extends jController {
     
     function saisie(){
         $rep = $this->getResponse('html');
+ 
         return $rep;
     }
     

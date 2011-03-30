@@ -27,6 +27,14 @@
             </conditions>
         </method>
         
+        <method name="getByCode" type="select">
+            <parameter name="code_formation" />
+            <conditions>
+                <eq property="code_formation" expr="$code_formation"/>
+            </conditions>
+        </method>
+        
+        
         <method name="getAllCode" type="select" groupby="code_formation">
             
         </method>
