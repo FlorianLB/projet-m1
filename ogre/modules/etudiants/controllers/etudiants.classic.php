@@ -50,7 +50,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	
 	foreach($liste_semestre as $semestre){
 	    $formation = $factoryformation->get($semestre->id_formation);
-	    $formationarray[$formation->id_formation] = $formation->code_formation;
+	    $formationarray[$formation->id_formation] = $formation;
 	}	    
 	
 	$tpl->assign('formations', $formationarray);
