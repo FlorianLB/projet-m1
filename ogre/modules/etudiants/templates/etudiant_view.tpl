@@ -1,8 +1,14 @@
 {formdatafull $form}
 
-{foreach $formations as $formation}
-    <p>{$formation}</p>    
-{/foreach}
+<p>Formation : </p>
+<ul class="semestre">
+    {foreach $formations as $formation}
+        <li>
+            {$formation->code_formation}
+            {if $formation->libelle != ''} : {$formation->libelle} {/if}
+        </li>
+    {/foreach}
+</ul>
 
 <p>
     <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>

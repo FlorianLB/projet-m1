@@ -50,18 +50,20 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	
 	foreach($liste_semestre as $semestre){
 	    $formation = $factoryformation->get($semestre->id_formation);
-	    $formationarray[$formation->id_formation] = $formation->code_formation;
+	    $formationarray[$formation->id_formation] = $formation;
 	}	    
-	
+	$form->deactivate('formations');
 	$tpl->assign('formations', $formationarray);
     }
    
     public function _create($form, $resp, $tpl){
         $resp->setTitle('Créer un nouvel etudiant');
+	$form->deactivate('formations',FALSE);
     }
    
     public function _editUpdate($form, $resp, $tpl){
        $resp->setTitle('Modifier un etudiant');
+       $form->deactivate('formations',FALSE);
     }  
     /**
      * Suppresion des elements dependants de etudiants
