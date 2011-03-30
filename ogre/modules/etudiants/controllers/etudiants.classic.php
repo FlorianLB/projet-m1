@@ -63,6 +63,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
    
     public function _editUpdate($form, $resp, $tpl){
 	$resp->setTitle('Modifier un etudiant');
+	$form->deactivate('formations',FALSE);
        
 	$factoryformation = jDao::get('formations~formation');
 	$factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre_semestre');
