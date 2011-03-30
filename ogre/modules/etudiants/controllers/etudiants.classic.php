@@ -37,7 +37,6 @@ class etudiantsCtrl extends jControllerDaoCrud {
    
     public function _index($resp, $tpl){
         $resp->setTitle('Liste des etudiants');
-	$form->deactivate('formation',TRUE);
     }
    
     public function _view($form, $resp, $tpl){
