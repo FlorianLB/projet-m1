@@ -13,9 +13,13 @@ class ListData implements jIFormsDatasource{
     $formationliste = $factoryformation->getAllCode();
     
     foreach($formationliste as $formation){
-        $idform = $factoryformation->getLastFormationByCode($formation->code_formation);
-                foreach($idform as $idformee)
-                    $this->data[$idformee->id_formation] = $idformee->libelle;
+      $idform = $factoryformation->getLastFormationByCode($formation->code_formation);
+      foreach($idform as $idformee){
+        if( $idformee->libelle != "" )
+          $this->data[$idformee->id_formation] = $idformee->libelle;
+        else
+          $this->data[$idformee->id_formation] = $idformee->code_formation;
+      }
     }
     
   }
