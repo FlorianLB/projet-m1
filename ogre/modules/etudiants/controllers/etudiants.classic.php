@@ -18,7 +18,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
     protected function _afterCreate($form, $id, $resp){
 	
 	$semestre = jDao::get('formations~semestre');
-	$factory = jDao::get('etudiants_semestre');
+	$factory = jDao::get('etudiants~etudiants_semestre');
 	// On recupere les formations selectionné
 	foreach ($form->getData('formations') as $row1) {
 	// On recupere les semestres de la formation
@@ -26,7 +26,28 @@ class etudiantsCtrl extends jControllerDaoCrud {
 			
 	    foreach ($list_semestre as $row) {
 		//On associe l'etudiant au semestres de ses formations
-		$etudiant_semestre1 = jDao::createRecord('etudiants_semestre');
+		$etudiant_semestre1 = jDao::createRecord('etudiants~etudiants_semestre');
+		$etudiant_semestre1->num_etudiant = $id;
+		$etudiant_semestre1->id_semestre = $row->id_semestre;
+		$etudiant_semestre1->statut = 'NOK';
+		$factory->insert($etudiant_semestre1);
+	    }
+	}
+    }
+    
+    protected function _afterUpdate($form, $id, $resp){
+	//TODO A modifier si le status du semestre est different de "NOK"
+	$semestre = jDao::get('formations~semestre');
+	$factory = jDao::get('etudiants~etudiants_semestre');
+	$factory->deleteByEtudiants($id);
+	// On recupere les formations selectionné
+	foreach ($form->getData('formations') as $row1) {
+	// On recupere les semestres de la formation
+	    $list_semestre = $semestre->getByFormation($row1);
+			
+	    foreach ($list_semestre as $row) {
+		//On associe l'etudiant au semestres de ses formations
+		$etudiant_semestre1 = jDao::createRecord('etudiants~etudiants_semestre');
 		$etudiant_semestre1->num_etudiant = $id;
 		$etudiant_semestre1->id_semestre = $row->id_semestre;
 		$etudiant_semestre1->statut = 'NOK';
@@ -83,6 +104,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
      */
     protected function _delete($id, $resp) {
         jDao::get('etudiants~etudiants_semestre')->deleteByEtudiants($id);
+	jDao::get('ue~note')->deleteByEtudiants($id);
         return true;
     }
     

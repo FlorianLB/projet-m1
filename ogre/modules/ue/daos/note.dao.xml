@@ -26,6 +26,12 @@
                 <eq property="id_semestre" expr="$id_semestre" />
             </conditions>
         </method>
+        <method name="deleteByEtudiant" type="delete">
+            <parameter name="num_etudiant" />
+            <conditions>
+                <eq property="num_etudiant" expr="$num_etudiant" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
