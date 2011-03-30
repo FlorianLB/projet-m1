@@ -87,15 +87,15 @@ class NotePv{
                             if($line[$colonne] != $line[$colonne-1]){                            
                                 //si le code est different du separateur de semestre et non null
                                 if($line[$colonne] != $semestre_suivant && $line[$colonne] != ""){
-                                    $ue = jDao::createRecord('ue~ue');
+                                   
                                    //TODO verif ue existe deja
-                                   // if( !customSQL::ueExisteDeja($line[$colonne])){
-                                        
+                                    if( !customSQL::ueExisteDeja($line[$colonne])){
+                                        $ue = jDao::createRecord('ue~ue');
                                         $ue->code_ue = $line[$colonne];
                                         $ue->credits = 1;
                                         $ue->coeff = 1;
                                         $ue->libelle = $line[$colonne];
-                                        $ue->last_version = FALSE;
+                                        $ue->last_version = TRUE;
                                         $factoryUe->insert($ue);
                                         ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
                                         $semestre_ue = jDao::createRecord('formations~semestre_ue');
@@ -112,18 +112,23 @@ class NotePv{
                                         
                                     // on enregistre en fonction de la colonne l'id_ue
                                         $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
-                                   // }
+                                    }
                                     // si l'ue existe deja
-                                    //else{
-                                    //    jLog::log("semstre double detecté");
-                                    //    $ue = jDao::get('ue~ue')->get($line[$colonne]);
-                                    //    jLog::dump($liste_ue);
-                                    //    $liste_ue[$colonne]["id_ue"] = $ue->id_ue;
-                                    //}
+                                    else{
+                                        jLog::log("semstre double detecté");
+                                        $ue = jDao::get('ue~ue')->getByCode($line[$colonne]);
+                                        jLog::log("entrer dans foreach");
+                                        foreach($ue as $row){
+                                            jLog::dump($liste_ue);
+                                        $liste_ue[$colonne]["id_ue"] = $row->id_ue;
+                                        }
+                                        jLog::log("sortie");
+                                        
+                                    }
                                 }
                             }
                             else{
-                            $liste_ue[$colonne]["id_ue"] = $liste_ue[$colonne-1]["id_ue"];
+                                $liste_ue[$colonne]["id_ue"] = $liste_ue[$colonne-1]["id_ue"];
                             }
                         }
                         //sinon l'ue est deja cree et elle estl a mm que dans la case precedente

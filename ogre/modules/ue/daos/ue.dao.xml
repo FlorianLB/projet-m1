@@ -31,5 +31,12 @@
                 <eq property="last_version" value="1" />
             </conditions>
         </method>
+        
+        <method name="getByCode" type="select">
+            <parameter name="code_ue" />
+            <conditions>
+                <eq property="code_ue" expr="$code_ue" />
+            </conditions>
+        </method>
     </factory>
 </dao>
