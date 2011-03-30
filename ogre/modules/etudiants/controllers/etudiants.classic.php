@@ -37,6 +37,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
    
     public function _index($resp, $tpl){
         $resp->setTitle('Liste des etudiants');
+	$form->deactivate('formation',TRUE);
     }
    
     public function _view($form, $resp, $tpl){
@@ -52,16 +53,18 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	    $formation = $factoryformation->get($semestre->id_formation);
 	    $formationarray[$formation->id_formation] = $formation;
 	}	    
-	
+	$form->deactivate('formation');
 	$tpl->assign('formations', $formationarray);
     }
    
     public function _create($form, $resp, $tpl){
         $resp->setTitle('Créer un nouvel etudiant');
+	$form->deactivate('formation',FALSE);
     }
    
     public function _editUpdate($form, $resp, $tpl){
        $resp->setTitle('Modifier un etudiant');
+       $form->deactivate('formation',FALSE);
     }  
     /**
      * Suppresion des elements dependants de etudiants
