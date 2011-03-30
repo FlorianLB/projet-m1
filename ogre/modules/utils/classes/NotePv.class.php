@@ -115,14 +115,14 @@ class NotePv{
                                     }
                                     // si l'ue existe deja
                                     else{
-                                        jLog::log("semstre double detecté");
+                                     //   jLog::log("semstre double detecté");
                                         $ue = jDao::get('ue~ue')->getByCode($line[$colonne]);
-                                        jLog::log("entrer dans foreach");
+                                    //    jLog::log("entrer dans foreach");
                                         foreach($ue as $row){
-                                            jLog::dump($liste_ue);
+                                     //       jLog::dump($liste_ue);
                                         $liste_ue[$colonne]["id_ue"] = $row->id_ue;
                                         }
-                                        jLog::log("sortie");
+                                        //jLog::log("sortie");
                                         
                                     }
                                 }
