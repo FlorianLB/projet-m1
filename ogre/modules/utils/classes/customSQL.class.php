@@ -45,4 +45,26 @@ class customSQL{
             return true;
     }
     
+    
+    /**
+     * Renvoit la liste des etudiants inscrit pour une epreuve et leur note si ils en ont deja une
+     */
+    public static function findEtudiantsNoteByEpreuveSemestre($id_epreuve, $id_semestre){
+        $cnx = jDb::getConnection();
+        
+        //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
+        
+        $sql = 'SELECT e.num_etudiant, e.nom, e.nom_usuel, e.prenom, n.valeur FROM
+                    etudiants_semestre es
+                    INNER JOIN etudiants e
+                        ON e.num_etudiant = es.num_etudiant
+                    LEFT OUTER JOIN (SELECT * FROM note tmp WHERE tmp.id_epreuve='.$cnx->quote($id_epreuve).' AND id_semestre = '.$cnx->quote($id_semestre).') n
+                        ON n.num_etudiant = e.num_etudiant';
+
+        
+        $sql .= ' WHERE es.id_semestre = '.$cnx->quote($id_semestre);
+        
+        return $cnx->query($sql);
+    }
+    
 }

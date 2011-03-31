@@ -48,6 +48,7 @@ class saisie_epreuveCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('form', $form);
         $tpl->assign('id_formation', $formation->id_formation);
+        $tpl->assign('id_semestre', $semestre->id_semestre);
         $tpl->assign('submitAction', 'ue~saisie_epreuve:saisie');
         
         $rep->setTitle('Saisie de notes pour '.$formation->code_formation." ".$formation->annee.' - étape 2/2');
@@ -63,14 +64,17 @@ class saisie_epreuveCtrl extends jController {
         $rep = $this->getResponse('html');
         
         $id_formation = $this->param('id_formation');
+        $id_semestre = $this->param('id_semestre');
         $form = jForms::fill('ue~intro2_saisie_epreuve');
         
         $id_epreuve = $form->getData('epreuve');
         
         $data = array();
         
+        
+        jClasses::inc('utils~customSQL');
         // TODO : la requete actuelle ne chope que les etudiant ayant une note, il faut en faire une qui choppe tout ceux inscrit dans l'UE
-        foreach( jDao::get('ue~etudiant_note')->getByEpreuve($id_epreuve) as $item ) {
+        foreach( customSQL::findEtudiantsNoteByEpreuveSemestre($id_epreuve, $id_semestre) as $item ) {
             $d = array();
             $d['etudiant']['num'] = $item->num_etudiant;
             $d['etudiant']['nom'] = ($item->nom_usuel != '') ? $item->nom_usuel : $item->nom;
