@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
-
+<!--
     <hidden ref="id_semestre">
         <label>id_semestre</label>
     </hidden>
-    
+    -->
     <menulist ref="ue" required="true">
         <label>UE</label>
-        <datasource dao="formations~ue_semestre_ue" method="getBySemestre" labelproperty="code_ue" valueproperty="id_ue" criteriafrom="id_semestre"/>
+      <!--<datasource dao="formations~ue_semestre_ue" method="getBySemestre" labelproperty="code_ue" valueproperty="id_ue" criteriafrom="id_semestre"/>-->
     </menulist>
 
     <menulist ref="epreuve" required="true">
