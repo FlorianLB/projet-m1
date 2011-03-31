@@ -43,7 +43,27 @@ class NotePv{
             while (($line = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
                 $compteur = $compteur+1;
                 //si on est a la premiere ligne on lit la formation ainsi que l'année
-                if($compteur == 1){
+                switch($compteur){
+                    case 3 : $colonne=0;
+                        while($line[$colonne] != $arret){
+                            
+                            jLog::dump($colonne);
+                            //initialisation du tableau
+                            $liste_ue[$colonne]["id_ue"] = -1;
+                            $liste_ue[$colonne]["epreuve"] = -1;
+    
+                            // on recherche la colonne de changement de semestre
+                           if($line[$colonne] == $semestre_suivant){
+                                    $colonne_semestre = $colonne+1;
+                            }
+                            $colonne++;
+                        }
+                        $colonne_arret = $colonne-1;
+                    break;
+                    //choix 2 inutile pour le moment
+                    case 2 : break;
+                    
+                    case 1 :
                     
                     //on cree la formation case 0
                     //de cette année
@@ -66,27 +86,28 @@ class NotePv{
                     $factorySemestre = jDao::get('formations~semestre');
                     $factorySemestre->insert($semestre1);
                     $factorySemestre->insert($semestre2);
-                }
                 
+                break;
+            
                 //si on est su la ligne 4 on lit les ues
-                elseif($compteur == 4){
+                case 4 :
                     //on cree un tableau pour chaque case contenant une UE
                     $colonne = 0;
                     //boucle sur les colonne du fichier
-                    while($line[$colonne] != $arret){
-                        //initialisation du tableau
-                        $liste_ue[$colonne]["id_ue"] = -1;
-                        $liste_ue[$colonne]["epreuve"] = -1;
-
-                        //si les ue font partie du deuxieme semestre
-                       if($line[$colonne] == $semestre_suivant){
-                                $colonne_semestre = $colonne+1;
-                        }
+                    while($colonne < $colonne_arret){
+                       // //initialisation du tableau
+                       // $liste_ue[$colonne]["id_ue"] = -1;
+                       // $liste_ue[$colonne]["epreuve"] = -1;
+                       //
+                       // //si les ue font partie du deuxieme semestre
+                       //if($line[$colonne] == $semestre_suivant){
+                       //         $colonne_semestre = $colonne+1;
+                       // }
                         //si l'ue n'est pas deja cree on la cree
                         if($colonne > 0){
                             if($line[$colonne] != $line[$colonne-1]){                            
                                 //si le code est different du separateur de semestre et non null
-                                if($line[$colonne] != $semestre_suivant && $line[$colonne] != ""){
+                                if(/*$line[$colonne] != $semestre_suivant &&*/ $line[$colonne] != ""){
                                    
                                    //TODO verif ue existe deja
                                     if( !customSQL::ueExisteDeja($line[$colonne])){
@@ -99,12 +120,15 @@ class NotePv{
                                         $factoryUe->insert($ue);
                                         ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
                                         $semestre_ue = jDao::createRecord('formations~semestre_ue');
-                                        
+                                        jLog::log("premier");
+                                        jLog::dump($colonne_semestre);
                                         if($colonne < $colonne_semestre){
                                             $semestre_ue->id_semestre = $semestre1->id_semestre;
+                                            jLog::log("ue s1");
                                         }
                                         else{
                                             $semestre_ue->id_semestre = $semestre2->id_semestre;
+                                            jLog::log("ue s2");
                                         }
                                         $semestre_ue->id_ue = $ue->id_ue;
                                         $semestre_ue->optionelle = FAlSE;
@@ -128,6 +152,8 @@ class NotePv{
                                 }
                             }
                             else{
+                                jLog::log("colonne erreure");
+                                jLog::dump($colonne);
                                 $liste_ue[$colonne]["id_ue"] = $liste_ue[$colonne-1]["id_ue"];
                             }
                         }
@@ -136,13 +162,14 @@ class NotePv{
                         
                         $colonne++;
                     }
-                    $colonne_arret = $colonne;
-                }
-                 elseif($compteur == 5){
+                    
+                break;
+                
+                case 5 :
                     
                     $colonne = 0;
                     //boucle sur les colonne du fichier
-                    while($colonne < $colonne_arret-1){
+                    while($colonne < $colonne_arret){
 
                         if($colonne > 7 && ($liste_ue[$colonne]["id_ue"]) != -1){
                             //creation des epreuves
@@ -157,9 +184,9 @@ class NotePv{
                         }
                         $colonne++;
                     }
-                }
+                break;
                 
-                elseif($compteur > 5){
+                default :
                    // jLog::log("compteur = 5");
                     if($line[2] != ""){
                     //si l'etudiant n'existe pas on le cree
@@ -222,9 +249,6 @@ class NotePv{
                         }
                     }
                 }
-                //sinon on fai rien
-                //pour ligne 2 3
-                else;
             }
             fclose($handle);
         }
