@@ -53,12 +53,15 @@ class ueCtrl extends jControllerDaoCrud {
         
               
        }
-	
+	jMessage::add("La creation a reussie !");
     }
  
  
     protected function _index($resp, $tpl){
+	
         $resp->setTitle('Liste des UEs');
+         
+
     }
     
     protected function _view($form, $resp, $tpl){
@@ -92,7 +95,8 @@ class ueCtrl extends jControllerDaoCrud {
         
         $factoryepreuve->deleteByUe($id);
         $factorysemestre_ue->deleteByUe($id);
-        
+        jMessage::add("La suppression a reussie !");
+
         return true;
     }
  
