@@ -14,7 +14,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`etudiants` (
   `prenom` VARCHAR(50) NULL ,
   `date_naissance` DATE NULL ,
   `nom_usuel` VARCHAR(50) NULL ,
-  `sexe` ENUM('F', 'M') NOT NULL ,
+  `sexe` ENUM('F', 'M', '?') NOT NULL ,
   PRIMARY KEY (`num_etudiant`) )
 ENGINE = InnoDB;
 
@@ -40,7 +40,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
   `code_ue` VARCHAR(15) NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `credits` TINYINT NOT NULL ,
-  `libelle` VARCHAR(30) NOT NULL ,
+  `libelle` VARCHAR(30) NULL ,
   `last_version` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_ue`) ,
   INDEX `INDEX_code` (`code_ue` ASC) )
@@ -153,6 +153,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`etudiants_semestre` (
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `statut` CHAR(3) NOT NULL ,
+  `options` VARCHAR(40) NULL ,
   PRIMARY KEY (`num_etudiant`, `id_semestre`) ,
   INDEX `fk_etudiants_has_semestre_etudiants1` (`num_etudiant` ASC) ,
   INDEX `fk_etudiants_has_semestre_semestre1` (`id_semestre` ASC) ,

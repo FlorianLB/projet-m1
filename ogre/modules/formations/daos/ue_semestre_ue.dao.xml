@@ -14,7 +14,7 @@
         <property table="ue" name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
         <property table="ue" name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property table="ue" name="credits" fieldname="credits" datatype="tinyint" required="true"/>
-        <property table="ue" name="libelle" fieldname="libelle" datatype="varchar" required="true" maxlength="30"/>
+        <property table="ue" name="libelle" fieldname="libelle" datatype="varchar" maxlength="30"/>
         <property table="ue"  name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
 
     </record>
