@@ -2,6 +2,7 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="note" realname="note" primarykey="id_note" />
+        <foreigntable name="e" realname="etudiants" primarykey="num_etudiant" onforeignkey="num_etudiant"/>
     </datasources>
     <record>
         
@@ -11,6 +12,13 @@
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property name="valeur" fieldname="valeur" datatype="decimal" required="true"/>
 
+        <property table="e" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property table="e" name="nom" fieldname="nom" datatype="varchar" required="true" maxlength="50"/>
+        <property table="e" name="prenom" fieldname="prenom" datatype="varchar" default="" maxlength="50"/>
+        <property table="e" name="date_naissance" fieldname="date_naissance" datatype="date" default=""/>
+        <property table="e" name="nom_usuel" fieldname="nom_usuel" datatype="varchar" default="" maxlength="50"/>
+        <property table="e" name="sexe" fieldname="sexe" datatype="enum" required="true"/>
+        
     </record>
     <factory>
         
@@ -18,27 +26,6 @@
             <parameter name="id_epreuve" />
             <conditions>
                 <eq property="id_epreuve" expr="$id_epreuve" />
-            </conditions>
-        </method>
-        
-        <method name="deleteByEpreuve" type="delete">
-            <parameter name="id_epreuve" />
-            <conditions>
-                <eq property="id_epreuve" expr="$id_epreuve" />
-            </conditions>
-        </method>
-        
-        <method name="deleteBySemestre" type="delete">
-            <parameter name="id_semestre" />
-            <conditions>
-                <eq property="id_semestre" expr="$id_semestre" />
-            </conditions>
-        </method>
-        
-        <method name="deleteByEtudiant" type="delete">
-            <parameter name="num_etudiant" />
-            <conditions>
-                <eq property="num_etudiant" expr="$num_etudiant" />
             </conditions>
         </method>
 

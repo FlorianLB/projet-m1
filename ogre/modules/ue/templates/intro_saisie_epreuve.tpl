@@ -2,11 +2,7 @@
     {formfull $form, $submitAction}
 {/if}
 
-{if isset($intro2)}
-    <p><a href="{jurl 'ue~saisie_epreuve:intro'}" class="button icon back"><span>Retourner au choix de la formation</span></a></p>
-{/if}
 
-{if isset($intro1)}
 
 <script type="text/javascript">{literal}
 (function(){
@@ -22,4 +18,3 @@ $(document).ready(function (){
 });
 {/literal}
 </script>
-{/if}
