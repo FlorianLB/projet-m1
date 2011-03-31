@@ -92,7 +92,8 @@ class ueCtrl extends jControllerDaoCrud {
         
         $factoryepreuve->deleteByUe($id);
         $factorysemestre_ue->deleteByUe($id);
-        
+        jMessage::add("La suppression a reussie !");
+
         return true;
     }
  
