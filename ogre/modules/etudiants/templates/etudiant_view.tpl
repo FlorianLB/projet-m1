@@ -1,13 +1,20 @@
 {formdatafull $form}
 
 <p>Formation : </p>
-<ul class="semestre">
-    {foreach $formations as $formation}
-        <li>
-            {$formation->code_formation}
-            {if $formation->libelle != ''} : {$formation->libelle} {/if}
+<ul>
+{foreach $formations as $formation}
+    <li>{$formation->code_formation}
+    {if $formation->libelle != ''} : {$formation->libelle} {/if}
+        <ul class="semestre">
+            {foreach $semestres as $semestre}
+                <li>
+                    {if $formation->id_formation == $semestre->id_formation }Semestre {$semestre->num_semestre}{/if}
+                </li>
+            {/foreach}
+        </ul>
+        <a href="{jurl 'etudiants~etudiants:etu_semestres',  array('id'=>$id, 'id_formation'=>$formation->id_formation )}" class="button icon options"><span>Définir les semestres</span></a>
         </li>
-    {/foreach}
+{/foreach}
 </ul>
 
 <p>
