@@ -9,8 +9,10 @@
             </li>
             {foreach $ueoption as $ue }
                 <ul class="semestre">
+                    {if $ue['sem']==$semestre['id']}
                     <li><label for="{$ue['id']}">{$ue['label']}</label>
                     <input id="{$ue['id']}" type="checkbox" value="{$ue['id']}" name="ues[]" {if $ue['checked']}checked="checked"{/if}/></li>
+                    {/if}
                 </ul>
             {/foreach}
         {/foreach}

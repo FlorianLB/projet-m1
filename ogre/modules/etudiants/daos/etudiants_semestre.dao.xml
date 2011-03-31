@@ -7,12 +7,13 @@
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="statut" fieldname="statut" datatype="char" required="true"/>
+        <property name="options" fieldname="options" datatype="varchar"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-        <method name="deleteByEtudiants" type="delete">
+        <method name="deleteByEtudiant" type="delete">
                 <parameter name="num_etudiant" />
                 <conditions>
                     <eq property="num_etudiant" expr="$num_etudiant" />
@@ -23,6 +24,18 @@
             <conditions>
                 <eq property="id_semestre" expr="$id_semestre" />
             </conditions>
+        </method>
+        <method name="updateOption" type="update">
+                <parameter name="num_etudiant"/>
+                <parameter name="id_semestre"/>
+                <parameter name="options"/>
+                <values>
+                    <value property="options" expr="$options" />
+                </values>
+                <conditions logic="AND">
+                    <eq property="id_semestre" expr="$id_semestre" />
+                    <eq property="num_etudiant" expr="$num_etudiant" />
+                </conditions>
         </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />

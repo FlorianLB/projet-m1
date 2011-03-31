@@ -23,12 +23,13 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	$ueoption = array();
 	
 	$factorysemestre = jDao::get('formations~semestre');
-	$factorysemestre_etudiant = jDao::get('etudiants~etudiants_semestre');//selectByEtuAndSem
+	$factorysemestre_etudiant = jDao::get('etudiants~etudiants_semestre');
 	
 	foreach( $factorysemestre->getByFormation($id_formation) as $sem){
+	    $etu_sem = $factorysemestre_etudiant->get($id,$sem->id_semestre);
 	    $semestrearray[$sem->id_semestre]['id'] = $sem->id_semestre;
             $semestrearray[$sem->id_semestre]['label'] = "Semestre ".$sem->num_semestre;
-	    if($factorysemestre_etudiant->get($id,$sem->id_semestre) != null)
+	    if($etu_sem != null)
 		$semestrearray[$sem->id_semestre]['checked'] = true;
 	    else
 		$semestrearray[$sem->id_semestre]['checked'] = false;
@@ -38,8 +39,14 @@ class etudiantsCtrl extends jControllerDaoCrud {
 		    $libelle = ($ue->libelle != '') ? ' : ' .$ue->libelle : '';
 		    $ueoption[$ue->id_ue]['id'] = $ue->id_ue;
 		    $ueoption[$ue->id_ue]['label'] = $ue->code_ue . $libelle;
-		    //TODO Check si l'etudiant fais deja partie de cette option a changer en BD
-		    $ueoption[$ue->id_ue]['checked'] = false;
+		    //Check si l'etudiant fais deja partie de cette option
+		    $ueoption[$ue->id_ue]['sem'] = $sem->id_semestre;
+		    if(strstr($etu_sem->options,$ue->code_ue) != FALSE){
+			$ueoption[$ue->id_ue]['checked'] = true;
+		    }
+		    else{
+			$ueoption[$ue->id_ue]['checked'] = false;
+		    }
 		}
 	    }
         }
@@ -61,22 +68,26 @@ class etudiantsCtrl extends jControllerDaoCrud {
     public function save_semestre_ue(){
 	$id = $this->param('id', 0);
 	$factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre');
-	//TODO Verifier si suppression necessaire
-	//$factoryetudiant_semestre->deleteByEtudiants($id);
+	$factoryue_semestre_ue = jDao::get('formations~ue_semestre_ue');
+	$option ="";
+	//TODO Verifier si suppression necessaire risque de perte d'information
+	//$factoryetudiant_semestre->deleteByEtudiant($id);
 
-/*
+
  
-    Rajouts de l'etudiant au semestre et de ses option pour le semestre besoin de la modif de la BD
+//    Rajouts de l'etudiant au semestre(PAS FAIS a voir) et de ses option pour le semestre
     
-        foreach($this->param('semestres', array()) as $semestre){
+        foreach($this->param('semestres', array()) as $semestre){	    
+	    foreach($this->param('ues', array()) as $ue){
+		$uerecord = $factoryue_semestre_ue->get($ue,$semestre);
+		if($uerecord != null){
+		    $option = $option . $uerecord->code_ue . ",";
+		}
+	    }
+		$factoryetudiant_semestre->updateOption($id,$semestre,$option);
+		$option ="";
             
         }
-	
-	foreach($this->param('ues', array()) as $ue){
-            
-        }
-*/
-        
 	
         jMessage::add('UEs optionelles définies !', 'confirm');
         
@@ -110,10 +121,13 @@ class etudiantsCtrl extends jControllerDaoCrud {
     }
     
     protected function _afterUpdate($form, $id, $resp){
-	//TODO A modifier si le status du semestre est different de "NOK"
+	
 	$semestre = jDao::get('formations~semestre');
 	$factory = jDao::get('etudiants~etudiants_semestre');
-	$factory->deleteByEtudiants($id);
+	
+	//TODO A modifier si le status du semestre est different de "NOK" risque de perte d'info
+	$factory->deleteByEtudiant($id);
+	
 	// On recupere les formations selectionné
 	foreach ($form->getData('formations') as $row1) {
 	// On recupere les semestres de la formation
@@ -141,6 +155,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	$factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre_semestre');
 	$formationarray = array();
 	$semestresarray = array();
+	$optionsarray = array();
 	
 	$liste_semestre = $factoryetudiant_semestre->getByEtudiantNum($this->param('id',0));
 	
@@ -148,7 +163,8 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	    $formation = $factoryformation->get($semestre->id_formation);
 	    $formationarray[$formation->id_formation] = $formation;
 	    $semestresarray[$semestre->id_semestre] = $semestre;
-	}	    
+	}
+	
 	$form->deactivate('formations');
 	$tpl->assign('formations', $formationarray);
 	$tpl->assign('semestres', $semestresarray);
@@ -181,8 +197,8 @@ class etudiantsCtrl extends jControllerDaoCrud {
      * Suppresion des elements dependants de etudiants
      */
     protected function _delete($id, $resp) {
-        jDao::get('etudiants~etudiants_semestre')->deleteByEtudiants($id);
-	jDao::get('ue~note')->deleteByEtudiants($id);
+        jDao::get('etudiants~etudiants_semestre')->deleteByEtudiant($id);
+	jDao::get('ue~note')->deleteByEtudiant($id);
         return true;
     }
     
