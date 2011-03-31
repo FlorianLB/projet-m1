@@ -140,6 +140,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 		$etudiant_semestre1->id_semestre = $row->id_semestre;
 		$etudiant_semestre1->statut = 'NOK';
 		$factory->insert($etudiant_semestre1);
+		jMessage::add("Modification  reussie !");
 	    }
 	}
     }
@@ -189,7 +190,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	    $formation = $factoryformation->get($semestre->id_formation);
 	    $formationarray[] = $formation->id_formation;
 	}	    
-
+         
 	$form->setData('formations',$formationarray);
        
     }  
