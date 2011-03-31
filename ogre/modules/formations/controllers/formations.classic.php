@@ -81,7 +81,7 @@ class formationsCtrl extends jControllerDaoCrud {
         }
         
         $factorysemestre->deleteByFormation($id);
-        
+        jMessage::add('La suppression a reussie !');
         return true;
     }
     
