@@ -167,10 +167,10 @@ class NotePv{
                            // jLog::log("creation d'etudiants ->");
                             $etudiant = jDao::createRecord('etudiants~etudiants');
                             $etudiant->num_etudiant = $line[2];
-                            $etudiant->nom = $line[0];
-                            $etudiant->prenom = $line[1];
+                            $etudiant->nom = ucfirst(strtolower($line[0]));
+                            $etudiant->prenom = ucfirst(strtolower($line[1]));
                             //TODO aucune info sur le sexe ... il faut le metre en non require
-                            $etudiant->sexe = "M";
+                            $etudiant->sexe = "?";
                             $factoryEtudiant->insert($etudiant);
                         }
                         else{
