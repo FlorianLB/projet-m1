@@ -95,7 +95,12 @@ class saisie_epreuveCtrl extends jController {
     }
     
     function save_saisie(){
+        $rep = $this->getResponse('html');
         
+        $content = '<pre>'.var_export($this->param('note'), true).'</pre>';
+        
+        $rep->body->assign('MAIN', $content);
+        return $rep;
     }
     
     
