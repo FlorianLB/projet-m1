@@ -24,5 +24,5 @@
 
 
 <p>
-    <a href="{jurl 'etudiants~etudiants:view', array('id' => $id)}" class="button icon back"><span>Retourner à la l'étudiant</span></a>
+    <a href="{jurl 'etudiants~etudiants:view', array('id' => $id)}" class="button icon back"><span>Retourner Ã  l'Ã©tudiant</span></a>
 </p>

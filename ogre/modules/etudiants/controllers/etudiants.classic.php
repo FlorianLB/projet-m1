@@ -203,4 +203,16 @@ class etudiantsCtrl extends jControllerDaoCrud {
         return true;
     }
     
+    public function recherche() {
+       
+        $form = jForms::fill('etudiants~recherche');
+	
+	$num_etudiant = $form->getData('num_etudiant');
+	
+	$rep = $this->getResponse('redirect');
+    	$rep->action = 'etudiants~etudiants:view';
+	$rep->params = array('id'=>$num_etudiant);
+	
+	return $rep;
+    }
 }

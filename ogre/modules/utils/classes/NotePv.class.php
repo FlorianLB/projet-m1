@@ -6,7 +6,7 @@ class NotePv{
     
     public $fichier;
     
-    //Tableau comprenant toutes les formations gérées par le secretariat
+    //Tableau comprenant toutes les formations gÃ©rÃ©es par le secretariat
     public $formations = array();
     
     
@@ -42,7 +42,7 @@ class NotePv{
             //boucle sur les lignes du fichier
             while (($line = fgetcsv($handle, 0, $delimiter)) !== FALSE) {
                 $compteur = $compteur+1;
-                //si on est a la premiere ligne on lit la formation ainsi que l'année
+                //si on est a la premiere ligne on lit la formation ainsi que l'annÃ©e
                 switch($compteur){
                     case 3 : $colonne=0;
                         while($line[$colonne] != $arret){
@@ -64,7 +64,7 @@ class NotePv{
                     case 1 :
                     
                     //on cree la formation case 0
-                    //de cette année
+                    //de cette annÃ©e
                     //TODO ?la verif est elle importante ??????????
                     $formation = jDao::createRecord('formations~formation');
                     $formation->code_formation = $line[0];
@@ -75,12 +75,12 @@ class NotePv{
                     $semestre1->id_formation = $formation->id_formation;
                     $semestre1->num_semestre = 1;
                     
-                    //On créer le 2eme
+                    //On crÃ©er le 2eme
                     $semestre2 = jDao::createRecord('formations~semestre');
                     $semestre2->id_formation = $formation->id_formation;
                     $semestre2->num_semestre = 2;
                     
-                    // On insère via la factory DAO
+                    // On insÃ¨re via la factory DAO
                     $factorySemestre = jDao::get('formations~semestre');
                     $factorySemestre->insert($semestre1);
                     $factorySemestre->insert($semestre2);
@@ -97,7 +97,7 @@ class NotePv{
                         if($line[$colonne] != $line[$colonne-1]){                            
                             //si le code est different du separateur de semestre et non null
                             //TODO voir le pretraitement si on zape ou pas la colonne
-                            // si on cree une colone special changment de semestre  decomenté en dessous
+                            // si on cree une colone special changment de semestre  decomentÃ© en dessous
                             if(/*$line[$colonne] != $semestre_suivant &&*/ $line[$colonne] != ""){
                                // verif ue existe deja
                                 if( !customSQL::ueExisteDeja($line[$colonne])){
@@ -170,8 +170,8 @@ class NotePv{
                         if(!customSQL::etudiantsExisteDeja($line[2])){
                             $etudiant = jDao::createRecord('etudiants~etudiants');
                             $etudiant->num_etudiant = $line[2];
-                            $etudiant->nom = ucfirst(strtolower($line[0]));
-                            $etudiant->prenom = ucfirst(strtolower($line[1]));
+                            $etudiant->nom = utf8_encode(strtoupper($line[0]));
+                            $etudiant->prenom = utf8_encode(ucfirst(strtolower($line[1])));
                             $etudiant->sexe = "?";
                             $factoryEtudiant->insert($etudiant);
                         }
