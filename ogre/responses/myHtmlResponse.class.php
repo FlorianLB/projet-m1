@@ -28,7 +28,7 @@ class myHtmlResponse extends jResponseHtmlLess {
         
        $this->addCSSLink($themePath.'css/base.css');
        $this->addCSSLink($themePath.'css/form.css');
-       $this->addCssLinkLess($themePath.'css/style.less');
+       $this->addCSSLinkLess($themePath.'css/style.less');
        $this->addCSSLink($themePath.'css/flubar.css');
     }
 

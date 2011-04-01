@@ -33,9 +33,11 @@ class defaultCtrl extends jController {
             </ul>
         ';
 	
+	$content.='<div class="widget-container">';
 	$content.= jZone::get('etudiants~recherche');
+        $content.='</div>';
         
-        $rep->body->assign('MAIN', $content);
+	$rep->body->assign('MAIN', $content);
 
 
         return $rep;

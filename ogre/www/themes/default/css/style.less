@@ -116,7 +116,7 @@
 }
 
 
-#main .header{
+#main .header,.header{
     background:url({@img}gray-grad.png) repeat-x #DFDFDF;
     text-shadow:0 1px 0 #FFFFFF;
     color:#464646;
@@ -359,4 +359,31 @@ form{
         }
     }
     
+}
+
+.widget-container{
+  overflow:hidden;
+
+}
+
+.widget{
+  width:49%;
+  margin-right:1%;
+  float:left;
+  
+  h2{
+    .header;
+    -moz-border-radius: 5px 5px 0 0;
+    font-size:1.2em;
+    margin-bottom:0;
+  }
+  
+  .content{
+    padding:5px 10px;
+      border:1px solid #DFDFDF;
+      border-top:0;
+      -moz-border-radius: 0 0 5px 5px;
+      
+  }
+
 }
