@@ -23,6 +23,7 @@ class NotePv{
         
         $liste_ue = array(array());
         $compteur = 0;
+        $nbajout = 0;
         // colonne qui definit le changement de semestre
         $colonne_semestre = 0;
         //colonne qui definit la fin de lecture
@@ -105,7 +106,7 @@ class NotePv{
                                     $ue->code_ue = $line[$colonne];
                                     $ue->credits = 1;
                                     $ue->coeff = 1;
-                                    $ue->libelle = $line[$colonne];
+                                    //$ue->libelle = $line[$colonne];
                                     $ue->last_version = TRUE;
                                     $factoryUe->insert($ue);
                                     ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
@@ -216,6 +217,7 @@ class NotePv{
                                 // on remplace la virgule par un point et on converti en float
                                 $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
                                 $factoryNote->insert($note);
+                                $nbajout++;
                             }
                             $colonne++;
                         }
@@ -224,5 +226,6 @@ class NotePv{
             }
             fclose($handle);
         }
+        return $nbajout;
     }   
 }

@@ -49,9 +49,9 @@ class importCtrl extends jController {
         
 
         $csvParser = new NotePv($name);
-        $etudiants = $csvParser->parse();
+        $nbAjout = $csvParser->parse();
 
-        Logger::log('import_pv', $name,999);
+        Logger::log('import_pv', $name,$nbAjout);
 
         jMessage::add("L'importation a reussie !");
 

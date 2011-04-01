@@ -26,7 +26,12 @@ class Logger {
                 $message = self::_importApogee($param1, $param2);
                 $file = 'import';
             break;
-        
+       
+            case 'import_pv' :
+                $message = self::_importPv($param1, $param2);
+                $file = 'import';
+            break;
+            
             case 'creation_formation' :
                 $message = self::_creationFormation($param1, $param2);
                 $file = 'creation';
@@ -52,6 +57,14 @@ class Logger {
         
         error_log( date("d/m/Y H:i:s") . ' -- ' . $message ."\n", 3, $sel->getPath());
         
+    }
+    
+        /**
+     * @param string $filename Le fichier qui a été importé
+     * @param int $nb_insertion Le nombre d'insertion effectuée
+     */
+    private static function _importPv($filename, $nb_insertion){
+        return self::_getUser().' a importé "'.$filename.'" ('.$nb_insertion." insertions de note)";
     }
     
     /**
