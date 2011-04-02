@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="note" realname="note" primarykey="id_note" />
+        <primarytable name="note" realname="note" primarykey="id_epreuve, num_etudiant, id_semestre" />
     </datasources>
     <record>
-        
-        <property name="id_note" fieldname="id_note" datatype="int" autoincrement="true"/>
+
         <property name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
-        <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="valeur" fieldname="valeur" datatype="decimal" required="true"/>
 
     </record>

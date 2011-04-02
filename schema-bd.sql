@@ -109,15 +109,14 @@ ENGINE = InnoDB;
 -- Table `ogre`.`note`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`note` (
-  `id_note` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `id_epreuve` MEDIUMINT UNSIGNED NOT NULL ,
-  `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
+  `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `valeur` DECIMAL(4,2) NOT NULL ,
-  PRIMARY KEY (`id_note`) ,
   INDEX `fk_note_epreuve1` (`id_epreuve` ASC) ,
   INDEX `fk_note_semestre1` (`id_semestre` ASC) ,
   INDEX `fk_note_etudiants1` (`num_etudiant` ASC) ,
+  PRIMARY KEY (`id_epreuve`, `id_semestre`, `num_etudiant`) ,
   CONSTRAINT `fk_note_epreuve1`
     FOREIGN KEY (`id_epreuve` )
     REFERENCES `ogre`.`epreuve` (`id_epreuve` )
