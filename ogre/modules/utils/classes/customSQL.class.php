@@ -58,7 +58,7 @@ class customSQL{
                     etudiants_semestre es
                     INNER JOIN etudiants e
                         ON e.num_etudiant = es.num_etudiant
-                    LEFT OUTER JOIN (SELECT * FROM note tmp WHERE tmp.id_epreuve='.$cnx->quote($id_epreuve).' AND id_semestre = '.$cnx->quote($id_semestre).') n
+                    LEFT OUTER JOIN (SELECT * FROM note tmp WHERE tmp.id_epreuve='.$cnx->quote($id_epreuve).' AND tmp.id_semestre = '.$cnx->quote($id_semestre).') n
                         ON n.num_etudiant = e.num_etudiant';
 
         

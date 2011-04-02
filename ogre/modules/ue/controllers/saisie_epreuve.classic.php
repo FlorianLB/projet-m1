@@ -10,6 +10,8 @@
 
 class saisie_epreuveCtrl extends jController {
 
+    private static $VALUE_ABS = -1;
+
 
     function intro() {
         $rep = $this->getResponse('html');
@@ -63,11 +65,17 @@ class saisie_epreuveCtrl extends jController {
     function saisie(){
         $rep = $this->getResponse('html');
         
-        $id_formation = $this->param('id_formation');
+        //$id_formation = $this->param('id_formation');
         $id_semestre = $this->param('id_semestre');
-        $form = jForms::fill('ue~intro2_saisie_epreuve');
         
-        $id_epreuve = $form->getData('epreuve');
+        if($this->param('id_epreuve') != null) {
+            $id_epreuve = $this->param('id_epreuve');
+        }
+        else {
+            $form = jForms::fill('ue~intro2_saisie_epreuve');
+            $id_epreuve = $form->getData('epreuve');
+        }
+        
         
         $data = array();
         
@@ -87,19 +95,61 @@ class saisie_epreuveCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('submitAction', 'ue~saisie_epreuve:save_saisie');
         $tpl->assign('data', $data);
+        $tpl->assign('id_epreuve', $id_epreuve);
+        $tpl->assign('id_semestre', $id_semestre);
         
-        $rep->setTitle('Saisie de notes pour '.$id_formation);
+        
+        $rep->setTitle('Saisie de notes pour ');
         
         $rep->body->assign('MAIN', $tpl->fetch('ue~saisie_epreuve'));
         return $rep;
     }
     
     function save_saisie(){
-        $rep = $this->getResponse('html');
+        $rep = $this->getResponse('redirect');
         
-        $content = '<pre>'.var_export($this->param('note'), true).'</pre>';
+        $id_epreuve = $this->param('id_epreuve');
+        $id_semestre = $this->param('id_semestre');
+        $notes = $this->param('note');
         
-        $rep->body->assign('MAIN', $content);
+        $factory = jDao::get('ue~note');
+        foreach($notes as $num_etu => $note){
+            if( $note == ''){
+                $factory->delete($id_epreuve, $num_etu, $id_semestre);
+               continue;
+            }
+
+            if( strcasecmp($note, 'ABS') == 0 ) {
+                $valeur = self::$VALUE_ABS;
+            }
+            else if( floatval($note) >= 0 && floatval($note) <= 20) {
+                $valeur = $note;
+            }
+            else
+                continue;
+            
+            $old_note = $factory->get($id_epreuve, $num_etu, $id_semestre);
+            
+            // Si il n'y a pas encore de note
+            if( !$old_note) {
+                $record = jDao::createRecord('ue~note');
+                $record->id_epreuve =  $id_epreuve;
+                $record->id_semestre = $id_semestre;
+                $record->num_etudiant = $num_etu;
+                $record->valeur = $valeur;
+                $factory->insert($record);
+            }
+            //MAJ de la note
+            else{
+                $old_note->valeur = $valeur;
+                $factory->update($old_note);
+            }
+        }
+        
+        jMessage::add('Notes enregistrées !', 'confirm');
+        
+        $rep->action = 'ue~saisie_epreuve:saisie';
+        $rep->params = array('id_epreuve' =>$id_epreuve, 'id_semestre' => $id_semestre, );
         return $rep;
     }
     
