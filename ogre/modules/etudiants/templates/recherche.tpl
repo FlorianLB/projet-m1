@@ -4,11 +4,9 @@
     <div class="content">
         {form $form, $submitAction}
         
-           {formcontrols}
-              <p> {ctrl_label} : {ctrl_control} </p>
-           {/formcontrols}
-        
-          <p> {formsubmit} </p>
+              <div> {ctrl_label 'num_etudiant'} : {ctrl_control 'num_etudiant'} <span class="spacer-left">{formsubmit}</span> </div>
+     
+             
      
         {/form}
     </div>

@@ -301,6 +301,9 @@ form { margin-bottom:15px; }
   padding:0;
 }
 .widget-container { overflow:hidden; }
+.widget form { margin-bottom:0; }
+.widget img { float:left; }
+.widget .with-img ul { float:left; }
 .widget h2 {
   background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
   text-shadow:0 1px 0 #ffffff;
@@ -317,13 +320,15 @@ form { margin-bottom:15px; }
   font-size:1.2em;
 }
 .widget .content {
-  padding:5px 10px;
+  padding:5px 10px 10px;
   border:1px solid #dfdfdf;
   border-top:0;
   -moz-border-radius:0 0 5px 5px;
+  overflow:hidden;
 }
 .widget {
   width:49%;
   margin-right:1%;
   float:left;
 }
+.spacer-left { margin-left:20px; }
