@@ -255,10 +255,15 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	
 	$num_etudiant = $form->getData('num_etudiant');
 	
-	$rep = $this->getResponse('redirect');
-    	$rep->action = 'etudiants~etudiants:view';
-	$rep->params = array('id'=>$num_etudiant);
-	
+                    $rep = $this->getResponse('redirect');
+                    if(jDao::get('etudiants~etudiants')->get($num_etudiant)) { 
+                        $rep->action = 'etudiants~etudiants:view';
+                        $rep->params = array('id'=>$num_etudiant);
+                    }
+                    else{
+                        $rep->action = 'ogre~default:index';
+                        jMessage::add("L'etudiant numéro ".$num_etudiant." n'existe pas", 'error');
+                    }
 	return $rep;
     }
 }
