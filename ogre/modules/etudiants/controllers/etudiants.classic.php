@@ -147,6 +147,52 @@ class etudiantsCtrl extends jControllerDaoCrud {
    
     public function _index($resp, $tpl){
         $resp->setTitle('Liste des etudiants');
+        
+        $order = $this->param('order');
+        $dir = $this->param('dir');
+        
+        $params = array();
+        
+        if($order != null) {
+            //dir : ASC or DESC
+            if(($dir != null)) {
+                if($dir == 'desc')
+                    $params['dir'] = 'desc';
+                else
+                   $params['dir'] = 'asc';
+            }
+            
+            //order on what
+            if($order == 'num' || $order == 'numero')
+                $params['order'] = 'num';
+            else if($order == 'nom')
+                $params['order'] = 'nom';
+        }
+        
+        $tpl->assign('params', $params);
+    }
+    
+    
+    protected function _indexSetConditions($cond){
+        $order = $this->param('order');
+        $dir = $this->param('dir');
+        
+        if(($dir != null)) {
+            if($dir == 'desc')
+                $dir = 'desc';
+            else
+                $dir = 'asc';
+        }
+        
+        if($order != null) {
+            if($order == 'num' || $order == 'numero')
+                $cond->addItemOrder('num_etudiant', $dir);
+            else if($order == 'nom')
+                $cond->addItemOrder('nom', $dir);
+        }
+        
+        
+        //TODO faire interface qui va avec ce tri
     }
    
     public function _view($form, $resp, $tpl){

@@ -26,7 +26,7 @@
 </tbody>
 </table>
 {if $recordCount > $listPageSize}
-    {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }
+    {pagelinks $listAction, $params,  $recordCount, $page, $listPageSize, $offsetParameterName }
 {/if}
 
 
