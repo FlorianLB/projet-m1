@@ -264,6 +264,7 @@ ul.semestre li {
   padding-left:20px;
 }
 form { margin-bottom:15px; }
+.clear { clear:both; }
 .ues-options span input {
   margin-right:10px;
   display:inline-block;

@@ -67,4 +67,23 @@ class customSQL{
         return $cnx->query($sql);
     }
     
+    /**
+     * Renvoit la liste des inscriptions completes d'un etudiant, semestre par semestre
+     */
+    public static function getAllInscriptionsEtudiant($num_etudiant){
+        $cnx = jDb::getConnection();
+        
+        
+        $sql = 'SELECT es.*, s.num_semestre, f.*
+                    FROM etudiants_semestre es
+                    INNER JOIN semestre s ON s.id_semestre = es.id_semestre
+                    INNER JOIN formation f ON f.id_formation = s.id_formation
+                    ';
+        
+        $sql .= ' WHERE es.num_etudiant = '.$cnx->quote($num_etudiant);
+        
+        $sql .= ' ORDER BY f.annee DESC';
+        
+        return $cnx->query($sql);
+    }
 }
