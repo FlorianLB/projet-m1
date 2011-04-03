@@ -301,6 +301,12 @@ form { margin-bottom:15px; }
   margin:10px 0;
   padding:0;
 }
+ul.liste { padding-left:15px; }
+.liste li {
+  padding-left:20px;
+  background:url(../themes/default/img/bullet_black.png) left center no-repeat;
+  list-style:none;
+}
 .widget-container { overflow:hidden; }
 .widget form { margin-bottom:0; }
 .widget img { float:left; }
