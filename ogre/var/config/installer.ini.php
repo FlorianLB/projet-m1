@@ -12,8 +12,8 @@ jacldb.installed=0
 jacldb.version=
 jauth.installed=1
 jauth.version=1.2
-junittests.installed=0
-junittests.version=
+junittests.installed=1
+junittests.version=1.2
 jWSDL.installed=0
 jWSDL.version=
 ogre.installed=1
@@ -42,3 +42,5 @@ jauth.contexts="auth:index/auth.coord.ini.php"
 
 jauthdb.contexts="index/auth.coord.ini.php,db:myapp"
 
+
+junittests.contexts=

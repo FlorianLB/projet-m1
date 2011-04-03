@@ -20,8 +20,10 @@ jauth.access=2
 jauthdb.access=2
 jauthdb.installparam=defaultuser
 utils.access=2
+junittests.access=2
 [coordplugins]
 auth="index/auth.coord.ini.php"
+
 
 
 

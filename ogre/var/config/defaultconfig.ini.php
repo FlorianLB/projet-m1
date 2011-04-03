@@ -8,6 +8,9 @@ startAction="default:index"
 locale=fr_FR
 charset=UTF-8
 
+enableTests = on
+
+
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
