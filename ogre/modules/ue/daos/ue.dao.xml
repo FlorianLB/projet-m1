@@ -8,7 +8,7 @@
         <property name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
-        <property name="libelle" fieldname="libelle" datatype="varchar" maxlength="30"/>
+        <property name="libelle" fieldname="libelle" datatype="varchar" maxlength="50"/>
         <property name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
         <property name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
 

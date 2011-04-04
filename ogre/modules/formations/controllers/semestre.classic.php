@@ -85,7 +85,7 @@ class semestreCtrl extends jController{
         $factory->resetOption($id);
         
         foreach($this->param('ues', array()) as $ue){
-            $factory->setAsOption($ue);
+            $factory->setAsOption($ue, $id);
         }
 
 

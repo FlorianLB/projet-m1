@@ -40,7 +40,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
   `code_ue` VARCHAR(15) NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `credits` TINYINT NOT NULL ,
-  `libelle` VARCHAR(30) NULL ,
+  `libelle` VARCHAR(50) NULL ,
   `last_version` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_ue`) ,
   INDEX `INDEX_code` (`code_ue` ASC) )
