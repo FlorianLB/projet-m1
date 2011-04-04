@@ -22,6 +22,8 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	$semestrearray = array();
 	$ueoption = array();
 	
+	//$form->getControl('nom_du_control')->datasource->data = $data;
+	
 	$factorysemestre = jDao::get('formations~semestre');
 	$factorysemestre_etudiant = jDao::get('etudiants~etudiants_semestre');
 	
@@ -118,6 +120,15 @@ class etudiantsCtrl extends jControllerDaoCrud {
 		$factory->insert($etudiant_semestre1);
 	    }
 	}
+    }
+    
+    public function _beforeSaveUpdate($form, $form_daorec, $id){
+	$liste = $form->getModifiedControls();
+	jLog::dump($liste);
+    }
+    
+    public function _preUpdate($form){
+	$form->initModifiedControlsList();
     }
     
     protected function _afterUpdate($form, $id, $resp){
