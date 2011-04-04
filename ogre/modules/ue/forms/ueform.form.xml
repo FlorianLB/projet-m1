@@ -13,10 +13,6 @@
 	<label>Coefficient</label>
 </input>
 
-<input ref="credits" required="true" type="integer">
-	<label>Credits</label>
-</input>
-
 <input ref="formule" required="true" pattern="/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/" maxlength="50" >
 	<label>Formule</label>
 	<help>Après création, la formule ne pourra plus etre modifié, il faudra alors recréer une UE avec le même code</help>

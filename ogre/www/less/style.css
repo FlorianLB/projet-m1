@@ -347,3 +347,4 @@ table.saisie-epreuve td {
 table.saisie-epreuve tr input { text-align:center; }
 table.saisie-epreuve tr input, table.saisie-epreuve tr th:last-child { width:40px; }
 table.saisie-epreuve { width:350px; }
+#jforms_formations_semestre_ue span.jforms-chkbox { display:block; }

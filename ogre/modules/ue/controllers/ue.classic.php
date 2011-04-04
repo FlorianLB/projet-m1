@@ -10,7 +10,7 @@ class ueCtrl extends jControllerDaoCrud {
     protected $editTemplate = 'ue~ue_edit';
     protected $viewTemplate = 'ue~ue_view';
     
-    protected $propertiesForList = array('code_ue', 'coeff', 'credits', 'libelle','formule');
+    protected $propertiesForList = array('code_ue', 'libelle', 'coeff','formule');
  
  
     /**
@@ -18,8 +18,15 @@ class ueCtrl extends jControllerDaoCrud {
      */
     protected function _beforeSaveCreate($form, $form_daorec){
         $form_daorec->last_version = 1;
+        $form_daorec->credits = $form_daorec->coeff;
     }
     
+    protected function _beforeSaveUpdate($form, $form_daorec, $id){
+        $form_daorec->credits = $form_daorec->coeff;
+    }
+     
+     
+     
     /**
      * Après l'insertion de l'ue, on passe toute les ue avec le meme code en tant que non-active
      * On crée les epreuves avec leur coef en fonction de la formule
