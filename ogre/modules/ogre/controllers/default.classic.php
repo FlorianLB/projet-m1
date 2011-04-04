@@ -50,7 +50,7 @@ class defaultCtrl extends jController {
         
         <p>Bugs connus: </p>
          <ul class="liste">
-            <li>Toutes modifications d\'un étudiant entraine la suppresion de ces options</li>
+            <li>Toutes modifications d\'un étudiant entraine la suppression de ses options</li>
         </ul>
         
         ';
