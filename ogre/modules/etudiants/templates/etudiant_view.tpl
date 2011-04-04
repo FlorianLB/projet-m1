@@ -8,8 +8,8 @@
         <ul class="semestre">
             {foreach $semestres as $semestre}
                 <li>
-                    {if $formation->id_formation == $semestre->id_formation }Semestre {$semestre->num_semestre}{/if}
-                    Option : {$semestre->options}
+                    {if $formation->id_formation == $semestre->id_formation }Semestre {$semestre->num_semestre}
+                    Option : {$semestre->options}{/if}
                 </li>
             {/foreach}
         </ul>
