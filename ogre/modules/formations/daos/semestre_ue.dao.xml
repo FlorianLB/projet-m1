@@ -12,13 +12,16 @@
         
         <method name="setAsOption" type="update">
             <parameter name="id_ue" />
+            <parameter name="id_sem" />
             <values>
                 <value property="optionelle" value="1"/>
             </values>
             <conditions>
                 <eq property="id_ue" expr="$id_ue" />
+                <eq property="id_semestre" expr="$id_sem" />
             </conditions>
         </method>
+        
         <method name="resetOption" type="update">
             <parameter name="id_sem" />
             <values>

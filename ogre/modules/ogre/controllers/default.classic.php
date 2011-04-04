@@ -15,7 +15,7 @@ class defaultCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
 
-
+        $rep->setTitle('Bienvenue sur Ogre, '.jAuth::getUserSession()->login);
 
     $content = '';
 
