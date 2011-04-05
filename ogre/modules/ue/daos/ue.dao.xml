@@ -9,26 +9,14 @@
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
         <property name="libelle" fieldname="libelle" datatype="varchar" maxlength="50"/>
-        <property name="last_version" fieldname="last_version" datatype="tinyint" required="true"/>
+        <property name="annee" fieldname="smallint" datatype="smallint" required="true" insertpattern="YEARS()"/>
         <property name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
 
     </record>
-    <factory>
-        <method name="setOldUeVersion" type="update">
-            <parameter name="id_ue" />
-            <parameter name="code_ue" />
-            <values>
-                <value property="last_version" value="0" />
-            </values>
-            <conditions logic="and">
-                <neq property="id_ue" expr="$id_ue" />
-                <eq property="code_ue" expr="$code_ue" />
-            </conditions>
-        </method>
-        
-        <method name="getLastVersion" type="select">
+    <factory>        
+        <method name="getLastUe" type="select">
             <conditions>
-                <eq property="last_version" value="1" />
+                <eq property="annee" expr="(select Max(f.annee) from ue as f where f.code_ue = ue.code_ue)"/>
             </conditions>
         </method>
         

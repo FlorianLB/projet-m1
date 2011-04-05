@@ -5,7 +5,7 @@
 
 <checkboxes ref="ues">
 	<label>UEs de ce semestre</label>
-	<datasource dao="ue~ue" labelproperty="code_ue,libelle" labelseparator=" : " valueproperty="id_ue" method="getLastVersion"/>
+	<datasource dao="ue~ue" labelproperty="code_ue,libelle" labelseparator=" : " valueproperty="id_ue" method="getLastUe"/>
 </checkboxes>
 
 
