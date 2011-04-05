@@ -36,7 +36,7 @@ class defaultCtrl extends jController {
         $content.= jZone::get('etudiants~widget_etudiant');
         $content.= jZone::get('ue~widget_note');
         $content.='</div>';
-        
+        /*
         $content .= '<h3 style="margin-top:50px;">A destination des testeurs</h3>
         
         <p> L\'application dans son état actuelle <strong>ne gère pas encore</strong> : </p>
@@ -54,7 +54,7 @@ class defaultCtrl extends jController {
         </ul>
         
         ';
-        
+        */
         
         
         

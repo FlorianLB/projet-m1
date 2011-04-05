@@ -1,12 +1,16 @@
 <p>Historique</p>
-
-<table>
-    <tbody>
-        {foreach $inscriptions  as $i}
-        <tr>
-            <td>{$i->code_formation} ({$i->annee})</td>
-            <td>Semestre {$i->num_semestre} - {$i->statut}</td>
-        </tr>
+    
+<ul>
+    {foreach $inscriptions  as $annee => $inscs}
+    <li>
+        {$annee}
+        <ul class="puce-fleche">
+        {foreach $inscs as $i}
+        <li>
+            {$i->code_formation} - Semestre {$i->num_semestre} ( {$i->libelle} )
+        </li>
         {/foreach}
-    </tbody>
-</table>
+        </ul>
+    </li>
+    {/foreach}
+</ul>

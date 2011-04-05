@@ -18,16 +18,15 @@ class historique_etudiantZone extends jZone {
         $result = customSQL::getAllInscriptionsEtudiant($this->param('num_etudiant'));
         
         $insc = array();
-        /*
+        
         foreach($result as $i) {
-            $code = $i->code_formation.':'.$i->annee;
-            $insc[$code][$i->num_semestre] = $i;
+            $insc[$i->annee][] = $i;
         }
         
         $this->_tpl->assign('inscriptions', $insc);
-        */
         
-        $this->_tpl->assign('inscriptions', $result);
+        
+        //$this->_tpl->assign('inscriptions', $result);
         
     }
 }

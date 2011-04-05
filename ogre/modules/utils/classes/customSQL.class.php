@@ -74,10 +74,11 @@ class customSQL{
         $cnx = jDb::getConnection();
         
         
-        $sql = 'SELECT es.*, s.num_semestre, f.*
+        $sql = 'SELECT es.*, s.num_semestre, f.* , ss.*
                     FROM etudiants_semestre es
                     INNER JOIN semestre s ON s.id_semestre = es.id_semestre
                     INNER JOIN formation f ON f.id_formation = s.id_formation
+                    INNER JOIN statut_semestre ss ON es.statut = ss.statut
                     ';
         
         $sql .= ' WHERE es.num_etudiant = '.$cnx->quote($num_etudiant);

@@ -24,22 +24,99 @@ INSERT INTO `semestre` (`id_semestre`, `id_formation`, `num_semestre`) VALUES
 (5, 3, '1'),
 (6, 3, '2');
 
-INSERT INTO `ue` (`id_ue`, `code_ue`, `coeff`, `credits`, `libelle`, `annee`) VALUES
-(1, 'G2MA1', 2, 2, 'Analyse et Algèbre 2', 2010),
-(2, 'G2MA3', 3, 3, 'Géometrie et Algèbre linéaire', 2010),
-(3, 'G2MA5', 2, 2, 'Algorithmique numérique', 2010),
-(4, 'ANG', 1, 1, 'Anglais', 2010),
-(5, 'TEC', 1, 1, 'Technique Expression Communica', 2010);
+
+--
+-- Contenu de la table `ue`
+--
+INSERT INTO `ue` (`id_ue`, `formule`, `code_ue`, `coeff`, `credits`, `libelle`, `annee`) VALUES
+(1, 'PA1 + 2PA2', 'G2MA1', 2, 2, 'Analyse et Algèbre 2', 2009),
+(2, 'SUP(PA1, PA2)', 'G2MA3', 3, 3, 'Géometrie et Algèbre linéaire', 2009),
+(3, 'PA1 + 2PA2 + EvC', 'G2MA5', 2, 2, 'Algorithmique numérique', 2009),
+(4, '2PA + EvC', 'ANG', 1, 1, 'Anglais', 2009),
+(5, 'EvC', 'TEC', 1, 1, 'Technique Expression Communica', 2009),
+(6, '3PA + TP', 'GINF8', 2, 2, 'Programmation Impérative', 2009),
+(7, 'PA1 + 2PA2 + TP', 'G1INF3', 4, 4, 'Théorie des langages', 2009);
+
 
 INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 (1, 1, 0),
-(2, 1, 0),
+(2, 1, 1),
 (3, 2, 0),
-(4, 1, 0),
+(1, 3, 0),
+(2, 4, 0),
+(3, 3, 0),
+(4, 1, 1),
 (4, 2, 0),
 (5, 1, 0),
-(5, 2, 0);
+(5, 2, 0),
+(4, 5, 1),
+(5, 6, 0),
+(6, 5, 0),
+(7, 6, 0);
+
+
+--
+-- Contenu de la table `epreuve`
+--
+INSERT INTO `epreuve` (`id_epreuve`, `id_ue`, `coeff`, `type_epreuve`) VALUES
+(1, 1, 1, 'PA1'),
+(2, 1, 2, 'PA2'),
+(3, 2, 1, 'PA1'),
+(4, 2, 1, 'PA2'),
+(5, 3, 1, 'PA1'),
+(6, 3, 2, 'PA2'),
+(7, 3, 1, 'EvC'),
+(8, 4, 2, 'PA'),
+(9, 4, 1, 'EvC'),
+(10, 5, 1, 'EvC'),
+(11, 6, 3, 'PA'),
+(12, 6, 1, 'TP'),
+(13, 7, 1, 'PA1'),
+(14, 7, 2, 'PA2'),
+(15, 7, 1, 'TP');
+
 
 INSERT INTO `statut_semestre` (`statut`, `libelle`) VALUES
-('OK', 'Valide'),
-('NOK', 'Non Valide');
+('ADM', 'Admis'),
+('AJO', 'Ajourné'),
+('AJC', 'Ajourné avec contrat'),
+('ENC', 'En cours'),
+('DET', 'En cours avec dette');
+
+--
+-- Contenu de la table `etudiants`
+--
+INSERT INTO `etudiants` (`num_etudiant`, `nom`, `prenom`, `date_naissance`, `nom_usuel`, `sexe`) VALUES
+(10905684, 'INADJAREN', 'Houda', '1991-12-05', '', 'F'),
+(10907703, 'NELA', 'Samuel', '1987-05-02', '', 'M'),
+(10908728, 'NGUYEN', 'Hoang', '1990-06-20', '', 'M'),
+(10908769, 'HAKEM', 'Abdelmounaim', '1990-09-07', '', 'M'),
+(11001351, 'NIZOU', 'Jeremie', '1992-12-23', '', 'M'),
+(11005748, 'LAM', 'Blandine', '1991-02-21', '', 'F'),
+(11007102, 'NOSLEN', 'William', '1991-08-10', '', 'M'),
+(11008172, 'KENMEGNI DEWAMBA', 'Franck', '1991-04-16', '', 'M');
+
+
+--
+-- Contenu de la table `etudiants_semestre`
+--
+INSERT INTO `etudiants_semestre` (`num_etudiant`, `id_semestre`, `statut`, `options`) VALUES
+(10905684, 1, 'ENC', NULL),
+(10905684, 2, 'ENC', NULL),
+(10907703, 2, 'DET', NULL),
+(10907703, 3, 'ENC', NULL),
+(10907703, 4, 'ENC', NULL),
+(10908728, 3, 'ENC', NULL),
+(10908728, 4, 'ENC', NULL),
+(10908769, 1, 'ENC', NULL),
+(10908769, 2, 'ENC', NULL),
+(11001351, 1, 'ADM', NULL),
+(11001351, 2, 'ADM', NULL),
+(11001351, 3, 'ENC', NULL),
+(11001351, 4, 'ENC', NULL),
+(11005748, 1, 'ENC', NULL),
+(11005748, 2, 'ENC', NULL),
+(11007102, 3, 'ENC', NULL),
+(11007102, 4, 'ENC', NULL),
+(11008172, 1, 'ENC', NULL),
+(11008172, 2, 'ENC', NULL);

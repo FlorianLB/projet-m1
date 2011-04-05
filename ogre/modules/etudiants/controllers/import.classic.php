@@ -119,7 +119,7 @@ class importCtrl extends jController {
                 //Creation et insertion dans la table etudiant_semestre
                 foreach($liste_semestre as $semestre){
                     $etudiant_semestre->id_semestre = $semestre->id_semestre;
-                    $etudiant_semestre->statut = "NOK";
+                    $etudiant_semestre->statut = "ENC";
                     $factoryetu_semestre->insert($etudiant_semestre);
                 }
                 
