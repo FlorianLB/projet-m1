@@ -36,12 +36,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
   `id_ue` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
-  `formule` VARCHAR(50) NULL ,
   `code_ue` VARCHAR(15) NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `credits` TINYINT NOT NULL ,
   `libelle` VARCHAR(50) NULL ,
-  `last_version` TINYINT(1) NOT NULL ,
+  `annee` SMALLINT UNSIGNED NOT NULL ,
+  `formule` VARCHAR(60) NULL ,
+  `formule2` VARCHAR(60) NULL ,
+  `formule_salarie` VARCHAR(60) NULL ,
   PRIMARY KEY (`id_ue`) ,
   INDEX `INDEX_code` (`code_ue` ASC) )
 ENGINE = InnoDB;
@@ -113,6 +115,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`note` (
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `valeur` DECIMAL(4,2) NOT NULL ,
+  `statut` TINYINT NULL ,
   INDEX `fk_note_epreuve1` (`id_epreuve` ASC) ,
   INDEX `fk_note_semestre1` (`id_semestre` ASC) ,
   INDEX `fk_note_etudiants1` (`num_etudiant` ASC) ,
