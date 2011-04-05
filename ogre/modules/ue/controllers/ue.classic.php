@@ -1,4 +1,5 @@
 <?php
+jClasses::inc('utils~customSQL');
 
 class ueCtrl extends jControllerDaoCrud {
  
@@ -37,30 +38,34 @@ class ueCtrl extends jControllerDaoCrud {
         
         //exctraction de la formule
         jClasses::inc('utils~Formule');
-        $var = Formule::parseFormuleUe($form->getData('formule'));
-        
+        $var = array();
+        $var[0] = Formule::parseFormuleUe($form->getData('formule'));
+        $var[1] = Formule::parseFormuleUe($form->getData('formule2'));
+        $var[2] = Formule::parseFormuleUe($form->getData('formule_salarie'));
         //initialisation des dao
         $factory = jDao::get('ue~epreuve');
         $epreuve = jDao::createRecord('ue~epreuve');
        
-       //pour chaqun des element de la formule on crée une epreuve
-       for($i=0; $i < count($var[0]); $i++){
-       
-        $epreuve = jDao::createRecord('ue~epreuve');
-        $epreuve->id_ue = $id;
-        //si le coeficient est a 0 on le met par defaut a 1
-        if($var[1][$i] == 0){
-            $epreuve->coeff=1;
+        // pour chaques formules on cree les epreuves
+        for($j=0; $j < 3; $j++){
+             //pour chaqun des element de la formule on crée une epreuve
+            for($i=0; $i < count($var[$j][0]); $i++){
+                 if(!customSQL::epreuveExisteDeja($id,$var[$j][2][$i])){
+                     $epreuve = jDao::createRecord('ue~epreuve');
+                     $epreuve->id_ue = $id;
+                     //si le coeficient est a 0 on le met par defaut a 1
+                     if($var[$j][1][$i] == 0){
+                         $epreuve->coeff=1;
+                     }
+                     else{
+                         $epreuve->coeff = $var[$j][1][$i];
+                     }
+                     $epreuve->type_epreuve = $var[$j][2][$i];
+                     $factory = jDao::get('ue~epreuve');
+                     $factory->insert($epreuve);
+                }
+            }
         }
-        else{
-            $epreuve->coeff = $var[1][$i];
-        }
-        $epreuve->type_epreuve = $var[2][$i];
-        $factory = jDao::get('ue~epreuve');
-        $factory->insert($epreuve);
-        
-              
-       }
 	jMessage::add("La creation a reussie !");
     }
  
@@ -88,6 +93,8 @@ class ueCtrl extends jControllerDaoCrud {
         $resp->setTitle('Modifier une UE');
         
         $form->setReadOnly('formule');
+        $form->setReadOnly('formule2');
+        $form->setReadOnly('formule_salarie');
     }
     
     protected function _delete($id, $resp) {
