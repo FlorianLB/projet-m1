@@ -49,19 +49,21 @@ class ueCtrl extends jControllerDaoCrud {
         for($j=0; $j < 3; $j++){
              //pour chaqun des element de la formule on crée une epreuve
             for($i=0; $i < count($var[$j][0]); $i++){
-                 if(!customSQL::epreuveExisteDeja($id,$var[$j][2][$i])){
-                     $epreuve = jDao::createRecord('ue~epreuve');
-                     $epreuve->id_ue = $id;
-                     //si le coeficient est a 0 on le met par defaut a 1
-                     if($var[$j][1][$i] == 0){
-                         $epreuve->coeff=1;
-                     }
-                     else{
-                         $epreuve->coeff = $var[$j][1][$i];
-                     }
-                     $epreuve->type_epreuve = $var[$j][2][$i];
-                     $factory = jDao::get('ue~epreuve');
-                     $factory->insert($epreuve);
+                if(strtolower($var[$j][2][$i]) != "sup"){
+                    if(!customSQL::epreuveExisteDeja($id,$var[$j][2][$i])){
+                        $epreuve = jDao::createRecord('ue~epreuve');
+                        $epreuve->id_ue = $id;
+                        //si le coeficient est a 0 on le met par defaut a 1
+                        if($var[$j][1][$i] == 0){
+                            $epreuve->coeff=1;
+                        }
+                        else{
+                            $epreuve->coeff = $var[$j][1][$i];
+                        }
+                        $epreuve->type_epreuve = $var[$j][2][$i];
+                        $factory = jDao::get('ue~epreuve');
+                        $factory->insert($epreuve);
+                    }
                 }
             }
         }

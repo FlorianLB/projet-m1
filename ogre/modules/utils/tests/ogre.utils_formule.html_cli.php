@@ -27,6 +27,7 @@ class testUtilsFormule extends UnitTestCase {
             array('PA', 'EvC', 'TP')
         );
         $this->assertIdentical(Formule::parseFormuleUe($formule), $resultat_attendu);
+
     
     }
 }
