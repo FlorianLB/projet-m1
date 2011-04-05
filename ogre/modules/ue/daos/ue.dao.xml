@@ -9,7 +9,7 @@
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="credits" fieldname="credits" datatype="tinyint" required="true"/>
         <property name="libelle" fieldname="libelle" datatype="varchar" maxlength="50"/>
-        <property name="annee" fieldname="smallint" datatype="smallint" required="true" insertpattern="YEARS()"/>
+        <property name="annee" fieldname="annee" datatype="smallint" required="true" insertpattern="YEAR(NOW())"/>
         <property name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
 
     </record>

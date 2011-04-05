@@ -32,7 +32,8 @@ class ueCtrl extends jControllerDaoCrud {
      * On crée les epreuves avec leur coef en fonction de la formule
      */
     protected function _afterCreate($form, $id, $resp){
-        jDao::get('ue~ue')->setOldUeVersion($id, $form->getData('code_ue'));
+        //TODO Modifier pour OldUeVersion
+        //jDao::get('ue~ue')->setOldUeVersion($id, $form->getData('code_ue'));
         
         //exctraction de la formule
         jClasses::inc('utils~Formule');

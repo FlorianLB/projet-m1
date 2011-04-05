@@ -15,7 +15,7 @@
         <property table="ue" name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property table="ue" name="credits" fieldname="credits" datatype="tinyint" required="true"/>
         <property table="ue" name="libelle" fieldname="libelle" datatype="varchar" maxlength="30"/>
-        <property name="annee" fieldname="smallint" datatype="smallint" required="true" insertpattern="YEARS()"/>
+        <property table="ue" name="annee" fieldname="annee" datatype="smallint" required="true" insertpattern="YEARS()"/>
 
     </record>
     <factory>
@@ -23,7 +23,7 @@
             <parameter name="id_sem" />
             <conditions>
                 <eq property="id_semestre" expr="$id_sem" />
-                <eq property="last_version" value="1" />
+                <eq property="annee" expr="(select Max(f.annee) from ue as f where f.code_ue = ue.code_ue)"/>
             </conditions>
         </method>
         
