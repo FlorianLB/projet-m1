@@ -9,18 +9,22 @@
     <th>{$propname|eschtml}</th>
     {/if}
     {/foreach}
-    <th>&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 {foreach $list as $record}
 <tr class="{cycle array('odd','even')}">
     {foreach $properties as $propname}
-    <td>{$record->$propname|eschtml}</td>
-    {/foreach}
     <td>
-        <a href="{jurl $viewAction,array('id'=>$record->$primarykey)}">{@jelix~crud.link.view.record@}</a>
+        <a href="{jurl $viewAction,array('id'=>$record->$primarykey)}">
+            {if $propname == 'date_naissance'}
+                {$record->$propname|date_format:"%d/%m/%Y"}
+            {else}
+                {$record->$propname|eschtml}
+            {/if}
+        </a>
     </td>
+    {/foreach}
 </tr>
 {/foreach}
 </tbody>

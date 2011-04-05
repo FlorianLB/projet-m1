@@ -300,7 +300,25 @@ tr.even td, tr.odd td{
 }
 
 
-ul.semestre li, ul.puce-fleche li{
+
+.records-list{
+    td a{
+        display:block;
+        text-decoration:none;
+    }
+    a{
+        color:#222;
+    }
+    tr:hover td{
+        background:#F0F0F0;
+        text-decoration:underline;
+    }
+}
+
+
+
+
+ul.semestre li, .puce-fleche{
     list-style:none;
     background :url({@img}bullet_arrow_right.png) left center no-repeat;
     padding-left: 20px;
@@ -440,5 +458,38 @@ table.saisie-epreuve{
 #jforms_formations_semestre_ue{
     span.jforms-chkbox{
         display:block;
+    }
+}
+
+
+
+.historique{
+    
+    padding:0;
+    ul{padding-left:15px;}
+    ul li{
+        .puce-fleche;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+    > li{
+        border:1px solid #dfdfdf;
+        margin:0 15px 15px 0;
+        padding:5px;
+        list-style:none;
+        display:inline-block;
+        min-height:58px;
+        vertical-align: middle;
+    }
+    
+    li.ADM{background-image:url({@img}tick.png);}
+    li.ENC{background-image:url({@img}hourglass.png);}
+    li.AJO{background-image:url({@img}cross.png);}
+    li.AJC{background-image:url({@img}bell.png);}
+    li.DET{background-image:url({@img}hourglass_link.png);}
+    
+    
+    .annee{
+        font-weight:bold;
     }
 }

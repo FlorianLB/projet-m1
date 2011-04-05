@@ -258,7 +258,16 @@ tr.even td, tr.odd td {
   border:0;
   border-top:1px solid #dfdfdf;
 }
-ul.semestre li, ul.puce-fleche li {
+.records-list td a {
+  display:block;
+  text-decoration:none;
+}
+.records-list a { color:#222222; }
+.records-list tr:hover td {
+  background:#f0f0f0;
+  text-decoration:underline;
+}
+ul.semestre li, .puce-fleche {
   list-style:none;
   background:url(../themes/default/img/bullet_arrow_right.png) left center no-repeat;
   padding-left:20px;
@@ -348,3 +357,27 @@ table.saisie-epreuve tr input { text-align:center; }
 table.saisie-epreuve tr input, table.saisie-epreuve tr th:last-child { width:40px; }
 table.saisie-epreuve { width:350px; }
 #jforms_formations_semestre_ue span.jforms-chkbox { display:block; }
+.historique ul { padding-left:15px; }
+.historique ul li {
+  list-style:none;
+  background:url(../themes/default/img/bullet_arrow_right.png) left center no-repeat;
+  padding-left:20px;
+  padding-top:1px;
+  padding-bottom:1px;
+}
+.historique > li {
+  border:1px solid #dfdfdf;
+  margin:0 15px 15px 0;
+  padding:5px;
+  list-style:none;
+  display:inline-block;
+  min-height:58px;
+  vertical-align:middle;
+}
+.historique li.ADM { background-image:url(../themes/default/img/tick.png); }
+.historique li.ENC { background-image:url(../themes/default/img/hourglass.png); }
+.historique li.AJO { background-image:url(../themes/default/img/cross.png); }
+.historique li.AJC { background-image:url(../themes/default/img/bell.png); }
+.historique li.DET { background-image:url(../themes/default/img/hourglass_link.png); }
+.historique .annee { font-weight:bold; }
+.historique { padding:0; }

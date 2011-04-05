@@ -1,12 +1,12 @@
 <p>Historique</p>
     
-<ul>
+<ul class="historique">
     {foreach $inscriptions  as $annee => $inscs}
     <li>
-        {$annee}
-        <ul class="puce-fleche">
+        <span class="annee">{$annee}</span>
+        <ul>
         {foreach $inscs as $i}
-        <li>
+        <li class="{$i->statut}">
             {$i->code_formation} - Semestre {$i->num_semestre} ( {$i->libelle} )
         </li>
         {/foreach}

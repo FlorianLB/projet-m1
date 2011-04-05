@@ -9,18 +9,18 @@
     <th>{$propname|eschtml}</th>
     {/if}
     {/foreach}
-    <th>&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 {foreach $list as $record}
 <tr class="{cycle array('odd','even')}">
     {foreach $properties as $propname}
-    <td>{$record->$propname|eschtml}</td>
-    {/foreach}
     <td>
-        <a href="{jurl $viewAction,array('id'=>$record->$primarykey)}">Voir</a>
+        <a href="{jurl $viewAction,array('id'=>$record->$primarykey)}">
+            {$record->$propname|eschtml}
+        </a>
     </td>
+    {/foreach}
 </tr>
 {/foreach}
 </tbody>
