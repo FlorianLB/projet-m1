@@ -107,7 +107,7 @@ class NotePv{
                                     $ue->credits = 1;
                                     $ue->coeff = 1;
                                     //$ue->libelle = $line[$colonne];
-                                    $ue->last_version = TRUE;
+                                    $ue->annee = substr($formation->annee,0,4);
                                     $factoryUe->insert($ue);
                                     ///creation de l'ue et liaison au semestre en fonction du semestre correspondant
                                     $semestre_ue = jDao::createRecord('formations~semestre_ue');
