@@ -39,15 +39,15 @@ class etudiantsCtrl extends jControllerDaoCrud {
 	    foreach( jDao::get('formations~ue_semestre_ue')->getBySemestre($sem->id_semestre) as $ue){
 		if($ue->optionelle == '1'){
 		    $libelle = ($ue->libelle != '') ? ' : ' .$ue->libelle : '';
-		    $ueoption[$ue->id_ue]['id'] = $ue->id_ue;
-		    $ueoption[$ue->id_ue]['label'] = $ue->code_ue . $libelle;
+		    $ueoption[$ue->id_ue.$sem->id_semestre]['id'] = $ue->id_ue;
+		    $ueoption[$ue->id_ue.$sem->id_semestre]['label'] = $ue->code_ue . $libelle;
 		    //Check si l'etudiant fais deja partie de cette option
-		    $ueoption[$ue->id_ue]['sem'] = $sem->id_semestre;
+		    $ueoption[$ue->id_ue.$sem->id_semestre]['sem'] = $sem->id_semestre;
 		    if(strstr($etu_sem->options,$ue->code_ue) != FALSE){
-			$ueoption[$ue->id_ue]['checked'] = true;
+			$ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = true;
 		    }
 		    else{
-			$ueoption[$ue->id_ue]['checked'] = false;
+			$ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = false;
 		    }
 		}
 	    }
@@ -81,8 +81,9 @@ class etudiantsCtrl extends jControllerDaoCrud {
     
         foreach($this->param('semestres', array()) as $semestre){	    
 	    foreach($this->param('ues', array()) as $ue){
-		$uerecord = $factoryue_semestre_ue->get($ue,$semestre);
-		if($uerecord != null){
+		$ue_sem=explode(":",$ue);
+		$uerecord = $factoryue_semestre_ue->get($ue_sem[0],$ue_sem[1]);
+		if($uerecord != null && $semestre==$ue_sem[1] ){
 		    $option = $option . $uerecord->code_ue . ",";
 		}
 	    }
@@ -99,9 +100,9 @@ class etudiantsCtrl extends jControllerDaoCrud {
         return $rep;
     }
 	
-	 /**
-     * Après l'insertion de l'etudiant, on l'ajoute dans tous les semestres de sa formation
-     */    
+    /**
+    * Après l'insertion de l'etudiant, on l'ajoute dans tous les semestres de sa formation
+    */    
     protected function _afterCreate($form, $id, $resp){
 	
 	$semestre = jDao::get('formations~semestre');

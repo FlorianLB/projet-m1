@@ -45,6 +45,19 @@ class customSQL{
             return true;
     }
     
+    public static function epreuveExisteDeja($id_ue, $type_epreuve){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM epreuve WHERE id_ue = '.$cnx->quote($id_ue).' and type_epreuve = '.$cnx->quote($type_epreuve);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
     
     /**
      * Renvoit la liste des etudiants inscrit pour une epreuve et leur note si ils en ont deja une

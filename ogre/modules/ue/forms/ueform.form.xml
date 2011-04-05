@@ -18,6 +18,16 @@
 	<help>Après création, la formule ne pourra plus etre modifié, il faudra alors recréer une UE avec le même code</help>
 </input>
 
+<input ref="formule2" required="true" pattern="/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/" maxlength="50" >
+	<label>Formule 2ème session</label>
+</input>
+
+<input ref="formule_salarie" required="true" pattern="/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/" maxlength="50" >
+	<label>Formule salarié</label>
+</input>
+
+
+
 <submit ref="_submit">
 	<label>ok</label>
 </submit>
