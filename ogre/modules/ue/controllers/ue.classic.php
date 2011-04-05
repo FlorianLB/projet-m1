@@ -17,7 +17,6 @@ class ueCtrl extends jControllerDaoCrud {
      * 
      */
     protected function _beforeSaveCreate($form, $form_daorec){
-        $form_daorec->last_version = 1;
         $form_daorec->credits = $form_daorec->coeff;
     }
     
