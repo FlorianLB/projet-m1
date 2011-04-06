@@ -15,6 +15,55 @@ class NotePv{
     }
     
     /**
+     ** @param ligne , array d'indice de colonne (S1, S2) , indice descion année
+     ** @return array de descision
+     ** 
+     ***/
+    
+    public function decision($line,$liste_colonne_decision,$colonne_decision_annee){
+        
+        $i=0;
+        $reponse = array();
+        //jLog::log($line[$colonne_decision_annee]);
+        //jLog::dump($line[$colonne_decision_annee] !== "AJAC");
+        
+            foreach($liste_colonne_decision as $decision){
+              //  jLog::log("foreach");
+                if($line[$colonne_decision_annee] !== "AJAC"){
+                    switch($line[$decision]){
+                        case "AJOURNE(E)" : $reponse[$i] = "AJO";
+                            $i++;
+                        break;
+                        case "ADMIS(E)" : $reponse[$i] = "ADM";
+                            $i++;
+                        break;
+                        default :jLog::log("normal");
+                        jLog::dump($line[$decision]);
+                    }
+                }
+                else{
+                    switch($line[$decision]){
+                    case "AJOURNE(E)" : $reponse[$i] = "AJC";
+                        $i++;
+                    break;
+                    case "ADMIS(E)" : $reponse[$i] = "ADM";
+                        $i++;
+                    break;
+                    //case "ADMIS(E)" : $reponse[$i] = "ADM";
+                    //$i++;
+                    //break;
+                    default : jLog::log("ajac");
+                    jLog::dump($line[$decision]);
+                }
+                //$i++;
+            }
+        }
+        jLog::dump($reponse);
+        jLog::dump($i);
+        return $reponse;
+    }
+    
+    /**
      * 
      *
      * @param boolean $only_identite Extraction faites uniquement sur l'identite de l'etudiant
@@ -28,8 +77,11 @@ class NotePv{
         $colonne_semestre = 0;
         //colonne qui definit la fin de lecture
         $colonne_arret;
+        $colonne_decision1 =0;
+        $colonne_decision2 =0;
         $arret = "stop";
-        $semestre_suivant = "SEMESTRE 1";
+        $seme1 = 'SEMESTRE 1';
+        $seme2 = 'SEMESTRE 2';
         $factoryEtudiant = jDao::get('etudiants~etudiants');
         $factoryEtudiantSemestre = jDao::get('etudiants~etudiants_semestre');
         $factoryFormation = jDao::get('formations~formation');
@@ -47,17 +99,27 @@ class NotePv{
                 switch($compteur){
                     case 3 : $colonne=0;
                         while($line[$colonne] != $arret){
+
                             //initialisation du tableau
                             $liste_ue[$colonne]["id_ue"] = -1;
                             $liste_ue[$colonne]["epreuve"] = -1;
     
                             // on recherche la colonne de changement de semestre
-                           if($line[$colonne] == $semestre_suivant){
-                                    $colonne_semestre = $colonne+1;
+                            //on sauvegarde l'endroit de la descision de la reussite du semestre 1 et 2
+                           //if(!strcmp($line[$colonne], $semestre1)){
+                             if($line[$colonne] == $seme1){
+                                    $colonne_semestre = $colonne;
+                                    $colonne_decision1 = $colonne;
+                                    
+                            }
+                            elseif($line[$colonne] == $seme2){
+                                    $colonne_decision2 = $colonne;
+                                    
                             }
                             $colonne++;
                         }
-                        $colonne_arret = $colonne-1;
+                        
+                        $colonne_arret = $colonne;
                     break;
                     //choix 2 inutile pour le moment
                     case 2 : break;
@@ -191,8 +253,14 @@ class NotePv{
                         $etudiantSemestre1->id_semestre = $semestre1->id_semestre;
                         $etudiantSemestre2->id_semestre = $semestre2->id_semestre;
                         
-                        $etudiantSemestre1->statut = "NOK";
-                        $etudiantSemestre2->statut = "NOK";
+                        // on traite la descision du passage
+                        //$liste_decision = array();
+                        $liste_decision = self::decision($line,array($colonne_decision1,$colonne_decision2)
+                                                     ,$colonne_arret);
+                        
+                        
+                        $etudiantSemestre1->statut = $liste_decision[0];
+                        $etudiantSemestre2->statut = $liste_decision[1];
                         
                         $factoryEtudiantSemestre->insert($etudiantSemestre1);
                         $factoryEtudiantSemestre->insert($etudiantSemestre2);
