@@ -29,5 +29,18 @@ class testUtilsFormule extends UnitTestCase {
         $this->assertIdentical(Formule::parseFormuleUe($formule), $resultat_attendu);
 
     
+
+        
+        //Test3
+        $formule = ' SUP(PA1, 2PA2 ,evc)';
+        $resultat_attendu = array(
+            array(1=> 'PA1', 2=>'2PA2', 3=>'evc'),
+            array(1=>'',2=> '2', 3=>''),
+            array(1=>'PA1',2=> 'PA2',3=> 'evc')
+        );
+        $this->assertIdentical(Formule::parseFormuleUe($formule), $resultat_attendu);
+    
+    
+    
     }
 }

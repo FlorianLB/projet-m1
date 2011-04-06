@@ -37,36 +37,31 @@ class ueCtrl extends jControllerDaoCrud {
         
         //exctraction de la formule
         jClasses::inc('utils~Formule');
-        $var = array();
-        $var[0] = Formule::parseFormuleUe($form->getData('formule'));
-        $var[1] = Formule::parseFormuleUe($form->getData('formule2'));
-        $var[2] = Formule::parseFormuleUe($form->getData('formule_salarie'));
+        $formules = array();
+        $formules[0] = Formule::parseFormuleUe($form->getData('formule'));
+        $formules[1] = Formule::parseFormuleUe($form->getData('formule2'));
+        $formules[2] = Formule::parseFormuleUe($form->getData('formule_salarie'));
         //initialisation des dao
         $factory = jDao::get('ue~epreuve');
         $epreuve = jDao::createRecord('ue~epreuve');
        
         // pour chaques formules on cree les epreuves
-        for($j=0; $j < 3; $j++){
-             //pour chaqun des element de la formule on crée une epreuve
-            for($i=0; $i < count($var[$j][0]); $i++){
-                if(strtolower($var[$j][2][$i]) != "sup"){
-                    if(!customSQL::epreuveExisteDeja($id,$var[$j][2][$i])){
-                        $epreuve = jDao::createRecord('ue~epreuve');
-                        $epreuve->id_ue = $id;
-                        //si le coeficient est a 0 on le met par defaut a 1
-                        if($var[$j][1][$i] == 0){
-                            $epreuve->coeff=1;
-                        }
-                        else{
-                            $epreuve->coeff = $var[$j][1][$i];
-                        }
-                        $epreuve->type_epreuve = $var[$j][2][$i];
-                        $factory = jDao::get('ue~epreuve');
-                        $factory->insert($epreuve);
-                    }
+
+        foreach($formules as $formule){
+         //pour chaqun des element de la formule on crée une epreuve
+            foreach($formule[2] as $epreuve_temp){
+            //if(strtolower($var[$j][2][$i]) != "sup"){
+                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp)){
+                    $epreuve = jDao::createRecord('ue~epreuve');
+                    $epreuve->id_ue = $id;
+                    $epreuve->coeff = 1;
+                    $epreuve->type_epreuve = $epreuve_temp;
+                    $factory = jDao::get('ue~epreuve');
+                    $factory->insert($epreuve);
                 }
             }
         }
+        
 	jMessage::add("La creation a reussie !");
     }
  
