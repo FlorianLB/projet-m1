@@ -24,11 +24,8 @@ class NotePv{
         
         $i=0;
         $reponse = array();
-        //jLog::log($line[$colonne_decision_annee]);
-        //jLog::dump($line[$colonne_decision_annee] !== "AJAC");
         
             foreach($liste_colonne_decision as $decision){
-              //  jLog::log("foreach");
                 if($line[$colonne_decision_annee] !== "AJAC"){
                     switch($line[$decision]){
                         case "AJOURNE(E)" : $reponse[$i] = "AJO";
@@ -37,8 +34,8 @@ class NotePv{
                         case "ADMIS(E)" : $reponse[$i] = "ADM";
                             $i++;
                         break;
-                        default :jLog::log("normal");
-                        jLog::dump($line[$decision]);
+                    
+                    //TODO mettre un exeption si on entre dans le defautl
                     }
                 }
                 else{
@@ -49,17 +46,9 @@ class NotePv{
                     case "ADMIS(E)" : $reponse[$i] = "ADM";
                         $i++;
                     break;
-                    //case "ADMIS(E)" : $reponse[$i] = "ADM";
-                    //$i++;
-                    //break;
-                    default : jLog::log("ajac");
-                    jLog::dump($line[$decision]);
                 }
-                //$i++;
             }
         }
-        jLog::dump($reponse);
-        jLog::dump($i);
         return $reponse;
     }
     
@@ -269,7 +258,7 @@ class NotePv{
                         //boucle sur les colonne du fichier
                         $colonne = 6;
                         while($colonne < $colonne_arret){
-                            if($line[$colonne] != "" && $liste_ue[$colonne]["id_ue"] != -1){
+                            if($line[$colonne] != "" && $line[$colonne] != "S. Objet" && $liste_ue[$colonne]["id_ue"] != -1){
                                 
                                 $note = jDao::createRecord('ue~note');
                                 $note->id_epreuve = $liste_ue[$colonne]["id_epreuve"];
@@ -283,7 +272,12 @@ class NotePv{
                                 
                                 $note->num_etudiant = $etudiant->num_etudiant;
                                 // on remplace la virgule par un point et on converti en float
-                                $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
+                                if($line[$colonne] === "abs"){
+                                    $note->valeur = -1;
+                                }
+                                else{
+                                    $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
+                                }
                                 $factoryNote->insert($note);
                                 $nbajout++;
                             }
