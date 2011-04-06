@@ -45,6 +45,20 @@ class customSQL{
             return true;
     }
     
+    public static function formationExisteDeja($code_formation, $annee){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM formation WHERE code_formation = '.$cnx->quote($code_formation).
+                                    ' and annee = '.$cnx->quote($annee);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
     public static function epreuveExisteDeja($id_ue, $type_epreuve){
         $cnx = jDb::getConnection();
         
