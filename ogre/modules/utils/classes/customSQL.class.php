@@ -32,10 +32,13 @@ class customSQL{
     /**
      * Retourne vrai si l'ue existe deja dans la base
      */
-    public static function ueExisteDeja($code_ue){
+    public static function ueExisteDeja($code_ue,$id_semestre){
         $cnx = jDb::getConnection();
-        
-        $sql = 'SELECT 1 FROM ue WHERE code_ue = '.$cnx->quote($code_ue);
+
+        $sql = 'SELECT 1 FROM ue
+                        INNER JOIN semestre_ue s ON ue.id_ue = s.id_ue
+                        WHERE ue.code_ue = '.$cnx->quote($code_ue).
+                        ' and s.id_semestre = '.$cnx->quote($id_semestre);
          
         $rs = $cnx->query($sql);
        
@@ -44,6 +47,52 @@ class customSQL{
         else
             return true;
     }
+    
+    public static function noteExisteDeja($id_epreuve,$id_semestre,$num_etudiant){
+        $cnx = jDb::getConnection();
+
+        $sql = 'SELECT 1 FROM note
+                        WHERE id_epreuve = '.$cnx->quote($id_epreuve).
+                        ' and id_semestre = '.$cnx->quote($id_semestre).
+                        ' and num_etudiant = '.$cnx->quote($num_etudiant);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
+    public static function formationExisteDeja($code_formation, $annee){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM formation WHERE code_formation = '.$cnx->quote($code_formation).
+                                    ' and annee = '.$cnx->quote($annee);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
+    
+        public static function etudiantSemestreExisteDeja($num_etudiant, $id_semestre){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM etudiants_semestre WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                                    ' and id_semestre = '.$cnx->quote($id_semestre);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+
     
     public static function epreuveExisteDeja($id_ue, $type_epreuve){
         $cnx = jDb::getConnection();

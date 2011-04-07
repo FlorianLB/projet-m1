@@ -25,6 +25,14 @@
                 <eq property="id_ue" expr="$id_ue" />
             </conditions>
         </method>
+        <method name="getByUeAndType" type="selectfirst">
+            <parameter name="id_ue" />
+            <parameter name="type_epreuve" />
+            <conditions>
+                <eq property="id_ue" expr="$id_ue" />
+                <eq property="type_epreuve" expr="$type_epreuve" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>
