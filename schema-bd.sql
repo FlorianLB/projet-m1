@@ -208,9 +208,52 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`jlx_user` (
   `usr_password` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
   `usr_email` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
   PRIMARY KEY (`usr_login`) )
-ENGINE = MyISAM
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
+
+
+--
+-- Structure de la table `jacl2_group`
+--
+CREATE TABLE IF NOT EXISTS `jacl2_group` (
+  `id_aclgrp` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `code` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `grouptype` tinyint(4) NOT NULL DEFAULT '0',
+  `ownerlogin` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id_aclgrp`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+--
+-- Structure de la table `jacl2_rights`
+--
+CREATE TABLE IF NOT EXISTS `jacl2_rights` (
+  `id_aclsbj` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `id_aclgrp` int(11) NOT NULL DEFAULT '0',
+  `id_aclres` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Structure de la table `jacl2_subject`
+--
+CREATE TABLE IF NOT EXISTS `jacl2_subject` (
+  `id_aclsbj` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `label_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id_aclsbj`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Structure de la table `jacl2_user_group`
+--
+CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
+  `login` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `id_aclgrp` int(11) NOT NULL DEFAULT '0',
+  KEY `login` (`login`,`id_aclgrp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 
 

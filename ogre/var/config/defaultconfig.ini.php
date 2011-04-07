@@ -8,7 +8,7 @@ startAction="default:index"
 locale=fr_FR
 charset=UTF-8
 
-enableTests = on
+enableTests=on
 
 
 ; see http://www.php.net/manual/en/timezones.php for supported values
@@ -18,7 +18,7 @@ theme=default
 
 pluginsPath="app:plugins/,lib:jelix-plugins/"
 
-modulesPath="lib:jelix-modules/,app:modules/, lib:external-modules/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/, lib:external-modules/"
 
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
@@ -134,6 +134,7 @@ simple_urlengine_https=
 index="@classic"
 
 
+admin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
 ; should be include in the url or not
@@ -142,12 +143,13 @@ xmlrpc=on
 jsonrpc=on
 rdf=on
 
+admin=1
 [logfiles]
 default=messages.log
-import = import.log
-creation= creation.log
-autre = autre.log
-modif = modif.log
+import=import.log
+creation=creation.log
+autre=autre.log
+modif=modif.log
 
 
 [mailer]
@@ -223,6 +225,9 @@ datepicker=birthday
 [datepickers]
 ;default = jelix/js/jforms/datepickers/default/init.js
 birthday="jelix/js/jforms/datepickers/birthday/init.js"
+
+
+
 
 
 
