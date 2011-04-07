@@ -381,3 +381,28 @@ table.saisie-epreuve { width:350px; }
 .historique li.DET { background-image:url(../themes/default/img/hourglass_link.png); }
 .historique .annee { font-weight:bold; }
 .historique { padding:0; }
+ul.saisie-note > li {
+  float:left;
+  list-style:none;
+  margin-right:50px;
+}
+ul.saisie-note ul {
+  padding:0;
+  list-style:none;
+}
+ul.saisie-note table { width:250px; }
+ul.saisie-note thead th { text-align:center; }
+ul.saisie-note tr td:first-child { text-align:right; }
+ul.saisie-note tbody td {
+  padding-top:0;
+  padding-bottom:0;
+}
+ul.saisie-note input {
+  width:40px;
+  text-align:center;
+  margin:0.4em 0;
+}
+ul.saisie-note {
+  overflow:hidden;
+  padding:0;
+}

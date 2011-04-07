@@ -20,6 +20,8 @@
 
 
     {zone 'etudiants~historique_etudiant', array('num_etudiant' => $id)}
+    
+    {zone 'etudiants~notes_etudiant', array('num_etudiant' => $id)}
 
 
 <p>
