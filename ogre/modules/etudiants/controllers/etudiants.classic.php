@@ -14,51 +14,50 @@ class etudiantsCtrl extends jControllerDaoCrud {
     
     
     public function etu_semestres(){
-	$rep = $this->getResponse('html');
+        $rep = $this->getResponse('html');
         
         $id = $this->param('id', 0);
-	$id_formation = $this->param('id_formation', 0);
+        $id_formation = $this->param('id_formation', 0);
+        
+        $semestrearray = array();
+        $ueoption = array();
+        
+        //$form->getControl('nom_du_control')->datasource->data = $data;
+        
+        $factorysemestre = jDao::get('formations~semestre');
+        $factorysemestre_etudiant = jDao::get('etudiants~etudiants_semestre');
 	
-	$semestrearray = array();
-	$ueoption = array();
-	
-	//$form->getControl('nom_du_control')->datasource->data = $data;
-	
-	$factorysemestre = jDao::get('formations~semestre');
-	$factorysemestre_etudiant = jDao::get('etudiants~etudiants_semestre');
-	
-	foreach( $factorysemestre->getByFormation($id_formation) as $sem){
-	    $etu_sem = $factorysemestre_etudiant->get($id,$sem->id_semestre);
-	    $semestrearray[$sem->id_semestre]['id'] = $sem->id_semestre;
+        foreach( $factorysemestre->getByFormation($id_formation) as $sem){
+            $etu_sem = $factorysemestre_etudiant->get($id,$sem->id_semestre);
+            $semestrearray[$sem->id_semestre]['id'] = $sem->id_semestre;
             $semestrearray[$sem->id_semestre]['label'] = "Semestre ".$sem->num_semestre;
-	    if($etu_sem != null)
-		$semestrearray[$sem->id_semestre]['checked'] = true;
-	    else
-		$semestrearray[$sem->id_semestre]['checked'] = false;
-		
-	    foreach( jDao::get('formations~ue_semestre_ue')->getBySemestre($sem->id_semestre) as $ue){
-		if($ue->optionelle == '1'){
-		    $libelle = ($ue->libelle != '') ? ' : ' .$ue->libelle : '';
-		    $ueoption[$ue->id_ue.$sem->id_semestre]['id'] = $ue->id_ue;
-		    $ueoption[$ue->id_ue.$sem->id_semestre]['label'] = $ue->code_ue . $libelle;
-		    //Check si l'etudiant fais deja partie de cette option
-		    $ueoption[$ue->id_ue.$sem->id_semestre]['sem'] = $sem->id_semestre;
-		    if(strstr($etu_sem->options,$ue->code_ue) != FALSE){
-			$ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = true;
-		    }
-		    else{
-			$ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = false;
-		    }
-		}
-	    }
+            if($etu_sem != null)
+                $semestrearray[$sem->id_semestre]['checked'] = true;
+            else
+                $semestrearray[$sem->id_semestre]['checked'] = false;
+            foreach( jDao::get('formations~ue_semestre_ue')->getBySemestre($sem->id_semestre) as $ue){
+                if($ue->optionelle == '1'){
+                    $libelle = ($ue->libelle != '') ? ' : ' .$ue->libelle : '';
+                    $ueoption[$ue->id_ue.$sem->id_semestre]['id'] = $ue->id_ue;
+                    $ueoption[$ue->id_ue.$sem->id_semestre]['label'] = $ue->code_ue . $libelle;
+                    //Check si l'etudiant fais deja partie de cette option
+                    $ueoption[$ue->id_ue.$sem->id_semestre]['sem'] = $sem->id_semestre;
+                    if(strstr($etu_sem->options,$ue->code_ue) != FALSE){
+                        $ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = true;
+                    }
+                    else{
+                        $ueoption[$ue->id_ue.$sem->id_semestre]['checked'] = false;
+                    }
+                }
+            }
         }
        
         $tpl = new jTpl();
         $tpl->assign('submitAction', 'etudiants~etudiants:save_semestre_ue');
         $tpl->assign('id', $id);
         $tpl->assign('id_formation', $this->param('id_formation', 0));
-	$tpl->assign('semestres',$semestrearray);
-	$tpl->assign('ueoption',$ueoption);
+        $tpl->assign('semestres',$semestrearray);
+        $tpl->assign('ueoption',$ueoption);
           
         $rep->setTitle('Définition des Semestres et UEs optionelles');
         
@@ -208,25 +207,36 @@ class etudiantsCtrl extends jControllerDaoCrud {
     }
    
     public function _view($form, $resp, $tpl){
-	
+        $basepath = $GLOBALS['gJConfig']->urlengine['basePath'];
+        
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.core.min.js');
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.widget.min.js');
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.button.min.js');
+        
+        //$resp->addCSSLink($basepath.'jelix/jquery/themes/smoothness/jquery.ui.all.css');
+   
+        
+        
         $resp->setTitle('Détails de l\'etudiant');
-	$factoryformation = jDao::get('formations~formation');
-	$factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre_semestre');
-	$formationarray = array();
-	$semestresarray = array();
-	$optionsarray = array();
-	
-	$liste_semestre = $factoryetudiant_semestre->getByEtudiantNum($this->param('id',0));
-	
-	foreach($liste_semestre as $semestre){
-	    $formation = $factoryformation->get($semestre->id_formation);
-	    $formationarray[$formation->id_formation] = $formation;
-	    $semestresarray[$semestre->id_semestre] = $semestre;
-	}
-	
-	$form->deactivate('formations');
-	$tpl->assign('formations', $formationarray);
-	$tpl->assign('semestres', $semestresarray);
+        $form->deactivate('formations');
+        /*
+        $factoryformation = jDao::get('formations~formation');
+        $factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre_semestre');
+        $formationarray = array();
+        $semestresarray = array();
+        $optionsarray = array();
+        
+        $liste_semestre = $factoryetudiant_semestre->getByEtudiantNum($this->param('id',0));
+        
+        foreach($liste_semestre as $semestre){
+            $formation = $factoryformation->get($semestre->id_formation);
+            $formationarray[$formation->id_formation] = $formation;
+            $semestresarray[$semestre->id_semestre] = $semestre;
+        }
+        
+        $tpl->assign('formations', $formationarray);
+        $tpl->assign('semestres', $semestresarray);
+        */
     }
    
     public function _create($form, $resp, $tpl){

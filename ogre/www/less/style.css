@@ -184,11 +184,11 @@ body .button-2, .button-2 {
   border-color:#298cba;
   text-shadow:0 -1px 0 black;
 }
-body .button-valid:hover, body .button-valid:focus {
+body .button-valid:hover, body .button-valid:focus, .button-valid:hover, .button-valid:focus {
   border-color:#444923;
   color:#eeeeee;
 }
-body .button-valid {
+body .button-valid, .button-valid {
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
@@ -206,11 +206,11 @@ body .button-valid {
   border-color:#56612f;
   text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
 }
-body .button-error:hover, body .button-error:focus {
+body .button-error:hover, body .button-error:focus, .button-error:hover, .button-error:focus {
   border-color:#822320;
   color:#eeeeee;
 }
-body .button-error {
+body .button-error, .button-error {
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
@@ -405,4 +405,58 @@ ul.saisie-note input {
 ul.saisie-note {
   overflow:hidden;
   padding:0;
+}
+#semestres_etudiant .ui-helper-hidden-accessible { visibility:hidden; }
+#semestres_etudiant li { margin-bottom:10px; }
+.ui-button:hover {
+  border-color:#444923;
+  color:#eeeeee;
+}
+.ui-button:focus {
+  border-color:#444923;
+  color:#eeeeee;
+}
+.ui-button {
+  border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
+  cursor:pointer;
+  font-weight:bold;
+  display:inline-block;
+  zoom:1;
+  padding:3px 10px 2px;
+  text-decoration:none;
+  margin-right:10px;
+  border:1px solid;
+  background-image:url(../themes/default/img/green-grad.png);
+  background-color:#5b6732;
+  color:#ffffff;
+  border-color:#56612f;
+  text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
+}
+.ui-button[aria-pressed='false']:hover {
+  border-color:#666666;
+  color:#000000;
+}
+.ui-button[aria-pressed='false']:focus {
+  border-color:#666666;
+  color:#000000;
+}
+.ui-button[aria-pressed='false']:active { background:url(../themes/default/img/white-grad-active.png) repeat-x #21759b; }
+.ui-button[aria-pressed='false'] {
+  border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
+  cursor:pointer;
+  font-weight:bold;
+  display:inline-block;
+  zoom:1;
+  padding:3px 10px 2px;
+  text-decoration:none;
+  margin-right:10px;
+  border:1px solid;
+  background-image:url(../themes/default/img/white-grad.png);
+  color:#464646;
+  border-color:#bbbbbb;
+  text-shadow:0 1px 0 #ffffff;
 }

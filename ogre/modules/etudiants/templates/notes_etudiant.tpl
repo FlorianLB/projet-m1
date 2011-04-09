@@ -19,9 +19,9 @@
                             {assign $uniqid = $note->id_epreuve.':'.$note->id_semestre}
                         
                             <tr class="{cycle array('odd', 'even')}">
-                                <td><label for="{$uniqid}">{$note->type_epreuve} - {$uniqid}</label></td>
+                                <td><label for="note_{$uniqid}">{$note->type_epreuve} - {$uniqid}</label></td>
                                 <td>
-                                     <input id="{$uniqid}" type="text" value="{if $note->valeur != ''}{if $note->valeur == -1}ABS{else}{$note->valeur}{/if}{/if}" name="note[{$uniqid}]"/>
+                                     <input id="note_{$uniqid}" type="text" value="{if $note->valeur != ''}{if $note->valeur == -1}ABS{else}{$note->valeur}{/if}{/if}" name="note[{$uniqid}]"/>
                                 </td>
                                 <td>
                                     {if $note->n_statut == 2}(importé){/if}
