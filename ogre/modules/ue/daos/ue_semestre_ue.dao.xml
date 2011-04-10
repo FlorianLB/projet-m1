@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="semestre_ue" realname="semestre_ue" primarykey="id_ue,id_semestre"  />
+        <foreigntable name="ue" realname="ue" primarykey="id_ue" onforeignkey="id_ue" />
+        
+        
+    </datasources>
+    <record>
+        <property table="ue" name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
+        <property table="ue" name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
+        <property table="ue" name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
+        <property table="ue" name="credits" fieldname="credits" datatype="tinyint" required="true"/>
+        <property table="ue" name="libelle" fieldname="libelle" datatype="varchar" maxlength="50"/>
+        <property table="ue" name="annee" fieldname="annee" datatype="smallint" required="true" insertpattern="YEAR(NOW())"/>
+        <property table="ue" name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
+        <property table="ue" name="formule2" fieldname="formule2" datatype="varchar" required="true" maxlength="50"/>
+        <property table="ue" name="formule_salarie" fieldname="formule_salarie" datatype="varchar" required="true" maxlength="50"/>
+        
+        <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
+        <property name="optionelle" fieldname="optionelle" datatype="tinyint" required="true"/>
+        
+
+    </record>
+    <factory>        
+
+        
+        <method name="getByCodeSemestre" type="selectfirst">
+            <parameter name="code_ue" />
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="code_ue" expr="$code_ue" />
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
+    </factory>
+</dao>

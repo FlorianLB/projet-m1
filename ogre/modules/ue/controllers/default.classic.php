@@ -14,13 +14,21 @@ class defaultCtrl extends jController {
     */
     function index() {
         $rep = $this->getResponse('html');
-        jClasses::inc('utils~Formule');
+        jClasses::inc('utils~customSQL');
         
-        $var = Formule::parseFormuleUe('SUP ( 2PA1 + 2 PE2 + 3 * evc)');
+        ////$var = Formule::parseFormuleUe('SUP ( 2PA1 + 2 PE2 + 3 * evc)');
+        //$vars = jDao::get('ue~epreuve')->getByUeAndType(9,"CTP1");
+        //jLog::dump($vars);
+        //foreach($vars as $var){
+        //    //var_dump($var->id_epreuve);
+        //    jLog::dump($var);
+        //}
         
-        var_dump($var);
+        var_dump(customSQL::noteExisteDeja(33
+                                           ,1,10800755));
         
-        //$rep->body->assign('MAIN',$content);
+        //
+       // $rep->body->assign('MAIN',$content);
         return $rep;
     }
 }

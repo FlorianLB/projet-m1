@@ -161,9 +161,9 @@ class NotePv{
                                     else{
                                         $semestre_ue->id_semestre = $semestre2->id_semestre;
                                     }
-                                    if( !customSQL::ueExisteDeja($line[$colonne],$semestre_ue->id_semestre)){
+                                    if( !customSQL::ueExisteDeja(utf8_encode(strtoupper($line[$colonne])),$semestre_ue->id_semestre)){
                                         $ue = jDao::createRecord('ue~ue');
-                                        $ue->code_ue = $line[$colonne];
+                                        $ue->code_ue = utf8_encode(strtoupper($line[$colonne]));
                                         $ue->credits = 1;
                                         $ue->coeff = 1;
                                         //$ue->libelle = $line[$colonne];
@@ -180,10 +180,10 @@ class NotePv{
                                     }
                                     // si l'ue existe deja
                                     else{
-                                        $ue = jDao::get('ue~ue')->getByCode($line[$colonne]);
-                                        foreach($ue as $row){
-                                        $liste_ue[$colonne]["id_ue"] = $row->id_ue;
-                                        }
+                                        $ue_semestre_ue = jDao::get('ue~ue_semestre_ue')->getByCodeSemestre(utf8_encode(strtoupper($line[$colonne])),$semestre_ue->id_semestre);
+                                        
+                                        $liste_ue[$colonne]["id_ue"] = $ue_semestre_ue->id_ue;
+
                                     }
                                 }
                             }
@@ -207,11 +207,11 @@ class NotePv{
                             if($liste_ue[$colonne]["id_ue"] != -1){
                                 //creation des epreuves
                                 //si elle n'existe pas deja
-                                if(!customSQL::epreuveExisteDeja($liste_ue[$colonne]["id_ue"],utf8_encode($line[$colonne]))){
+                                if(!customSQL::epreuveExisteDeja($liste_ue[$colonne]["id_ue"],utf8_encode(strtoupper($line[$colonne])))){
                                     $epreuve = jDao::createRecord('ue~epreuve');
                                     $epreuve->id_ue = $liste_ue[$colonne]["id_ue"];
                                     $epreuve->coeff = 1;
-                                    $epreuve->type_epreuve = utf8_encode($line[$colonne]);
+                                    $epreuve->type_epreuve = utf8_encode(strtoupper($line[$colonne]));
                                     $factoryEpreuve->insert($epreuve);
 
                                 }
@@ -219,7 +219,7 @@ class NotePv{
                                 
                                 //sinon on va la cherché dans la base
                                 else{
-                                    $epreuve = jDao::get('ue~epreuve')->getByUeAndType($liste_ue[$colonne]["id_ue"],utf8_encode($line[$colonne]));
+                                    $epreuve = jDao::get('ue~epreuve')->getByUeAndType($liste_ue[$colonne]["id_ue"],utf8_encode(strtoupper($line[$colonne])));
                                 }
                                 //on enregistre chaque epreuve en fonction de la colonne
                                 $liste_ue[$colonne]["id_epreuve"] = $epreuve->id_epreuve;
@@ -287,7 +287,6 @@ class NotePv{
                                     else{
                                         $note->id_semestre = $semestre2->id_semestre;
                                     }
-                                    jLog::dump(customSQL::noteExisteDeja($liste_ue[$colonne]["id_epreuve"],$note->id_semestre,$etudiant->num_etudiant));
                                     if(!customSQL::noteExisteDeja($liste_ue[$colonne]["id_epreuve"],$note->id_semestre,$etudiant->num_etudiant)){
                                         $note->num_etudiant = $etudiant->num_etudiant;
                                         
@@ -299,8 +298,6 @@ class NotePv{
                                             $note->valeur = floatval(str_replace(",",".",$line[$colonne]));
                                         }
                                         $factoryNote->insert($note);
-                                        jLog::dump($note);
-                                        jLog::dump($colonne);
 
                                         $nbajout++;
                                     }
