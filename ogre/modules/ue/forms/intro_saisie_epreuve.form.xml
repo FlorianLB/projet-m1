@@ -7,10 +7,16 @@
         <datasource dao="formations~formation" method="getAllCode" labelproperty="code_formation" valueproperty="code_formation"/>
     </menulist>
     
-    <menulist ref="annee" required="true">
+    <radiobuttons ref="semestre" required="true">
+        <label>Semestre</label>
+        <item selected="true" value="1">1</item>
+        <item value="2" >2</item>
+    </radiobuttons>
+    
+    <radiobuttons ref="annee" required="true">
         <label>Annee</label>
-        <datasource dao="formations~formation" method="getByCode" labelproperty="annee" valueproperty="annee" criteriafrom="formation"/>
-    </menulist>
+       <!-- <datasource dao="formations~formation" method="getByCode" labelproperty="annee" valueproperty="annee" criteriafrom="formation"/>-->
+    </radiobuttons>
    <!-- 
     <menulist ref="annee" required="true">
         <label>Annee</label>
@@ -18,11 +24,17 @@
     </menulist>
   -->  
     
-    <menulist ref="semestre" required="true">
-        <label>Semestre</label>
-        <item selected="true" value="1">1</item>
-        <item value="2" >2</item>
-    </menulist>
+
+    <radiobuttons ref="ue" required="true">
+        <label>UE</label>
+    </radiobuttons>
+
+    <radiobuttons ref="epreuve" required="true">
+        <label>Epreuve</label>
+        <!--  <datasource dao="ue~epreuve" method="getByUe" labelproperty="type_epreuve" valueproperty="id_epreuve" criteriafrom="ue"/> -->
+    </radiobuttons>
+
+
 
     <submit ref="_submit">
         <label>Ok</label>

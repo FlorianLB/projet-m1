@@ -5,7 +5,7 @@
         <ul class="saisie-note">
         {foreach $notes as $id_s => $ar}
             <li>
-                <strong>Semestre {$libelle['semestre'][$id_s]} (id {$id_s})</strong>
+                <strong>{$libelle['formation'][$id_s]} - Semestre {$libelle['semestre'][$id_s]}</strong>
                 <ul>
                 {foreach $ar as $id_ue => $notes}
                     <li>
@@ -19,7 +19,7 @@
                             {assign $uniqid = $note->id_epreuve.':'.$note->id_semestre}
                         
                             <tr class="{cycle array('odd', 'even')}">
-                                <td><label for="note_{$uniqid}">{$note->type_epreuve} - {$uniqid}</label></td>
+                                <td><label for="note_{$uniqid}">{$note->type_epreuve}</label></td>
                                 <td>
                                      <input id="note_{$uniqid}" type="text" value="{if $note->valeur != ''}{if $note->valeur == -1}ABS{else}{$note->valeur}{/if}{/if}" name="note[{$uniqid}]"/>
                                 </td>
@@ -37,6 +37,7 @@
         {/foreach}
         </ul>
         
+        <p>Mettre ABS si l'élève était absent.</p>
+        
         <input type="submit" value="Sauvegarder" />
 </form>
-    <p>Mettre ABS si l'élève était absent.</p>

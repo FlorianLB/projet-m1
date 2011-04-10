@@ -24,6 +24,7 @@ class notes_etudiantZone extends jZone {
             $tmp[$note->id_semestre][$note->id_ue][] = $note;
             
             $libelle['semestre'][$note->id_semestre] = $note->num_semestre;
+            $libelle['formation'][$note->id_semestre] = $note->code_formation.' ('.$note->annee.')' ;
             $libelle['ue'][$note->id_ue] = ($note->ue_libelle != '') ? $note->code_ue .' - ' .$note->ue_libelle : $note->code_ue;
         }
 

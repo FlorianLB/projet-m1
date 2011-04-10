@@ -160,10 +160,12 @@ class customSQL{
         
         //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
         
-        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle FROM
+        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
                         ON s.id_semestre = es.id_semestre
+                    INNER JOIN formation f
+                        ON f.id_formation = s.id_formation
                     INNER JOIN semestre_ue se
                         ON se.id_semestre = s.id_semestre
                     INNER JOIN ue
@@ -179,35 +181,9 @@ class customSQL{
         
         $sql .= ' WHERE es.num_etudiant = '.$cnx->quote($num_etudiant)." AND (es.statut = 'ENC' OR es.statut = 'DET')";
         
-        $sql .= ' ORDER BY es.id_semestre ASC';
+        $sql .= ' ORDER BY es.id_semestre ASC, ue.code_ue ASC';
         
         return $cnx->query($sql);
     }
-    
-    
-    /*
-     
-     
-    SELECT es.*, n.*, ev.*, s.num_semestre FROM
-                    etudiants_semestre es
-                    INNER JOIN semestre s
-                        ON s.id_semestre = es.id_semestre
-                    INNER JOIN semestre_ue se
-                        ON se.id_semestre = s.id_semestre
-                    INNER JOIN ue
-                        ON ue.id_ue = se.id_ue
-                    INNER JOIN epreuve ev
-                        ON ev.id_ue = ue.id_ue
-                    
-                    LEFT OUTER JOIN note n
-                        ON n.id_epreuve = ev.id_epreuve AND es.num_etudiant = n.num_etudiant
-                                
-WHERE es.num_etudiant =  11001351 AND (es.statut = 'ENC' OR es.statut = 'DET')
-ORDER BY es.id_semestre ASC
-    */
-    
-    
-    
-    
     
 }

@@ -408,6 +408,7 @@ ul.saisie-note {
 }
 #semestres_etudiant .ui-helper-hidden-accessible { visibility:hidden; }
 #semestres_etudiant li { margin-bottom:10px; }
+#semestres_etudiant ul.options { margin-top:10px; }
 .ui-button:hover {
   border-color:#444923;
   color:#eeeeee;
@@ -459,4 +460,10 @@ ul.saisie-note {
   color:#464646;
   border-color:#bbbbbb;
   text-shadow:0 1px 0 #ffffff;
+}
+#jforms_ue_intro_saisie_epreuve input[type='radio'] { display:none; }
+#jforms_ue_intro_saisie_epreuve p > span:first-child {
+  width:100px;
+  display:inline-block;
+  min-height:25px;
 }

@@ -15,19 +15,32 @@ class saisie_epreuveCtrl extends jController {
 
     function intro() {
         $rep = $this->getResponse('html');
+        
+        $basepath = $GLOBALS['gJConfig']->urlengine['basePath'];
+        
+        $rep->addJSLink( $basepath.'js/saisie.js');
+        $rep->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.core.min.js');
+        $rep->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.widget.min.js');
+        $rep->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.button.min.js');
+        
+        //$rep->addCSSLink($basepath.'jelix/jquery/themes/smoothness/jquery.ui.all.css');
+
 
         $form = jForms::create('ue~intro_saisie_epreuve');
 
         $tpl = new jTpl();
         $tpl->assign('form', $form);
-        $tpl->assign('submitAction', 'ue~saisie_epreuve:intro2');
+        $tpl->assign('submitAction', 'ue~saisie_epreuve:saisie');
 
-        $rep->setTitle('Saisie de notes - Choix de formation - étape 1/2');
+        $rep->setTitle('Saisie de notes - Choix');
 
         $rep->body->assign('MAIN', $tpl->fetch('ue~intro_saisie_epreuve'));
         return $rep;
-    }
     
+    
+    
+    }
+    /*
     function intro2() {
         $rep = $this->getResponse('html');
 
@@ -58,30 +71,23 @@ class saisie_epreuveCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('ue~intro2_saisie_epreuve'));
         return $rep;
     }
-    
+    */
     
     
     
     function saisie(){
         $rep = $this->getResponse('html');
         
-        //$id_formation = $this->param('id_formation');
-        $id_semestre = $this->param('id_semestre');
-        
-        if($this->param('id_epreuve') != null) {
-            $id_epreuve = $this->param('id_epreuve');
-        }
-        else {
-            $form = jForms::fill('ue~intro2_saisie_epreuve');
-            $id_epreuve = $form->getData('epreuve');
-        }
-        
+        $formation = jDao::get('formations~formation')->getByCodeAnnee($this->param('formation'), $this->param('annee'));
+        $semestre = jDao::get('formations~semestre')->getByFormationNum($formation->id_formation, $this->param('semestre'));
+        $id_semestre = $semestre->id_semestre;
+        $id_epreuve = $this->param('epreuve');
         
         $data = array();
         
         
         jClasses::inc('utils~customSQL');
-        // TODO : la requete actuelle ne chope que les etudiant ayant une note, il faut en faire une qui choppe tout ceux inscrit dans l'UE
+
         foreach( customSQL::findEtudiantsNoteByEpreuveSemestre($id_epreuve, $id_semestre) as $item ) {
             $d = array();
             $d['etudiant']['num'] = $item->num_etudiant;

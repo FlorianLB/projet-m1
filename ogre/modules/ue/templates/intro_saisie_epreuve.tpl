@@ -1,6 +1,33 @@
-{if isset($form)}
-    {formfull $form, $submitAction}
-{/if}
+{form $form, $submitAction}
+    <p>
+        <span>{ctrl_label 'formation'}</span>
+        <span id="field_formation">{ctrl_control 'formation'}</span>
+    </p>
+    
+    <p>
+        <span>{ctrl_label 'semestre'}</span>
+        <span id="field_semestre">{ctrl_control 'semestre'}</span>
+    </p>
+        
+    <p>
+        <span>{ctrl_label 'annee'}</span>
+        <span id="field_annee">{ctrl_control 'annee'}</span>
+    </p>
+            
+    <p>
+        <span>{ctrl_label 'ue'}</span>
+        <span id="field_ue">{ctrl_control 'ue'}</span>
+    </p>
+                
+    <p>
+        <span>{ctrl_label 'epreuve'}</span>
+        <span id="field_epreuve">{ctrl_control 'epreuve'}</span>
+    </p>
+
+
+<p>{formsubmit}</p>
+
+{/form}
 
 
 
