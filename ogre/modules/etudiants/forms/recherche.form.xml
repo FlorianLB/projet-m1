@@ -2,8 +2,12 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 
-<input ref="num_etudiant" required="true" pattern="/[0-9]{8}/">
+<input ref="num_etudiant" pattern="/[0-9]{8}/">
 	<label>Numero etudiant</label>
+</input>
+
+<input ref="nom">
+	<label>Nom</label>
 </input>
 
 <submit ref="_submit">

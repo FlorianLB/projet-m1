@@ -4,9 +4,9 @@
     <div class="content">
         {form $form, $submitAction}
         
-              <div> {ctrl_label 'num_etudiant'} : {ctrl_control 'num_etudiant'} <span class="spacer-left">{formsubmit}</span> </div>
+            <p> {ctrl_label 'num_etudiant'} : {ctrl_control 'num_etudiant'}  <span class="spacer-left">ou</span><span class="spacer-left">{ctrl_label 'nom'} : {ctrl_control 'nom'}</span></p>
      
-             
+            <div>{formsubmit}</div>
      
         {/form}
     </div>

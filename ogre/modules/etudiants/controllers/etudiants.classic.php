@@ -162,6 +162,8 @@ class etudiantsCtrl extends jControllerDaoCrud {
         $order = $this->param('order');
         $dir = $this->param('dir');
         
+        $nom = $this->param('nom');
+        
         $params = array();
         
         if($order != null) {
@@ -178,6 +180,10 @@ class etudiantsCtrl extends jControllerDaoCrud {
                 $params['order'] = 'num';
             else if($order == 'nom')
                 $params['order'] = 'nom';
+        }
+        
+        if($nom != ''){
+            $params['nom'] = $nom;
         }
         
         $tpl->assign('params', $params);
@@ -201,9 +207,16 @@ class etudiantsCtrl extends jControllerDaoCrud {
             else if($order == 'nom')
                 $cond->addItemOrder('nom', $dir);
         }
-        
-        
         //TODO faire interface qui va avec ce tri
+        
+        
+        
+        $nom = $this->param('nom');
+        if($nom != ''){
+            $params['nom'] = $nom;
+            $cond->addCondition('nom','=', $nom);
+        }
+        
     }
    
     public function _view($form, $resp, $tpl){
@@ -272,20 +285,50 @@ class etudiantsCtrl extends jControllerDaoCrud {
     }
     
     public function recherche() {
-       
+        $rep = $this->getResponse('redirect');
+        
         $form = jForms::fill('etudiants~recherche');
-	
-	$num_etudiant = $form->getData('num_etudiant');
-	
-                    $rep = $this->getResponse('redirect');
-                    if(jDao::get('etudiants~etudiants')->get($num_etudiant)) { 
-                        $rep->action = 'etudiants~etudiants:view';
-                        $rep->params = array('id'=>$num_etudiant);
-                    }
-                    else{
-                        $rep->action = 'ogre~default:index';
-                        jMessage::add("L'etudiant numéro ".$num_etudiant." n'existe pas", 'error');
-                    }
-	return $rep;
+
+        $num_etudiant = $form->getData('num_etudiant');
+        $nom = $form->getData('nom');
+        
+        $rep->action = 'ogre~default:index';
+        
+        if($num_etudiant && $num_etudiant != ''){
+            if(jDao::get('etudiants~etudiants')->get($num_etudiant)) { 
+                $rep->action = 'etudiants~etudiants:view';
+                $rep->params = array('id'=>$num_etudiant);
+            }
+            else{
+                jMessage::add("L'etudiant numéro ".$num_etudiant." n'existe pas", 'error');
+            }
+        }
+        else if($nom && $nom != ''){
+            if( ($etudiants = jDao::get('etudiants~etudiants')->getByNom($nom)) != false){
+                
+                $i=0;
+                foreach($etudiants as $e){
+                    $num_etudiant = $e->num_etudiant;
+                    $i++;
+                }
+                if($i == 1){
+                    $rep->action = 'etudiants~etudiants:view';
+                    $rep->params = array('id'=>$num_etudiant);
+                }
+                else{
+                    $rep->action = 'etudiants~etudiants:index';
+                    $rep->params = array('nom'=>$nom);
+                }
+            }
+            else{
+                jMessage::add("L'etudiant s'apellant ".$nom." n'existe pas", 'error');
+            }
+        }
+        else{
+            jMessage::add("Il faut rentrer soit le numéro étudiant soit le nom pour effectuer la recherche !", 'error');
+        }
+        
+        
+        return $rep;
     }
 }
