@@ -15,6 +15,15 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
+        
+        <method name="getByNom" type="select">
+            <parameter name="nom" />
+            <conditions>
+                <eq property="nom" expr="$nom" />
+            </conditions>
+        </method>
+        
+        
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

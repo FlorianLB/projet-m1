@@ -19,9 +19,11 @@
     <help>Année-Mois-Jour</help>
 </input>
 
-<input ref="sexe" type="string"  >
+<radiobuttons ref="sexe">
 	<label>Sexe</label>
-</input>
+	<item value="M" selected="true">M</item>
+	<item value="F">F</item>
+</radiobuttons>
 
 <checkboxes ref="formations">
 	<label>Formation</label>

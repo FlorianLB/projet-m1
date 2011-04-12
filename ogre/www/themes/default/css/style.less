@@ -403,7 +403,7 @@ ul.liste {
   width:49%;
   margin-right:1%;
   float:left;
-  
+  margin-bottom:15px;
   
   form{
     margin-bottom:0;
@@ -532,10 +532,10 @@ ul.saisie-note{
 }
 
 
-
 /* jQuery UI */
 
 #semestres_etudiant{
+    list-style-type:square;
     
     .ui-helper-hidden-accessible{
         visibility:hidden;
@@ -544,18 +544,37 @@ ul.saisie-note{
         margin-bottom:10px;
     }
     
+    ul {
+        font-size:1.2em;
+        list-style:none;
+        padding-left:15px;
+    }
+    
     ul.options{
         margin-top:10px;
+        list-style:none;
+        padding:0 0 0 30px;
+        font-size:0.8em;
+        
     }
+    
+    ul .ui-button{
+        background:url({@img}tick.png) left center no-repeat;
+        padding-left:22px;
+        cursor:pointer;
+        text-decoration:underline;
+        
+    }
+    ul .ui-button[aria-pressed='false']{
+        background-image:url({@img}cross.png);
+        span{
+            background-color:#FFDDDD;
+        }
+    }
+    
 }
 
-.ui-button{
-    .button-valid;
-}
 
-.ui-button[aria-pressed='false']{
-    .button;
-}
 
 #jforms_ue_intro_saisie_epreuve{
 
@@ -569,4 +588,11 @@ ul.saisie-note{
         min-height:25px;
     }
     
+    .ui-button{
+        .button-valid;
+    }
+    
+    .ui-button[aria-pressed='false']{
+        .button;
+    }
 }

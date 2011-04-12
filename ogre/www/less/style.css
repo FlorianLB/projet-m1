@@ -347,6 +347,7 @@ ul.liste { padding-left:15px; }
   width:49%;
   margin-right:1%;
   float:left;
+  margin-bottom:15px;
 }
 .spacer-left { margin-left:20px; }
 table.saisie-epreuve td {
@@ -408,16 +409,41 @@ ul.saisie-note {
 }
 #semestres_etudiant .ui-helper-hidden-accessible { visibility:hidden; }
 #semestres_etudiant li { margin-bottom:10px; }
-#semestres_etudiant ul.options { margin-top:10px; }
-.ui-button:hover {
+#semestres_etudiant ul {
+  font-size:1.2em;
+  list-style:none;
+  padding-left:15px;
+}
+#semestres_etudiant ul.options {
+  margin-top:10px;
+  list-style:none;
+  padding:0 0 0 30px;
+  font-size:0.8em;
+}
+#semestres_etudiant ul .ui-button {
+  background:url(../themes/default/img/tick.png) left center no-repeat;
+  padding-left:22px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+#semestres_etudiant ul .ui-button[aria-pressed='false'] span { background-color:#ffdddd; }
+#semestres_etudiant ul .ui-button[aria-pressed='false'] { background-image:url(../themes/default/img/cross.png); }
+#semestres_etudiant { list-style-type:square; }
+#jforms_ue_intro_saisie_epreuve input[type='radio'] { display:none; }
+#jforms_ue_intro_saisie_epreuve p > span:first-child {
+  width:100px;
+  display:inline-block;
+  min-height:25px;
+}
+#jforms_ue_intro_saisie_epreuve .ui-button:hover {
   border-color:#444923;
   color:#eeeeee;
 }
-.ui-button:focus {
+#jforms_ue_intro_saisie_epreuve .ui-button:focus {
   border-color:#444923;
   color:#eeeeee;
 }
-.ui-button {
+#jforms_ue_intro_saisie_epreuve .ui-button {
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
@@ -435,16 +461,16 @@ ul.saisie-note {
   border-color:#56612f;
   text-shadow:-1px -1px 0 rgba(0,0,0,0.3);
 }
-.ui-button[aria-pressed='false']:hover {
+#jforms_ue_intro_saisie_epreuve .ui-button[aria-pressed='false']:hover {
   border-color:#666666;
   color:#000000;
 }
-.ui-button[aria-pressed='false']:focus {
+#jforms_ue_intro_saisie_epreuve .ui-button[aria-pressed='false']:focus {
   border-color:#666666;
   color:#000000;
 }
-.ui-button[aria-pressed='false']:active { background:url(../themes/default/img/white-grad-active.png) repeat-x #21759b; }
-.ui-button[aria-pressed='false'] {
+#jforms_ue_intro_saisie_epreuve .ui-button[aria-pressed='false']:active { background:url(../themes/default/img/white-grad-active.png) repeat-x #21759b; }
+#jforms_ue_intro_saisie_epreuve .ui-button[aria-pressed='false'] {
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
@@ -460,10 +486,4 @@ ul.saisie-note {
   color:#464646;
   border-color:#bbbbbb;
   text-shadow:0 1px 0 #ffffff;
-}
-#jforms_ue_intro_saisie_epreuve input[type='radio'] { display:none; }
-#jforms_ue_intro_saisie_epreuve p > span:first-child {
-  width:100px;
-  display:inline-block;
-  min-height:25px;
 }
