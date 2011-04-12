@@ -26,16 +26,16 @@
             </conditions>
         </method>
         <method name="updateOption" type="update">
-                <parameter name="num_etudiant"/>
-                <parameter name="id_semestre"/>
-                <parameter name="options"/>
-                <values>
-                    <value property="options" expr="$options" />
-                </values>
-                <conditions logic="AND">
-                    <eq property="id_semestre" expr="$id_semestre" />
-                    <eq property="num_etudiant" expr="$num_etudiant" />
-                </conditions>
+            <parameter name="num_etudiant"/>
+            <parameter name="id_semestre"/>
+            <parameter name="options"/>
+            <values>
+                <value property="options" expr="$options" />
+            </values>
+            <conditions logic="AND">
+                <eq property="id_semestre" expr="$id_semestre" />
+                <eq property="num_etudiant" expr="$num_etudiant" />
+            </conditions>
         </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />

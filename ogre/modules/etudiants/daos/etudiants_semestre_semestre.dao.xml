@@ -29,6 +29,14 @@
 	      </conditions>
             </conditions>
         </method>
+	<method name="getByStatutEtudiant" type="select">
+            <parameter name="num_etudiant"/>
+            <parameter name="statut"/>
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+                <eq property="statut" expr="$statut" />
+            </conditions>
+        </method>
         <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />
             <values>

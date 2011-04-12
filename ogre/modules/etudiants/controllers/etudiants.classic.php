@@ -116,7 +116,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 		$etudiant_semestre1 = jDao::createRecord('etudiants~etudiants_semestre');
 		$etudiant_semestre1->num_etudiant = $id;
 		$etudiant_semestre1->id_semestre = $row->id_semestre;
-		$etudiant_semestre1->statut = 'NOK';
+		$etudiant_semestre1->statut = 'ENC';
 		$factory->insert($etudiant_semestre1);
 	    }
 	}
@@ -149,7 +149,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 		$etudiant_semestre1 = jDao::createRecord('etudiants~etudiants_semestre');
 		$etudiant_semestre1->num_etudiant = $id;
 		$etudiant_semestre1->id_semestre = $row->id_semestre;
-		$etudiant_semestre1->statut = 'NOK';
+		$etudiant_semestre1->statut = 'ENC';
 		$factory->insert($etudiant_semestre1);
 		jMessage::add("Modification  reussie !");
 	    }

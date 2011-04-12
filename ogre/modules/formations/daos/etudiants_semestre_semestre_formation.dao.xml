@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="semestre" realname="semestre" primarykey="id_semestre" />
+        <foreigntable name="etudiants_semestre" realname="etudiants_semestre" primarykey="id_semestre" onforeignkey="id_semestre"/>
+        <foreigntable name="formation" realname="formation" primarykey="id_formation" onforeignkey="id_formation"/>
+    </datasources>
+    <record>
+        <property name="id_semestre" fieldname="id_semestre" datatype="smallint" autoincrement="true"/>
+        <property name="id_formation" fieldname="id_formation" datatype="smallint" required="true"/>
+        <property name="num_semestre" fieldname="num_semestre" datatype="varchar" required="true" maxlength="45"/>
+        
+        <property table="etudiants_semestre" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property table="etudiants_semestre" name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
+        <property table="etudiants_semestre" name="statut" fieldname="statut" datatype="char" required="true"/>
+        <property table="etudiants_semestre" name="options" fieldname="options" datatype="varchar"/>
+        
+        <property table="formation" name="id_formation" fieldname="id_formation" datatype="smallint" autoincrement="true"/>
+        <property table="formation" name="code_formation" fieldname="code_formation" datatype="varchar" required="true" maxlength="15"/>
+        <property table="formation" name="annee" fieldname="annee" datatype="char" required="true" />
+        <property table="formation" name="libelle" fieldname="libelle" datatype="varchar" default="" maxlength="30"/>
+    </record>
+    <factory>
+        
+	<method name="getFormationByEtudiant" type="select">
+            <parameter name="num_etudiant"/>
+            <conditions>
+                <eq property="num_etudiant" expr="$num_etudiant" />
+            </conditions>
+        </method>
+	<method name="getLastFormationByEtudiant" type="select">
+            <parameter name="num_etudiant"/>
+            <conditions>
+                <eq property="num_etudiant" expr="$num_etudiant" />
+		<eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = formation.code_formation)"/>
+            </conditions>
+        </method>
+
+    </factory>
+</dao>
