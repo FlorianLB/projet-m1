@@ -133,20 +133,36 @@ class importCtrl extends jController {
                 $i=0;
                 $countENC=0;
                 $countAJO=0;
+                $countADM=0;
                 foreach($etu_sem_for as $instance ){
                     //Si semestre en cours
                     if($instance->statut == "ENC" || $instance->statut == "DET")
-                        $count++;
+                        $countENC++;
                     //Si Ajournée
-                    if($instance->statut == "AJO")
+                    else if($instance->statut == "AJO")
                         $countAJO=0;
+                    else if($instance->statut == "ADM")
+                        $countADM=0;
                     $i++;
                     //TODO cas AJC a verifier le semestre a mettre en DET
+                    if($instance->statut == "AJC"){}                    
                 }
                 if($i==$countENC){
                     //TODO RIEN
                 }else if ($i==$countAJO){
                     //TODO Garder ses notes Ou Pas en cas de Ajourne
+                    $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
+                    foreach($idform as $idformee)
+                        $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
+                    //Creation et insertion dans la table etudiant_semestre
+                    foreach($liste_semestre as $semestre){
+                        $etudiant_semestre->id_semestre = $semestre->id_semestre;
+                        $etudiant_semestre->statut = "ENC";
+                        $factoryetu_semestre->insert($etudiant_semestre);
+                    }
+                    
+                }else if ($i==$countADM){
+                    //Passage a l'année suivante
                     $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                     foreach($idform as $idformee)
                         $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
