@@ -1,5 +1,35 @@
-{formdatafull $form}
+<div id="fiche-semestres">
+    
+    <div id="fiche" class="block">
+        <h2 class="legend">Fiche</h2>
+        {formdatafull $form}
+    </div>
 
+    <div class="block">
+        <h2 class="legend">Inscriptions et options</h2>
+        {zone 'etudiants~semestres_etudiant', array('num_etudiant' => $id)}
+    </div>
+    
+</div>
+
+    <div id="historique" class="block">
+        <h2 class="legend">Historique</h2>
+        {zone 'etudiants~historique_etudiant', array('num_etudiant' => $id)}
+    </div>
+
+<div class="clear"></div>
+
+
+<div class="block">
+    <h2 class="legend">Notes</h2>
+    {zone 'etudiants~notes_etudiant', array('num_etudiant' => $id)}
+</div>
+
+<p>
+    <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>
+    <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet etudiant ?')"><span>Supprimer l'etudiant</span></a>
+    <a href="{jurl $listAction}" class="button icon back"><span>Retourner à la liste des etudiants</span></a>
+</p>
 
 {*
         <p>Formation : </p>
@@ -20,19 +50,3 @@
         {/foreach}
         </ul>
 *}
-
-
-
-    {zone 'etudiants~semestres_etudiant', array('num_etudiant' => $id)}
-
-    {zone 'etudiants~historique_etudiant', array('num_etudiant' => $id)}
-    
-    {zone 'etudiants~notes_etudiant', array('num_etudiant' => $id)}
-
-
-<p>
-    <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>
-    <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet etudiant ?')"><span>Supprimer l'etudiant</span></a>
-    <a href="{jurl $listAction}" class="button icon back"><span>Retourner à la liste des etudiants</span></a>
-</p>
-

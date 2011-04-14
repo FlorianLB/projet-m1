@@ -10,6 +10,11 @@
         <property name="date_naissance" fieldname="date_naissance" datatype="date" default=""/>
         <property name="nom_usuel" fieldname="nom_usuel" datatype="varchar" default="" maxlength="50"/>
         <property name="sexe" fieldname="sexe" datatype="enum" required="true"/>
+        <property name="adresse" fieldname="adresse" datatype="varchar" default="" maxlength="100"/>
+        <property name="code_postal" fieldname="code_postal" datatype="char" default="" maxlength="5"/>
+        <property name="ville" fieldname="ville" datatype="varchar" default="" maxlength="50"/>
+        <property name="email" fieldname="email" datatype="varchar" default="" maxlength="45"/>
+        <property name="telephone" fieldname="telephone" datatype="varchar" default="" maxlength="20"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->

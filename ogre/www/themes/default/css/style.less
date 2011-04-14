@@ -7,6 +7,8 @@
   -webkit-border-radius: @radius;
 }
 
+.clear{clear:both}
+.format{overflow:hidden;}
 
 .container{
     /*width:960px;*/
@@ -123,7 +125,7 @@
     padding:7px 9px;
     font-weight:bold;
     border:1px solid #DFDFDF;
-    margin-bottom:15px;
+    margin-bottom:20px;
     .border-radius(5px);
 }
 
@@ -464,17 +466,16 @@ table.saisie-epreuve{
 
 
 .historique{
-    
+    margin:0;
     padding:0;
-    ul{padding-left:15px;}
+    ul{padding-left:15px;padding-top:3px;}
     ul li{
         .puce-fleche;
         padding-top: 1px;
         padding-bottom: 1px;
     }
     > li{
-        border:1px solid #dfdfdf;
-        margin:0 15px 15px 0;
+        margin:0 15px 0 0;
         padding:5px;
         list-style:none;
         display:inline-block;
@@ -491,6 +492,7 @@ table.saisie-epreuve{
     
     .annee{
         font-weight:bold;
+        
     }
 }
 
@@ -594,5 +596,42 @@ ul.saisie-note{
     
     .ui-button[aria-pressed='false']{
         .button;
+    }
+}
+
+
+
+.block{
+    padding:25px 10px 0px 10px;
+    border:2px dotted #dfdfdf;
+    margin-bottom:25px;
+    position :relative;
+    .legend{
+        font-size:1.5em;
+        position:absolute;
+        top:-15px;
+        left:15px;
+        background:white;
+        padding:0 5px;
+        border-bottom:2px solid #dfdfdf;
+    }
+    
+}
+
+#historique{
+    margin-left:71.5%;
+    /*border:3px dashed #dfdfdf;*/
+}
+
+#fiche-semestres{
+    float:left;
+    width:70%;
+}
+
+
+#fiche{
+    
+    table{
+        max-width:600px;
     }
 }

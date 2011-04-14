@@ -25,6 +25,25 @@
 	<item value="F">F</item>
 </radiobuttons>
 
+<input ref="adresse" maxlength="100">
+	<label>Adresse</label>
+</input>
+
+<input ref="code_postal" maxlength="5">
+	<label>Code postal</label>
+</input>
+<input ref="ville" maxlength="50">
+	<label>Ville</label>
+</input>
+
+<input ref="email" maxlength="45">
+	<label>E-mail</label>
+</input>
+<input ref="telephone" maxlength="20">
+	<label>Telephone</label>
+</input>
+
+
 <checkboxes ref="formations">
 	<label>Formation</label>
 	<datasource class="formations~ListData"/>
