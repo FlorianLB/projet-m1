@@ -11,7 +11,14 @@
     </record>
     <factory>
         
-        <method name="getLastFormationByCode" type="select">
+        <method name="getLastFormationByCode" type="selectfirst">
+            <parameter name="code_formation" />
+            <conditions>
+                <eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = $code_formation and f.code_formation = formation.code_formation)"/>
+            </conditions>
+        </method>
+        
+        <method name="getOneLastFormationByCode" type="selectfirst">
             <parameter name="code_formation" />
             <conditions>
                 <eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = $code_formation and f.code_formation = formation.code_formation)"/>

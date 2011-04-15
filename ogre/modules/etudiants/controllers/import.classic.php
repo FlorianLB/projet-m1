@@ -146,16 +146,34 @@ class importCtrl extends jController {
                         $countENC++;
                     //Si Ajournée
                     else if($instance->statut == "AJO")
-                        $countAJO=0;
+                        $countAJO++;
                     else if($instance->statut == "ADM")
-                        $countADM=0;
+                        $countADM++;
+                    else if($instance->statut == "AJC"){
+                        $countADM++;
+                        //TODO import note et inscription semsetre suivant pris en charge par ADM
+                        $liste_semestre = $factorysemestre->getByFormation($factoryformation->getOneLastFormationByCode($instance->code_formation)->id_formation);
+                        foreach($liste_semestre as $semestre){
+                            if($semestre->num_semestre == $instance->num_semestre){
+                                //Creations des futur entree de la bd
+                                $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
+                                $etudiant_semestre->num_etudiant = $etu->num_etudiant;
+                                $etudiant_semestre->id_semestre = $semestre->id_semestre;
+                                $etudiant_semestre->statut = "DET";
+                                $factoryetu_semestre->insert($etudiant_semestre);
+                            }
+                        }
+                    }
                     $i++;
-                    //TODO cas AJC a verifier le semestre a mettre en DET
-                    if($instance->statut == "AJC"){}                    
+                    
+                    
                 }
                 if($i==$countENC){
                     //TODO RIEN
                 }else if ($i==$countAJO){
+                    //Creations des futur entree de la bd
+                    $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
+                    $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                     //TODO Garder ses notes Ou Pas en cas de Ajourne
                     $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                     foreach($idform as $idformee)
@@ -168,6 +186,9 @@ class importCtrl extends jController {
                     }
                     
                 }else if ($i==$countADM){
+                    //Creations des futur entree de la bd
+                    $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
+                    $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                     //Passage a l'année suivante
                     $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                     foreach($idform as $idformee)
