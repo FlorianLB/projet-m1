@@ -247,6 +247,7 @@ a.next span { background-image:url(../themes/default/img/arrow_right.png); }
 a.save span { background-image:url(../themes/default/img/disk.png); }
 a.back span { background-image:url(../themes/default/img/arrow_undo.png); }
 a.options span { background-image:url(../themes/default/img/contrast.png); }
+a.dispense span { background-image:url(../themes/default/img/asterisk_yellow.png); }
 table { border:1px solid #dfdfdf; }
 thead th {
   background:url(../themes/default/img/gray-grad.png) repeat-x #dfdfdf;
@@ -389,30 +390,36 @@ table.saisie-epreuve { width:350px; }
   margin:0;
   padding:0;
 }
-ul.saisie-note > li {
+ul.saisie-note > li, ul.saisie-disp > li {
   float:left;
   list-style:none;
   margin-right:50px;
 }
-ul.saisie-note ul {
+ul.saisie-note ul, ul.saisie-disp ul {
   padding:0;
   list-style:none;
 }
-ul.saisie-note table { width:250px; }
-ul.saisie-note thead th { text-align:center; }
-ul.saisie-note tr td:first-child { text-align:right; }
-ul.saisie-note tbody td {
+ul.saisie-note table, ul.saisie-disp table { width:250px; }
+ul.saisie-note thead th, ul.saisie-disp thead th { text-align:center; }
+ul.saisie-note tr td:first-child, ul.saisie-disp tr td:first-child { text-align:right; }
+ul.saisie-note tbody td, ul.saisie-disp tbody td {
   padding-top:0;
   padding-bottom:0;
 }
-ul.saisie-note input {
+ul.saisie-note input, ul.saisie-disp input {
   width:40px;
   text-align:center;
   margin:0.4em 0;
 }
-ul.saisie-note {
+ul.saisie-note, ul.saisie-disp {
   overflow:hidden;
   padding:0;
+}
+.saisie-disp label { font-weight:normal; }
+.saisie-disp li div { margin-bottom:5px; }
+.saisie-disp h3 {
+  font-size:1.3em;
+  font-weight:bold;
 }
 #semestres_etudiant .ui-helper-hidden-accessible { visibility:hidden; }
 #semestres_etudiant li { margin-bottom:10px; }
@@ -510,6 +517,10 @@ ul.saisie-note {
   position:relative;
 }
 #historique { margin-left:71.5%; }
+#link-dispense {
+  margin:0 0 30px 71.5%;
+  text-align:center;
+}
 #fiche-semestres {
   float:left;
   width:70%;

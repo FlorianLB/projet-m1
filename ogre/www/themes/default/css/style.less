@@ -268,13 +268,14 @@ a.icon.right span{
     padding:1px 23px 1px 0;
 }
 
-a.add span{background-image: url({@img}add.png);}
-a.delete span{background-image: url({@img}delete.png);}
-a.edit span{background-image: url({@img}pencil.png);}
-a.next span{background-image: url({@img}arrow_right.png);}
-a.save span{background-image: url({@img}disk.png);}
-a.back span{background-image: url({@img}arrow_undo.png);}
-a.options span { background-image:url(../themes/default/img/contrast.png); }
+a.add span{background-image: url({@img}add.png)}
+a.delete span{background-image: url({@img}delete.png)}
+a.edit span{background-image: url({@img}pencil.png)}
+a.next span{background-image: url({@img}arrow_right.png)}
+a.save span{background-image: url({@img}disk.png)}
+a.back span{background-image: url({@img}arrow_undo.png)}
+a.options span { background-image:url({@img}contrast.png)}
+a.dispense span { background-image:url({@img}asterisk_yellow.png)}
 
 
 table{
@@ -497,7 +498,7 @@ table.saisie-epreuve{
 }
 
 
-ul.saisie-note{
+ul.saisie-note, ul.saisie-disp{
     
     overflow:hidden;
     padding:0;
@@ -532,6 +533,21 @@ ul.saisie-note{
         margin: 0.4em 0;
     }
 }
+
+
+.saisie-disp{
+    label{
+        font-weight:normal;
+    }
+    li div{
+        margin-bottom:5px;
+    }
+    h3{
+        font-size:1.3em;
+        font-weight:bold;
+    }
+}
+
 
 
 /* jQuery UI */
@@ -622,6 +638,8 @@ ul.saisie-note{
     margin-left:71.5%;
     /*border:3px dashed #dfdfdf;*/
 }
+
+#link-dispense{margin:0 0 30px 71.5%; text-align:center;}
 
 #fiche-semestres{
     float:left;

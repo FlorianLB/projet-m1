@@ -16,7 +16,7 @@ class notes_etudiantZone extends jZone {
         
         jClasses::inc('utils~customSQL');
         
-        $notes_regular = customSQL::findRegularNoteByEtudiant($this->param('num_etudiant'), $this->param('id_semestre'));
+        $notes_regular = customSQL::findRegularNoteByEtudiant($this->param('num_etudiant'));
         
         $tmp = array();
         $libelle = array();

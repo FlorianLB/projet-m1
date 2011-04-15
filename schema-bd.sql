@@ -206,8 +206,6 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`compensation_semestre` (
 ENGINE = InnoDB;
 
 
-
-
 -- -----------------------------------------------------
 -- Table `ogre`.`jlx_user`
 -- -----------------------------------------------------
@@ -216,52 +214,91 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`jlx_user` (
   `usr_password` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
   `usr_email` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
   PRIMARY KEY (`usr_login`) )
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ogre`.`dispense_perso`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`dispense_perso` (
+  `id_epreuve` MEDIUMINT UNSIGNED NOT NULL ,
+  `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
+  `id_semestre` SMALLINT UNSIGNED NOT NULL ,
+  PRIMARY KEY (`id_epreuve`, `num_etudiant`, `id_semestre`) ,
+  INDEX `fk_dispense_part_epreuve1` (`id_epreuve` ASC) ,
+  INDEX `fk_dispense_part_etudiants1` (`num_etudiant` ASC) ,
+  INDEX `fk_dispense_part_semestre1` (`id_semestre` ASC) ,
+  CONSTRAINT `fk_dispense_part_epreuve1`
+    FOREIGN KEY (`id_epreuve` )
+    REFERENCES `ogre`.`epreuve` (`id_epreuve` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dispense_part_etudiants1`
+    FOREIGN KEY (`num_etudiant` )
+    REFERENCES `ogre`.`etudiants` (`num_etudiant` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dispense_part_semestre1`
+    FOREIGN KEY (`id_semestre` )
+    REFERENCES `ogre`.`semestre` (`id_semestre` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ogre`.`jacl2_group`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jacl2_group` (
+  `id_aclgrp` INT(11) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(150) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `code` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  `grouptype` TINYINT(4) NOT NULL DEFAULT '0' ,
+  `ownerlogin` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`id_aclgrp`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
+-- -----------------------------------------------------
+-- Table `ogre`.`jacl2_rights`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jacl2_rights` (
+  `id_aclsbj` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `id_aclgrp` INT(11) NOT NULL DEFAULT '0' ,
+  `id_aclres` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  PRIMARY KEY (`id_aclsbj`, `id_aclgrp`, `id_aclres`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
---
--- Structure de la table `jacl2_group`
---
-CREATE TABLE IF NOT EXISTS `jacl2_group` (
-  `id_aclgrp` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `code` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `grouptype` tinyint(4) NOT NULL DEFAULT '0',
-  `ownerlogin` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id_aclgrp`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
-
---
--- Structure de la table `jacl2_rights`
---
-CREATE TABLE IF NOT EXISTS `jacl2_rights` (
-  `id_aclsbj` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `id_aclgrp` int(11) NOT NULL DEFAULT '0',
-  `id_aclres` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Structure de la table `jacl2_subject`
---
-CREATE TABLE IF NOT EXISTS `jacl2_subject` (
-  `id_aclsbj` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `label_key` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id_aclsbj`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Structure de la table `jacl2_user_group`
---
-CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
-  `login` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `id_aclgrp` int(11) NOT NULL DEFAULT '0',
-  KEY `login` (`login`,`id_aclgrp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+-- -----------------------------------------------------
+-- Table `ogre`.`jacl2_subject`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jacl2_subject` (
+  `id_aclsbj` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `label_key` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NULL DEFAULT NULL ,
+  PRIMARY KEY (`id_aclsbj`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
 
+-- -----------------------------------------------------
+-- Table `ogre`.`jacl2_user_group`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jacl2_user_group` (
+  `login` VARCHAR(50) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL DEFAULT '' ,
+  `id_aclgrp` INT(11) NOT NULL DEFAULT '0' ,
+  INDEX `login` (`login` ASC, `id_aclgrp` ASC) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
 
 
 

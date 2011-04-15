@@ -86,15 +86,15 @@ INSERT INTO `statut_semestre` (`statut`, `libelle`) VALUES
 --
 -- Contenu de la table `etudiants`
 --
-INSERT INTO `etudiants` (`num_etudiant`, `nom`, `prenom`, `date_naissance`, `nom_usuel`, `sexe`) VALUES
-(10905684, 'INADJAREN', 'Houda', '1991-12-05', '', 'F'),
-(10907703, 'NELA', 'Samuel', '1987-05-02', '', 'M'),
-(10908728, 'NGUYEN', 'Hoang', '1990-06-20', '', 'M'),
-(10908769, 'HAKEM', 'Abdelmounaim', '1990-09-07', '', 'M'),
-(11001351, 'NIZOU', 'Jeremie', '1992-12-23', '', 'M'),
-(11005748, 'LAM', 'Blandine', '1991-02-21', '', 'F'),
-(11007102, 'NOSLEN', 'William', '1991-08-10', '', 'M'),
-(11008172, 'KENMEGNI DEWAMBA', 'Franck', '1991-04-16', '', 'M');
+INSERT INTO `etudiants` (`num_etudiant`, `nom`, `prenom`, `date_naissance`, `nom_usuel`, `sexe`, `adresse`, `code_postal`, `ville`, `email`, `telephone`) VALUES
+(10905684, 'INADJAREN', 'Houda', '1991-12-05', '', 'F', '23 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(10907703, 'NELA', 'Samuel', '1987-05-02', '', 'M', '12 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(10908728, 'NGUYEN', 'Hoang', '1990-06-20', '', 'M', '15 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(10908769, 'HAKEM', 'Abdelmounaim', '1990-09-07', '', 'M', '103 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(11001351, 'NIZOU', 'Jeremie', '1992-12-23', '', 'M', '95 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(11005748, 'LAM', 'Blandine', '1991-02-21', '', 'F', '785 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(11007102, 'NOSLEN', 'William', '1991-08-10', '', 'M', '02 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05'),
+(11008172, 'KENMEGNI DEWAMBA', 'Franck', '1991-04-16', '', 'M', '36 rue de la République', '75000', 'Paris', 'galileecapoutre@gmail.com', '01.02.03.04.05');
 
 
 --

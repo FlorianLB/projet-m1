@@ -12,7 +12,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
 
     protected $propertiesForList = array('num_etudiant', 'nom', 'prenom','date_naissance');
     
-    
+    /*
     public function etu_semestres(){
         $rep = $this->getResponse('html');
         
@@ -65,7 +65,7 @@ class etudiantsCtrl extends jControllerDaoCrud {
         return $rep;
 
     }
-    
+    */
     public function save_semestre_ue(){
 	$id = $this->param('id', 0);
 	$factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre');
