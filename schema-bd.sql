@@ -301,6 +301,38 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 
+-- -----------------------------------------------------
+-- Table `ogre`.`dispense`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`dispense` (
+  `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
+  `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
+  `id_semestre` SMALLINT UNSIGNED NOT NULL ,
+  `salarie` TINYINT(1) NULL ,
+  `endette` TINYINT(1) NULL ,
+  `commentaire` VARCHAR(100) NULL ,
+  PRIMARY KEY (`id_semestre`, `num_etudiant`, `id_ue`) ,
+  INDEX `fk_dispense_semestre1` (`id_semestre` ASC) ,
+  INDEX `fk_dispense_etudiants1` (`num_etudiant` ASC) ,
+  INDEX `fk_dispense_ue1` (`id_ue` ASC) ,
+  CONSTRAINT `fk_dispense_semestre1`
+    FOREIGN KEY (`id_semestre` )
+    REFERENCES `ogre`.`semestre` (`id_semestre` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dispense_etudiants1`
+    FOREIGN KEY (`num_etudiant` )
+    REFERENCES `ogre`.`etudiants` (`num_etudiant` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_dispense_ue1`
+    FOREIGN KEY (`id_ue` )
+    REFERENCES `ogre`.`ue` (`id_ue` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
