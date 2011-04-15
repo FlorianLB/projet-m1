@@ -105,6 +105,12 @@ class importCtrl extends jController {
                 $etudiant->prenom = utf8_encode(ucfirst(strtolower($etu->prenom)));
                 $etudiant->nom_usuel = utf8_encode(strtoupper($etu->nom_usuel));
                 
+                $etudiant->adresse = utf8_encode($etu->adresse);
+                $etudiant->code_postal = $etu->code_postal;
+                $etudiant->ville =  utf8_encode($etu->ville);
+                $etudiant->email = utf8_encode($etu->email);
+                $etudiant->telephone = $etu->telephone;
+                
                 //transformation de la date en format francais en format anglais
                 $dt->setFromString($etu->date_naissance, jDateTime::LANG_DFORMAT);
                 $etudiant->date_naissance = $dt->toString(jDateTime::DB_DFORMAT);

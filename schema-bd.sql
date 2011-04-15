@@ -15,6 +15,11 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`etudiants` (
   `date_naissance` DATE NULL ,
   `nom_usuel` VARCHAR(50) NULL ,
   `sexe` ENUM('F', 'M', '?') NOT NULL ,
+  `adresse` VARCHAR(100) NULL ,
+  `code_postal` CHAR(5) NULL ,
+  `ville` VARCHAR(50) NULL ,
+  `email` VARCHAR(45) NULL ,
+  `telephone` VARCHAR(20) NULL ,
   PRIMARY KEY (`num_etudiant`) )
 ENGINE = InnoDB;
 
@@ -156,6 +161,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`etudiants_semestre` (
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
   `statut` CHAR(3) NOT NULL ,
   `options` VARCHAR(40) NULL ,
+  `salarie` TINYINT(1) NULL ,
   PRIMARY KEY (`num_etudiant`, `id_semestre`) ,
   INDEX `fk_etudiants_has_semestre_etudiants1` (`num_etudiant` ASC) ,
   INDEX `fk_etudiants_has_semestre_semestre1` (`id_semestre` ASC) ,
@@ -198,6 +204,8 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`compensation_semestre` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
 
 
 -- -----------------------------------------------------

@@ -44,6 +44,11 @@ class etudiantsApogee{
                         $etu->prenom = $line[6];
                         $etu->nom_usuel = $line[7];
                         $etu->date_naissance = $line[8];
+                        $etu->adresse = $line[11];
+                        $etu->code_postal = $line[12];
+                        $etu->ville = $line[13];
+                        $etu->telephone = $line[14];
+                        $etu->email= $line[30];
                         
                         $data[] = $etu;
                     }

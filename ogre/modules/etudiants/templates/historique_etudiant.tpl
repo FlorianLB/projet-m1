@@ -1,5 +1,3 @@
-<p>Historique</p>
-    
 <ul class="historique">
     {foreach $inscriptions  as $annee => $inscs}
     <li>

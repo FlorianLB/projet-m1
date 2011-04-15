@@ -8,6 +8,7 @@
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="statut" fieldname="statut" datatype="char" required="true"/>
         <property name="options" fieldname="options" datatype="varchar"/>
+        <property name="salarie" fieldname="salarie" datatype="boolean"/>
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->

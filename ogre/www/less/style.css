@@ -3,6 +3,8 @@
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 }
+.clear { clear:both; }
+.format { overflow:hidden; }
 .container {
   min-width:960px;
   max-width:1200px;
@@ -93,7 +95,7 @@
   padding:7px 9px;
   font-weight:bold;
   border:1px solid #dfdfdf;
-  margin-bottom:15px;
+  margin-bottom:20px;
   border-radius:5px;
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
@@ -328,7 +330,7 @@ ul.liste { padding-left:15px; }
   padding:5px 9px;
   font-weight:bold;
   border:1px solid #dfdfdf;
-  margin-bottom:15px;
+  margin-bottom:20px;
   margin-bottom:0;
   border-radius:5px;
   -moz-border-radius:5px;
@@ -358,7 +360,10 @@ table.saisie-epreuve tr input { text-align:center; }
 table.saisie-epreuve tr input, table.saisie-epreuve tr th:last-child { width:40px; }
 table.saisie-epreuve { width:350px; }
 #jforms_formations_semestre_ue span.jforms-chkbox { display:block; }
-.historique ul { padding-left:15px; }
+.historique ul {
+  padding-left:15px;
+  padding-top:3px;
+}
 .historique ul li {
   list-style:none;
   background:url(../themes/default/img/bullet_arrow_right.png) left center no-repeat;
@@ -367,8 +372,7 @@ table.saisie-epreuve { width:350px; }
   padding-bottom:1px;
 }
 .historique > li {
-  border:1px solid #dfdfdf;
-  margin:0 15px 15px 0;
+  margin:0 15px 0 0;
   padding:5px;
   list-style:none;
   display:inline-block;
@@ -381,7 +385,10 @@ table.saisie-epreuve { width:350px; }
 .historique li.AJC { background-image:url(../themes/default/img/bell.png); }
 .historique li.DET { background-image:url(../themes/default/img/hourglass_link.png); }
 .historique .annee { font-weight:bold; }
-.historique { padding:0; }
+.historique {
+  margin:0;
+  padding:0;
+}
 ul.saisie-note > li {
   float:left;
   list-style:none;
@@ -487,3 +494,24 @@ ul.saisie-note {
   border-color:#bbbbbb;
   text-shadow:0 1px 0 #ffffff;
 }
+.block .legend {
+  font-size:1.5em;
+  position:absolute;
+  top:-15px;
+  left:15px;
+  background:white;
+  padding:0 5px;
+  border-bottom:2px solid #dfdfdf;
+}
+.block {
+  padding:25px 10px 0px 10px;
+  border:2px dotted #dfdfdf;
+  margin-bottom:25px;
+  position:relative;
+}
+#historique { margin-left:71.5%; }
+#fiche-semestres {
+  float:left;
+  width:70%;
+}
+#fiche table { max-width:600px; }
