@@ -12,6 +12,8 @@
     
 </div>
 
+    <p id="link-dispense"><a href="{jurl 'etudiants~dispense:index', array('num_etudiant' => $id)}" class="button-2 icon dispense"><span>Dispenses</span></a></p>
+
     <div id="historique" class="block">
         <h2 class="legend">Historique</h2>
         {zone 'etudiants~historique_etudiant', array('num_etudiant' => $id)}
