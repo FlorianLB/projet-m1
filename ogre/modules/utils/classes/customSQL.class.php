@@ -220,5 +220,33 @@ class customSQL{
         
         return $cnx->query($sql);
     }
+
+
+
+    public static function findDispensePredefByEtudiant($num_etudiant){
+        $cnx = jDb::getConnection();
+        
+        //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
+        
+        $sql = 'SELECT DISTINCT es.*, s.num_semestre, ue.id_ue, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.salarie, dp.endette, dp.commentaire FROM
+                    etudiants_semestre es
+                    INNER JOIN semestre s
+                        ON s.id_semestre = es.id_semestre
+                    INNER JOIN formation f
+                        ON f.id_formation = s.id_formation
+                    INNER JOIN semestre_ue se
+                        ON se.id_semestre = s.id_semestre
+                    INNER JOIN ue
+                        ON ue.id_ue = se.id_ue
+                    
+                    LEFT OUTER JOIN dispense dp
+                        ON dp.id_ue = ue.id_ue AND es.num_etudiant = dp.num_etudiant AND dp.id_semestre = es.id_semestre
+                    ';
+        $sql .= ' WHERE es.num_etudiant = '.$cnx->quote($num_etudiant)." AND (es.statut = 'ENC' OR es.statut = 'DET')";
+        $sql .= ' ORDER BY es.id_semestre ASC, ue.code_ue ASC';
+        
+        return $cnx->query($sql);
+    }
+
     
 }
