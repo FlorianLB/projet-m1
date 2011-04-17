@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="dispense" realname="dispense" primarykey="id_ue,num_etudiant,id_semestre" />
+    </datasources>
+    <record>
+        <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
+        <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
+        <property name="salarie" fieldname="salarie" datatype="boolean" default="false" required="true"/>
+        <property name="endette" fieldname="endette" datatype="boolean" default="false" required="true"/>`
+        <property name="commentaire" fieldname="commentaire" datatype="varchar" maxlength="100"/>
+    </record>
+    <factory>
+        
+        <method name="delByEtudiant" type="delete">
+            <parameter name="num" />
+            <conditions>
+                <eq property="num_etudiant" expr="$num" />
+            </conditions>
+        </method>
+        
+    </factory>
+</dao>

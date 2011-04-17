@@ -27,7 +27,7 @@ class dispenseCtrl extends jController {
         $rep = $this->getResponse('redirect');
 
         $num_etu = $this->param('num_etudiant');
-        $disp = $this->param('disp');
+        $disp = $this->param('disp', array());
         
         $factory = jDao::get('etudiants~dispense_perso');
         
@@ -52,6 +52,74 @@ class dispenseCtrl extends jController {
         }
         
         jMessage::add('Dispenses personnalisées enregistrées !', 'confirm');
+        
+        $rep->action = 'etudiants~dispense:index';
+        $rep->params = array('num_etudiant' =>$num_etu);
+        
+        return $rep;
+    }
+    
+    function save_disp_predef() {
+        $rep = $this->getResponse('redirect');
+
+        $num_etu = $this->param('num_etudiant');
+        $sal = $this->param('sal', array());
+        $end = $this->param('end', array());
+        
+        jLog::dump($sal);
+        jLog::dump($end);
+        
+        
+        $factory = jDao::get('etudiants~dispense');
+        $factory->delByEtudiant($num_etu);
+        
+        foreach($sal as $string){
+
+            $array = explode(':', $string);
+            $id_ue = $array[0];
+            $id_semestre = $array[1];
+            
+            $old = $factory->get($id_ue, $num_etu, $id_semestre);
+            
+            // Si il n'y a pas encore de dispense
+            if( !$old) {
+                $record = jDao::createRecord('etudiants~dispense');
+                $record->id_ue = $id_ue;
+                $record->id_semestre = $id_semestre;
+                $record->num_etudiant = $num_etu;
+                $record->salarie = true;
+                $factory->insert($record);
+            }
+            else{
+                $old->salarie = true;
+                $factory->update($old);
+            }
+        }
+        
+        foreach($end as $string){
+
+            $array = explode(':', $string);
+            $id_ue = $array[0];
+            $id_semestre = $array[1];
+            
+            $old = $factory->get($id_ue, $num_etu, $id_semestre);
+            
+            // Si il n'y a pas encore de dispense
+            if( !$old) {
+                $record = jDao::createRecord('etudiants~dispense');
+                $record->id_ue = $id_ue;
+                $record->id_semestre = $id_semestre;
+                $record->num_etudiant = $num_etu;
+                $record->endette = true;
+                $factory->insert($record);
+            }
+            else{
+                $old->endette = true;
+                $factory->update($old);
+            }
+        }
+        
+        jMessage::add('Dispenses classiques enregistrées !', 'confirm');
         
         $rep->action = 'etudiants~dispense:index';
         $rep->params = array('num_etudiant' =>$num_etu);

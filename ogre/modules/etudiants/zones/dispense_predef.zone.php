@@ -21,7 +21,7 @@ class dispense_predefZone extends jZone {
             $libelle['ue'][$row->id_ue] = ($row->ue_libelle != '') ? $row->code_ue .' - ' .$row->ue_libelle : $row->code_ue;
         }
         
-        $this->_tpl->assign('submitAction', 'etudiants~dispense:save_disp_perso');
+        $this->_tpl->assign('submitAction', 'etudiants~dispense:save_disp_predef');
         $this->_tpl->assign('num_etudiant', $this->param('num_etudiant') );
         $this->_tpl->assign('dispenses', $tmp);
         $this->_tpl->assign('libelle', $libelle);
