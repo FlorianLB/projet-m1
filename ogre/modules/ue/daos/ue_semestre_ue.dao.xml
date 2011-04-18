@@ -22,8 +22,7 @@
         
 
     </record>
-    <factory>        
-
+    <factory>
         
         <method name="getByCodeSemestre" type="selectfirst">
             <parameter name="code_ue" />
@@ -33,5 +32,13 @@
                 <eq property="id_semestre" expr="$id_semestre" />
             </conditions>
         </method>
+        
+        <method name="getBySemestre" type="select">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
+        
     </factory>
 </dao>

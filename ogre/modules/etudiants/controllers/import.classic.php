@@ -141,28 +141,28 @@ class importCtrl extends jController {
                 $countAJO=0;
                 $countADM=0;
                 foreach($etu_sem_for as $instance ){
-                    //Si semestre en cours
-                    if($instance->statut == "ENC" || $instance->statut == "DET")
-                        $countENC++;
-                    //Si Ajournée
-                    else if($instance->statut == "AJO")
-                        $countAJO++;
-                    else if($instance->statut == "ADM")
-                        $countADM++;
-                    else if($instance->statut == "AJC"){
-                        $countADM++;
-                        //TODO import note et inscription semsetre suivant pris en charge par ADM
-                        $liste_semestre = $factorysemestre->getByFormation($factoryformation->getOneLastFormationByCode($instance->code_formation)->id_formation);
-                        foreach($liste_semestre as $semestre){
-                            if($semestre->num_semestre == $instance->num_semestre){
-                                //Creations des futur entree de la bd
-                                $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
-                                $etudiant_semestre->num_etudiant = $etu->num_etudiant;
-                                $etudiant_semestre->id_semestre = $semestre->id_semestre;
-                                $etudiant_semestre->statut = "DET";
-                                $factoryetu_semestre->insert($etudiant_semestre);
+                    switch($instance->statut){
+                        case "ENC":
+                        case "DET":$countENC++;break;
+                        case "AJO":$countAJO++;break;
+                        case "ADM":$countADM++;break;
+                        case "AJC":
+                            $countADM++;
+                            //TODO import note et inscription semsetre suivant pris en charge par ADM
+                            $liste_semestre = $factorysemestre->getByFormation($factoryformation->getOneLastFormationByCode($instance->code_formation)->id_formation);
+                            foreach($liste_semestre as $semestre){
+                                if($semestre->num_semestre == $instance->num_semestre){
+                                    //Creations des futur entree de la bd
+                                    $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
+                                    $etudiant_semestre->num_etudiant = $etu->num_etudiant;
+                                    $etudiant_semestre->id_semestre = $semestre->id_semestre;
+                                    $etudiant_semestre->statut = "DET";
+                                    $factoryetu_semestre->insert($etudiant_semestre);
+                                }
                             }
-                        }
+                        break;
+                        default:break;
+                        
                     }
                     $i++;
                     

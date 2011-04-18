@@ -30,6 +30,24 @@ class customSQL{
     }
     
     /**
+     * Retourne vrai si l'etudiant a une dispence pour l'ue de ce semestre TODO Voir si peut retourné la dispence
+     */
+    public static function DispenseExiste($id_semestre,$num_etudiant,$id_ue){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                ' and id_semestre = '.$cnx->quote($id_semestre).
+                ' and id_ue = '.$cnx->quote($id_ue);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
+    /**
      * Retourne vrai si l'ue existe deja dans la base
      */
     public static function ueExisteDeja($code_ue,$id_semestre){
@@ -62,6 +80,16 @@ class customSQL{
             return false;
         else
             return true;
+    }
+    
+    public static function ueIsOptionnel($id_ue,$id_semestre){
+        $cnx = jDb::getConnection();
+
+        $sql = 'SELECT optionnel FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
+                                    ' and id_semestre = '.$cnx->quote($id_semestre);
+                                    
+        return $cnx->query($sql);
+
     }
     
     public static function formationExisteDeja($code_formation, $annee){

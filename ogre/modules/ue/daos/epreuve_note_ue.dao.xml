@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="epreuve" realname="epreuve" primarykey="id_epreuve" />
+        <foreigntable name="note" realname="note" primarykey="id_epreuve" onforeignkey="id_epreuve"/>
+        <foreigntable name="ue" realname="ue" primarykey="id_ue" onforeignkey="id_ue"/>
+    </datasources>
+    <record>
+        <property name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" autoincrement="true"/>
+        <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
+        <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
+        <property name="type_epreuve" fieldname="type_epreuve" datatype="varchar" required="true" maxlength="5"/>        
+        
+        <property table="ue" name="id_ue" fieldname="id_ue" datatype="mediumint" autoincrement="true"/>
+        <property table="ue" name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
+        <property table="ue" name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
+        <property table="ue" name="credits" fieldname="credits" datatype="tinyint" required="true"/>
+        <property table="ue" name="libelle" fieldname="libelle" datatype="varchar" maxlength="50"/>
+        <property table="ue" name="annee" fieldname="annee" datatype="smallint" required="true" insertpattern="YEAR(NOW())"/>
+        <property table="ue" name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
+        <property table="ue" name="formule2" fieldname="formule2" datatype="varchar" required="true" maxlength="50"/>
+        <property table="ue" name="formule_salarie" fieldname="formule_salarie" datatype="varchar" required="true" maxlength="50"/>        
+        
+        <property table="note" name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
+        <property table="note" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
+        <property table="note" name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
+        <property table="note" name="valeur" fieldname="valeur" datatype="decimal" required="true"/>        
+        
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>        
+        <method name="getNoteByEtuUeSem" type="select">
+            <parameter name="id_semestre" />
+            <parameter name="num_etudiant" />
+            <parameter name="id_ue" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre"/>
+                <eq property="num_etudiant" expr="$num_etudiant"/>
+                <eq property="id_ue" expr="$id_ue"/>
+            </conditions>
+        </method>
+
+    </factory>
+</dao>
