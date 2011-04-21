@@ -47,6 +47,21 @@ class customSQL{
             return true;
     }
     
+    public static function DispensePersoExiste($id_semestre,$num_etudiant,$id_epreuve){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                ' and id_semestre = '.$cnx->quote($id_semestre).
+                ' and id_epreuve = '.$cnx->quote($id_epreuve);
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+    }
+    
     /**
      * Retourne vrai si l'ue existe deja dans la base
      */

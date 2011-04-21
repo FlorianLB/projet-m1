@@ -45,9 +45,10 @@ class Moyenne{
             //Si oui on recupere les notes de l'ue
             $liste_note = $epreuve_note_ue_factory->getNoteByEtuUeSem($id_semestre,$num_etudiant,$id_ue);
             foreach($liste_note as $note){
-                //On mets la valeur de chaque note dans un tableau
+                //On mets la valeur de chaque note dans un tableau si il n'y a pas de dispense pour cette epreuve
                 //TODO pas utile mais peux facilité le calcul apres
-                $array_note['$note->type_epreuve'] = $note->valeur;
+                if(!customSQL::DispensePersoExiste($id_semestre,$num_etudiant,$note->id_epreuve))
+                    $array_note['$note->type_epreuve'] = $note->valeur;
             }
             //TODO Trouver un moyen simple d'affecté la note a la formule
             //$moyenne=
