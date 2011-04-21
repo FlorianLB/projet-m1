@@ -1,12 +1,21 @@
-formule ue perso pour chaque etudiants particulier
+TODO :
 
-inscrire un etu a certaine ue d'un semestre
+- gérer le decochage dans l'inscriptions semestre (Julien)
 
-gerer les sup
+- gérer les options dans l'affichage de saisie des notes (Flo)
 
-obtenir codes ue en fonction des années
+- gérer les dispenses dans l'affichage de saisie des notes (Flo)
 
-gerer les formules 2eme session	
+- faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (?)
 
-gerer fomulaire decoché
+- generer le PV en .xls (Hector)
 
+- Ajout des raisons aux dispenses (?)
+
+- Créer un script/ensemble de scripts qui démarre une nouvelle année (?)
+
+- A la création d'UE, proposer les formules les communement rentrés (?)
+
+- Affichage distinct des epreuves de rattrapage (rajout d'un boolean sur epreuve pour savoir si c'est un rattrapge) (Flo)
+
+- Gérer correctement les SUP (et les formules en général)
