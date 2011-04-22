@@ -97,7 +97,7 @@ class Moyenne{
         //TODO Faire une boucle pour calculé les valeurs de chaque formule puis max ou alors le truc en dessous fonctionne
         //Sa marche ???
         for($i=0;$i<$nb_formule;$i++){
-            eval("\$formule_exp[\$nb_formule] = $formule_exp[$nb_formule];");
+            eval("\$formule_exp[\$nb_formule] = \$formule_exp[\$nb_formule];");
         }
         $moyenne=Max($formule_exp);
         
