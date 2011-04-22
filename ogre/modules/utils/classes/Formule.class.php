@@ -2,7 +2,6 @@
 
 class Formule{
     
-    //TODO REVOIR GESTION DES FORMULES, ne pas mettre les sup ? juste separation par des ; ?
     //TODO les formules contenant des sup devront etre separer par des ;
     
     public static function parseFormuleUe($formule){

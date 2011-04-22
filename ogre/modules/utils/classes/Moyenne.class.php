@@ -15,20 +15,19 @@ class Moyenne{
         $array_moyenne = array();
         
         foreach($liste_ue as $ue){
-            //Verification si l'ue est optionnel
-            if(customSQL::ueIsOptionelle($ue->id_ue,$id_semestre)){
-                //Si oui verifie que l'etudiant est inscrit
-                if(strstr($ue->code_ue,$etudiant_semestre->options) != FALSE){
+            if(!customSQL::DispenseValideExiste($id_semestre,$num_etudiant,$ue->id_ue)){
+                //Verification si l'ue est optionnel
+                if(customSQL::ueIsOptionelle($ue->id_ue,$id_semestre)){
+                    //Si oui verifie que l'etudiant est inscrit
+                    if(strstr($ue->code_ue,$etudiant_semestre->options) != FALSE){
+                        //On calcule la moyenne
+                        $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
+                    }
+                }
+                else{
                     //On calcule la moyenne
                     $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
                 }
-            }
-            //TODO Verifier l'existence d'une dispense a l'ue (pas formule differente)
-            // customSQL::DispenseExiste($id_semestre,$num_etudiant,$id_ue); ???
-            //Le custom SQL si une dispense existe peut t'il retourné le type ? au lieu d'un boléen ?? 2 type de return possible ?
-            else{
-                //On calcule la moyenne
-                $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
             }
         }
         return $array_moyenne;
@@ -39,7 +38,7 @@ class Moyenne{
         
         jClasses::inc('utils~Formule');
         jClasses::inc('utils~EvalMath');
-        jClasses::inc('utils~customSQL');
+        //jClasses::inc('utils~customSQL');
         
         //TODO appliqué la bonne formule au note
         
@@ -52,9 +51,13 @@ class Moyenne{
         if(!customSQL::DispenseExiste($id_semestre,$num_etudiant,$id_ue)){
             $formule = $ue_factory->get($id_ue)->formule;
         }else{
-            //TODO prendre la bonne formule
-            //Le custom SQL si une dispense existe peut t'il retourné le type ? au lieu d'un boléen ?? 2 type de return possible ?
-            //$formule = $ue_factory->get($id_ue)->formule;
+            switch(customSQL::DispenseType($id_semestre,$num_etudiant,$id_ue)){
+                case 'salarie' : $formule = $ue_factory->get($id_ue)->formule_salarie;
+                case 'endette' : $formule = $ue_factory->get($id_ue)->formule_endette;
+                case 'valide' : 
+                default : return false;
+                            break;
+            }
         }
         //Parsage de la formule
         $formule_tmp=Formule::parseFormuleUeSup($formule);

@@ -47,6 +47,41 @@ class customSQL{
             return true;
     }
     
+    public static function DispenseValideExiste($id_semestre,$num_etudiant,$id_ue){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                ' and id_semestre = '.$cnx->quote($id_semestre).
+                ' and id_ue = '.$cnx->quote($id_ue).' and valide = TRUE';
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+        
+    }
+    
+    public static function DispenseType($id_semestre,$num_etudiant,$id_ue){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT valide, salarie, endette FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                ' and id_semestre = '.$cnx->quote($id_semestre).
+                ' and id_ue = '.$cnx->quote($id_ue);
+         
+        $rs = $cnx->query($sql);
+        $disp = $rs->fetch();
+        
+        if($disp->valide == true){
+            return 'valide';
+        }else if($disp->salarie == true){
+            return 'salarie';
+        }else if($disp->endette == true){
+            return 'endette';
+        }
+    }
+    
     public static function DispensePersoExiste($id_semestre,$num_etudiant,$id_epreuve){
         $cnx = jDb::getConnection();
         
