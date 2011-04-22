@@ -23,6 +23,14 @@
                 <eq property="annee" expr="(select Max(f.annee) from ue as f where f.code_ue = ue.code_ue)"/>
             </conditions>
         </method>
+
+        <method name="getLastUeByCode" type="selectfirst">
+            <parameter name="code_ue" />
+            <conditions>
+                <eq property="annee" expr="(select Max(f.annee) from ue as f where f.code_ue = ue.code_ue)"/>
+                <eq property="code_ue" expr="$code_ue" />
+            </conditions>
+        </method>
         
         <method name="getByCode" type="select">
             <parameter name="code_ue" />
