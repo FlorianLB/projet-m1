@@ -287,72 +287,7 @@ class defaultCtrl extends jController {
         endswitch;
     }
     
-
-    
-//    function exportetudiants() {
-//        $rep = $this->getResponse();
-//        $counter = 1;
-//        $listeunetudiant = "";
-//        
-//        $factory = jDao::get('etudiants~etudiants');
-//        $liste = $factory->findAll();
-//        
-//        // Create new PHPExcel object
-//        $objPHPExcel = new PHPExcel();
-//        
-//        // Set properties
-//        $objPHPExcel->getProperties()->setCreator("Maarten Balliauw")
-//                                                                 ->setLastModifiedBy("Maarten Balliauw")
-//                                                                 ->setTitle("Office 2007 XLSX Test Document")
-//                                                                 ->setSubject("Office 2007 XLSX Test Document")
-//                                                                 ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-//                                                                 ->setKeywords("office 2007 openxml php")
-//                                                                 ->setCategory("Test result file");
-//        
-//        foreach ($liste as $row) {
-//            
-//            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$counter, $row->nom)
-//                                                ->setCellValue('B'.$counter, $row->prenom)
-//                                                ->setCellValue('C'.$counter, $row->num_etudiant)
-//                                                ->setCellValue('D'.$counter, $row->date_naissance);
-//            
-//            $counter++;
-//        }
-//        // Rename sheet
-//        $objPHPExcel->getActiveSheet()->setTitle('Etudiant');
-//        
-//        
-//        // Set active sheet index to the first sheet, so Excel opens this as the first sheet
-//        $objPHPExcel->setActiveSheetIndex(0);
-//        
-//        
-//        // Redirect output to a client’s web browser (Excel2007)
-//        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-//        header('Content-Disposition: attachment;filename="etudiant.xlsx"');
-//        header('Cache-Control: max-age=0');
-//        
-//        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//        $objWriter->save('php://output');
-//        exit;
-//        
-//        //echo $unetudiant[""];
-//        /*$content = '<p>Ok nikel, tout marche</p>
-//            <p>Liens temporaires : </p>
-//            <ul>
-//                    <li><a href="'.jUrl::get('formations~formations:index').'">Formations CRUD</a></li>
-//                    <li><a href="'.jUrl::get('etudiants~etudiants:index').'">Etudiants CRUD</a></li>
-//					<li><a href="'.jUrl::get('ue~ue:index').'">Ue CRUD</a></li>
-//            </ul>
-//        ';*/
-//        //print_r($liste)
-//        
-//        //$rep->body->assign('MAIN', $content);
-//        
-//        //$rep->body->assign('MAIN',"OK");
-//        //return $rep;
-//    }
-    
-        function exportFormation() {
+    function exportFormation() {
         $id = $this->param('id', 0);
         
         $ligne_UE = 2;
