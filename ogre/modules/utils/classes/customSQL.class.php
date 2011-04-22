@@ -203,7 +203,7 @@ class customSQL{
         
         //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
         
-        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation FROM
+        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
                         ON s.id_semestre = es.id_semestre
@@ -219,6 +219,8 @@ class customSQL{
                     LEFT OUTER JOIN note n
                         ON n.id_epreuve = ev.id_epreuve AND es.num_etudiant = n.num_etudiant AND n.id_semestre = es.id_semestre
                     
+                    LEFT OUTER JOIN dispense_perso dp
+                        ON dp.id_epreuve = ev.id_epreuve AND es.num_etudiant = dp.num_etudiant AND dp.id_semestre = es.id_semestre
                     ';
 
         
@@ -298,4 +300,5 @@ class customSQL{
         $sql = 'SELECT MAX('.$cnx->quote($annee).") FROM formation";
         return $cnx->query($sql);
     }
+
 }

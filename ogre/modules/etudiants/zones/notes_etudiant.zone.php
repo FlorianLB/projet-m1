@@ -20,7 +20,18 @@ class notes_etudiantZone extends jZone {
         
         $tmp = array();
         $libelle = array();
+        $dispense = array();
         foreach($notes_regular as $note){
+            
+            if(is_numeric($note->flag_dispense))
+                $note->valeur = -2 ;
+                
+            if(isset($dispense[$note->id_ue]) || customSQL::DispenseExiste($note->id_semestre, $note->num_etudiant, $note->id_ue)){
+                $note->valeur = -2 ;
+                $dispense[$note->id_ue] = 1;
+            }
+            
+            
             $tmp[$note->id_semestre][$note->id_ue][] = $note;
             
             $libelle['semestre'][$note->id_semestre] = $note->num_semestre;

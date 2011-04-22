@@ -14,6 +14,13 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
+        <method name="getBySemestre" type="select">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
+        
         <method name="deleteByEtudiant" type="delete">
                 <parameter name="num_etudiant" />
                 <conditions>

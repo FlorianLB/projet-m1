@@ -47,6 +47,8 @@ formations.access=2
 etudiants.access=2
 ue.access=2
 utils.access=2
+phpexcel.access=2
+
 [coordplugins]
 ;name = file_ini_name or 1
 

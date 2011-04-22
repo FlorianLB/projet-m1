@@ -20,6 +20,13 @@
             </conditions>
         </method>
         
+        <method name="getBySemestre" type="select">
+            <parameter name="id_semestre" />
+            <conditions>
+                <eq property="id_semestre" expr="$id_semestre" />
+            </conditions>
+        </method>
+        
         <method name="deleteByEpreuve" type="delete">
             <parameter name="id_epreuve" />
             <conditions>

@@ -30,10 +30,14 @@
                     </tbody>
                 </table>
                 
-                <p id="to-check">
-                    <a class="button" rel="sal">Cocher tout Salarié</a>
-                    <a class="button" rel="end">Cocher tout Endetté</a>
-                </p>
+                <div class="to-check">
+                        <div>
+                                <a class="button" rel="sal">Cocher tout Salarié</a>
+                        </div>
+                        <div>
+                            <a class="button" rel="end">Cocher tout Endetté</a>
+                        </div>
+                </div>
                 
             </li>
         {/foreach}
@@ -44,10 +48,10 @@
 
 <script type="text/javascript">{literal}
     $(document).ready(function(){
-        $('#to-check a').click(function(e){
+        $('.to-check a').click(function(e){
             
             var classe = $(this).attr('rel');
-            var $els = $(this).parent().prev('table').find('input.' + classe);
+            var $els = $(this).parents('.to-check').prev('table').find('input.' + classe);
             var state = $els.attr('checked');
             
             if(state == true){
