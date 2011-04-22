@@ -16,7 +16,7 @@ class Moyenne{
         
         foreach($liste_ue as $ue){
             //Verification si l'ue est optionnel
-            if(customSQL::ueIsOptionnel($ue->id_ue,$id_semestre)){
+            if(customSQL::ueIsOptionelle($ue->id_ue,$id_semestre)){
                 //Si oui verifie que l'etudiant est inscrit
                 if(strstr($ue->code_ue,$etudiant_semestre->options) != FALSE){
                     //On calcule la moyenne
@@ -32,9 +32,13 @@ class Moyenne{
             }
         }
         
+        return $array_moyenne;
+        
     }
     
     public static function caclMoyenne($id_semestre,$num_etudiant,$id_ue){
+        
+        jClasses::inc('utils~Formule');
         
         //TODO appliqué la bonne formule au note
         
@@ -52,17 +56,17 @@ class Moyenne{
             //$formule = $ue_factory->get($id_ue)->formule;
         }
         //Parsage de la formule
-        $formule_tmp=customSQL::parseFormuleUeSup($formule);
+        $formule_tmp=Formule::parseFormuleUeSup($formule);
         
         //on recupere les notes de l'ue
         $liste_note = $epreuve_note_ue_factory->getNoteByEtuUeSem($id_semestre,$num_etudiant,$id_ue);
         foreach($liste_note as $note){
             //On mets la valeur de chaque note dans un tableau si il y a dispense note = -1
             if(!customSQL::DispensePersoExiste($id_semestre,$num_etudiant,$note->id_epreuve)){
-                $array_note['$note->type_epreuve'] = $note->valeur;
+                $array_note[$note->type_epreuve] = $note->valeur;
             }
             else{
-                $array_note['$note->type_epreuve'] = -1;
+                $array_note[$note->type_epreuve] = -1;
             }
         }
         
@@ -74,25 +78,26 @@ class Moyenne{
             $coeff[$nb_formule]=0;
             //Pour chaque formule on parcours les coeff en verifiant que la note de ce coeff est != -1
             //si -1 on ajoute pas le coeff et on remet la note a 0 sinon on l'ajoute
-            //TODO Confirmer si [1] est bien le COEFF et si [2] est bien l'intitulé de l'epreuve
+            //TODO MODIFIER LE PARSAGE POUR AVOIR LES COEFF 1
             //On remplace la note au passage
             for($i=0;$i<sizeof($form[1]); $i++){
-                if( $array_note[$form[2][i]] == -1){
-                    $array_note[$form[2][i]]=0;
+                if( $array_note[$form[2][$i]] == -1){
+                    $array_note[$form[2][$i]]=0;
                 }else{
-                    $coeff[$nb_formule]=$coeff[$nb_formule]+$form[1][i];
+                    $coeff[$nb_formule]=$coeff[$nb_formule]+$form[1][$i];
                 }
                 //On remplace dans la formule correspondante
-                str_replace($form[1][i],$array_note[$form[1][i]],$formule_exp[$nb_formule]);
+                $formule_exp[$nb_formule]=str_replace($form[0][$i],$form[1][$i].'*'.$array_note[$form[2][$i]],$formule_exp[$nb_formule]);
             }
             //Puis on rajoute le diviseur a la fin de la formule
             $formule_exp[$nb_formule]='('.$formule_exp[$nb_formule].')/'.$coeff[$nb_formule];
             $nb_formule++;
         }
+        $nb_formule--;
         //TODO Faire une boucle pour calculé les valeurs de chaque formule puis max ou alors le truc en dessous fonctionne
         //Sa marche ???
         for($i=0;$i<$nb_formule;$i++){
-            eval( "\$formule_exp[\$nb_formule] = \"$formule_exp[$nb_formule]\";" );
+            eval("\$formule_exp[\$nb_formule] = $formule_exp[$nb_formule];");
         }
         $moyenne=Max($formule_exp);
         

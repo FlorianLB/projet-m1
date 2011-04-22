@@ -50,7 +50,7 @@ class customSQL{
     public static function DispensePersoExiste($id_semestre,$num_etudiant,$id_epreuve){
         $cnx = jDb::getConnection();
         
-        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+        $sql = 'SELECT 1 FROM dispense_perso WHERE num_etudiant = '.$cnx->quote($num_etudiant).
                 ' and id_semestre = '.$cnx->quote($id_semestre).
                 ' and id_epreuve = '.$cnx->quote($id_epreuve);
          
@@ -97,10 +97,10 @@ class customSQL{
             return true;
     }
     
-    public static function ueIsOptionnel($id_ue,$id_semestre){
+    public static function ueIsOptionelle($id_ue,$id_semestre){
         $cnx = jDb::getConnection();
 
-        $sql = 'SELECT optionnel FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
+        $sql = 'SELECT optionelle FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
                                     ' and id_semestre = '.$cnx->quote($id_semestre);
                                     
         return $cnx->query($sql);
