@@ -2,7 +2,7 @@
 
 class Moyenne{
     
-    public static function caclAllMoyenne($id_semestre,$num_etudiant){
+    public static function calcAllMoyenne($id_semestre,$num_etudiant){
         
         $ue_semestre_ue_factory = jDao::get('ue~ue_semestre_ue');
         $etudiants_semestre_factory = jDao::get('etudiants~etudiants_semestre');
@@ -20,7 +20,7 @@ class Moyenne{
                 //Si oui verifie que l'etudiant est inscrit
                 if(strstr($ue->code_ue,$etudiant_semestre->options) != FALSE){
                     //On calcule la moyenne
-                    $array_moyenne[$id_ue] = caclMoyenne($id_semestre,$num_etudiant,$id_ue);
+                    $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
                 }
             }
             //TODO Verifier l'existence d'une dispense a l'ue (pas formule differente)
@@ -28,17 +28,17 @@ class Moyenne{
             //Le custom SQL si une dispense existe peut t'il retourné le type ? au lieu d'un boléen ?? 2 type de return possible ?
             else{
                 //On calcule la moyenne
-                $array_moyenne[$id_ue] = caclMoyenne($id_semestre,$num_etudiant,$id_ue);
+                $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
             }
         }
-        
         return $array_moyenne;
         
     }
     
-    public static function caclMoyenne($id_semestre,$num_etudiant,$id_ue){
+    public static function calcMoyenne($id_semestre,$num_etudiant,$id_ue){
         
         jClasses::inc('utils~Formule');
+        jClasses::inc('utils~EvalMath');
         
         //TODO appliqué la bonne formule au note
         
@@ -93,11 +93,11 @@ class Moyenne{
             $formule_exp[$nb_formule]='('.$formule_exp[$nb_formule].')/'.$coeff[$nb_formule];
             $nb_formule++;
         }
-        $nb_formule--;
         //TODO Faire une boucle pour calculé les valeurs de chaque formule puis max ou alors le truc en dessous fonctionne
         //Sa marche ???
+        $m = new EvalMath;
         for($i=0;$i<$nb_formule;$i++){
-            eval("\$formule_exp[\$nb_formule] = \$formule_exp[\$nb_formule];");
+            $formule_exp[$i] = $m->e($formule_exp[$i]);
         }
         $moyenne=Max($formule_exp);
         

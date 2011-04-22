@@ -161,7 +161,7 @@ class importCtrl extends jController {
                                 }
                             }
                             //TODO Calcul de la moyenne puis ajouts de la dispense si necessaire
-                            $moyenne=Moyenne::caclAllMoyenne($instance->id_semestre,$instance->num_etudiant);
+                            $moyenne=Moyenne::calcAllMoyenne($instance->id_semestre,$instance->num_etudiant);
                             foreach($moyenne as $key => $moy){
                                 //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
                                 if($moy>10){

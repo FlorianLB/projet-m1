@@ -103,7 +103,9 @@ class customSQL{
         $sql = 'SELECT optionelle FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
                                     ' and id_semestre = '.$cnx->quote($id_semestre);
                                     
-        return $cnx->query($sql);
+        $rs = $cnx->query($sql);
+                
+        return $rs->fetch()->optionelle;
 
     }
     

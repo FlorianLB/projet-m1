@@ -24,8 +24,10 @@ class defaultCtrl extends jController {
         //    //var_dump($var->id_epreuve);
         //    jLog::dump($var);
         //}
-        jLog::dump(Moyenne::caclMoyenne(1,10905684,1));
-        jLog::dump(Moyenne::caclAllMoyenne(1,10905684));
+        
+        jLog::dump(Moyenne::calcMoyenne(1,10905684,1));
+        jLog::dump(Moyenne::calcAllMoyenne(1,10905684));
+        
         //var_dump(customSQL::noteExisteDeja(33,1,10800755));
 
        // $rep->body->assign('MAIN',$content);
