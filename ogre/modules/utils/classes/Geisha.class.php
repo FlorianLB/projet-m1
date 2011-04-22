@@ -21,7 +21,7 @@ class Geisha{
                 //si pas deja cree
                 // on cree la formation clolone 0
                     //clolone 0 code formation
-                    //clolone 2 nom
+                    //clolone 2 libelle
                     
                 
                 //sinon on l'ajoute l'ue la derniere entrer
@@ -29,7 +29,7 @@ class Geisha{
                 
                // cree ue
                 //code colonne3
-                //nom colonne4
+                //libelle colonne4
     
             }   
         }

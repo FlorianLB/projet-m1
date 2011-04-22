@@ -34,6 +34,13 @@
             </conditions>
         </method>
         
+        <method name="getByAnnee" type="select">
+            <parameter name="annee" />
+            <conditions>
+                <eq property="annee" expr="$annee"/>
+            </conditions>
+        </method>
+        
         <method name="getByCode" type="select">
             <parameter name="code_formation" />
             <conditions>

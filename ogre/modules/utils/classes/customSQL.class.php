@@ -292,6 +292,12 @@ class customSQL{
         
         return $cnx->query($sql);
     }
-
+    
+    
+     public static function finDerniereAnnee($annee){
+        $cnx = jDb::getConnection();
+    
+        $sql = 'SELECT MAX('.$cnx->quote($annee).") FROM formation"
+        return $cnx->query($sql);
     
 }
