@@ -50,7 +50,7 @@ class customSQL{
     public static function DispensePersoExiste($id_semestre,$num_etudiant,$id_epreuve){
         $cnx = jDb::getConnection();
         
-        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+        $sql = 'SELECT 1 FROM dispense_perso WHERE num_etudiant = '.$cnx->quote($num_etudiant).
                 ' and id_semestre = '.$cnx->quote($id_semestre).
                 ' and id_epreuve = '.$cnx->quote($id_epreuve);
          
@@ -97,10 +97,10 @@ class customSQL{
             return true;
     }
     
-    public static function ueIsOptionnel($id_ue,$id_semestre){
+    public static function ueIsOptionelle($id_ue,$id_semestre){
         $cnx = jDb::getConnection();
 
-        $sql = 'SELECT optionnel FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
+        $sql = 'SELECT optionelle FROM semestre_ue WHERE id_ue = '.$cnx->quote($id_ue).
                                     ' and id_semestre = '.$cnx->quote($id_semestre);
                                     
         return $cnx->query($sql);
@@ -203,7 +203,7 @@ class customSQL{
         
         //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
         
-        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation FROM
+        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
                         ON s.id_semestre = es.id_semestre
@@ -219,6 +219,8 @@ class customSQL{
                     LEFT OUTER JOIN note n
                         ON n.id_epreuve = ev.id_epreuve AND es.num_etudiant = n.num_etudiant AND n.id_semestre = es.id_semestre
                     
+                    LEFT OUTER JOIN dispense_perso dp
+                        ON dp.id_epreuve = ev.id_epreuve AND es.num_etudiant = dp.num_etudiant AND dp.id_semestre = es.id_semestre
                     ';
 
         
@@ -292,10 +294,11 @@ class customSQL{
     }
     
     
-     public static function finDerniereAnnee($annee){
+    public static function finDerniereAnnee($annee){
         $cnx = jDb::getConnection();
     
-        $sql = 'SELECT MAX('.$cnx->quote($annee).") FROM formation"
+        $sql = 'SELECT MAX('.$cnx->quote($annee).") FROM formation";
         return $cnx->query($sql);
-    
+    }
+
 }

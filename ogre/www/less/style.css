@@ -245,6 +245,7 @@ a.delete span { background-image:url(../themes/default/img/delete.png); }
 a.edit span { background-image:url(../themes/default/img/pencil.png); }
 a.next span { background-image:url(../themes/default/img/arrow_right.png); }
 a.save span { background-image:url(../themes/default/img/disk.png); }
+a.excel span { background-image:url(../themes/default/img/excel.png); }
 a.back span { background-image:url(../themes/default/img/arrow_undo.png); }
 a.options span { background-image:url(../themes/default/img/contrast.png); }
 a.dispense span { background-image:url(../themes/default/img/asterisk_yellow.png); }
@@ -526,4 +527,3 @@ ul.saisie-note, ul.saisie-disp {
   width:70%;
 }
 #fiche table { max-width:600px; }
-#to-check a { display:block; }
