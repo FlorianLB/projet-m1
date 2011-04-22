@@ -15,6 +15,7 @@ class defaultCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
         jClasses::inc('utils~customSQL');
+        jClasses::inc('utils~Moyenne');
         
         ////$var = Formule::parseFormuleUe('SUP ( 2PA1 + 2 PE2 + 3 * evc)');
         //$vars = jDao::get('ue~epreuve')->getByUeAndType(9,"CTP1");
@@ -23,7 +24,7 @@ class defaultCtrl extends jController {
         //    //var_dump($var->id_epreuve);
         //    jLog::dump($var);
         //}
-        
+        jLog::dump(Moyenne::caclAllMoyenne(5,10300174));
         var_dump(customSQL::noteExisteDeja(33
                                            ,1,10800755));
         
