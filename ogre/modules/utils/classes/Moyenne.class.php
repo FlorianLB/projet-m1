@@ -39,6 +39,7 @@ class Moyenne{
         
         jClasses::inc('utils~Formule');
         jClasses::inc('utils~EvalMath');
+        jClasses::inc('utils~customSQL');
         
         //TODO appliqué la bonne formule au note
         
