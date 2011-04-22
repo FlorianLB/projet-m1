@@ -7,6 +7,7 @@
         <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
+        <property name="valide" fieldname="valide" datatype="boolean" default="false" required="true"/>
         <property name="salarie" fieldname="salarie" datatype="boolean" default="false" required="true"/>
         <property name="endette" fieldname="endette" datatype="boolean" default="false" required="true"/>`
         <property name="commentaire" fieldname="commentaire" datatype="varchar" maxlength="100"/>

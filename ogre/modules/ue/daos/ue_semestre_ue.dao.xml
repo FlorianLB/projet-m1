@@ -16,6 +16,7 @@
         <property table="ue" name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
         <property table="ue" name="formule2" fieldname="formule2" datatype="varchar" required="true" maxlength="50"/>
         <property table="ue" name="formule_salarie" fieldname="formule_salarie" datatype="varchar" required="true" maxlength="50"/>
+        <property table="ue" name="formule_endette" fieldname="formule_endette" datatype="varchar" required="true" maxlength="50"/>
         
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="optionelle" fieldname="optionelle" datatype="tinyint" required="true"/>

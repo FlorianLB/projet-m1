@@ -20,6 +20,7 @@
         <property table="ue" name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
         <property table="ue" name="formule2" fieldname="formule2" datatype="varchar" required="true" maxlength="50"/>
         <property table="ue" name="formule_salarie" fieldname="formule_salarie" datatype="varchar" required="true" maxlength="50"/>        
+        <property table="ue" name="formule_endette" fieldname="formule_endette" datatype="varchar" required="true" maxlength="50"/>
         
         <property table="note" name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
         <property table="note" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>

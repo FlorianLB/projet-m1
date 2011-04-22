@@ -527,3 +527,4 @@ ul.saisie-note, ul.saisie-disp {
   width:70%;
 }
 #fiche table { max-width:600px; }
+#to-check a { display:block; }

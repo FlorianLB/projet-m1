@@ -13,6 +13,7 @@
         <property name="formule" fieldname="formule" datatype="varchar" required="true" maxlength="50"/>
         <property name="formule2" fieldname="formule2" datatype="varchar" required="true" maxlength="50"/>
         <property name="formule_salarie" fieldname="formule_salarie" datatype="varchar" required="true" maxlength="50"/>
+        <property name="formule_endette" fieldname="formule_endette" datatype="varchar" required="true" maxlength="50"/>
         
 
     </record>

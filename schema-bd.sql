@@ -49,6 +49,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`ue` (
   `formule` VARCHAR(60) NULL ,
   `formule2` VARCHAR(60) NULL ,
   `formule_salarie` VARCHAR(60) NULL ,
+  `formule_endette` VARCHAR(60) NULL ,
   PRIMARY KEY (`id_ue`) ,
   INDEX `INDEX_code` (`code_ue` ASC) )
 ENGINE = InnoDB;
@@ -308,6 +309,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`dispense` (
   `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
+  `valide` TINYINT(1) NULL ,
   `salarie` TINYINT(1) NULL ,
   `endette` TINYINT(1) NULL ,
   `commentaire` VARCHAR(100) NULL ,
