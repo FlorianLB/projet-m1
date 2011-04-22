@@ -153,11 +153,30 @@ class importCtrl extends jController {
                             foreach($liste_semestre as $semestre){
                                 if($semestre->num_semestre == $instance->num_semestre){
                                     //Creations des futur entree de la bd
-                                    $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
+                                    $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');
                                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                                     $etudiant_semestre->id_semestre = $semestre->id_semestre;
                                     $etudiant_semestre->statut = "DET";
                                     $factoryetu_semestre->insert($etudiant_semestre);
+                                }
+                            }
+                            //TODO Calcul de la moyenne puis ajouts de la dispense si necessaire
+                            $moyenne=Moyenne::caclAllMoyenne($instance->id_semestre,$instance->num_etudiant);
+                            foreach($moyenne as $key => $moy){
+                                //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
+                                if($moy>10){
+                                    //TODO IMPORT NOTE
+                                    $dispense_factory=Jdao::get('etudiants~dispense');
+                                    $dispense = jDao::createRecord('etudiants~dispense');
+                                    $dispense->num_etudiant = $instance->num_etudiant;
+                                    $dispense->id_semestre = $etudiant_semestre->id_semestre;
+                                    $dispense->valide = TRUE;
+                                    $dispense->commentaire = "Ue deja valide l'année d'avant";
+                                    //$dispense->endette ?
+                                    //Verifie qu'on prends bien la bonne ue
+                                    $ue_factory=Jdao::get('ue~ue');
+                                    $ue=$ue_factory->get($key);
+                                    $dispense->id_ue =$ue_factory->getLastUe($ue->code_ue);
                                 }
                             }
                         break;
