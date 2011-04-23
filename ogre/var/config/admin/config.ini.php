@@ -6,7 +6,7 @@ startAction="default:index"
 
 [responses]
 html=adminHtmlResponse
-htmlauth=adminLoginHtmlResponse
+htmlauth=myHtmlResponse
 [modules]
 jacldb.access=0
 junittests.access=0

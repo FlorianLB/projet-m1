@@ -1,10 +1,8 @@
 TODO :
 
-- gérer le decochage dans l'inscriptions semestre (Julien)
+- gérer le decochage dans l'inscriptions semestre + cochage des formations sur la fiche modif etudiant (Julien)
 
 - gérer les options dans l'affichage de saisie des notes (Flo)
-
-- gérer les dispenses dans l'affichage de saisie des notes (Flo)
 
 - faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (?)
 

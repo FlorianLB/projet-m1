@@ -5,9 +5,9 @@
 
 [index]
 jelix.installed=1
-jelix.version=1.2.1.1
-jacl2db.installed=0
-jacl2db.version=
+jelix.version=1.2.2
+jacl2db.installed=1
+jacl2db.version=1.2
 jacldb.installed=0
 jacldb.version=
 jauth.installed=1
@@ -59,7 +59,7 @@ ogre.contexts=
 ue.contexts=
 master_admin.contexts=
 jauthdb_admin.contexts="admin/auth.coord.ini.php"
-jacl2db.contexts="jacl2:admin/jacl2.coord.ini.php,db:myapp"
+jacl2db.contexts="jacl2:admin/jacl2.coord.ini.php,db:myapp,jacl2:index/jacl2.coord.ini.php"
 [admin]
 jelix.installed=1
 jelix.version=1.2.2
@@ -97,3 +97,6 @@ master_admin.version=1.2
 
 
 
+
+phpexcel.installed=0
+phpexcel.version=

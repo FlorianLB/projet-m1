@@ -3,6 +3,16 @@
     <div id="fiche" class="block">
         <h2 class="legend">Fiche</h2>
         {formdatafull $form}
+        
+        <p>
+            {ifacl2 'etudiants.modify.etudiant'}
+                <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>
+            {/ifacl2}
+            {ifacl2 'etudiants.delete.etudiant'}
+                <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet etudiant ?')"><span>Supprimer l'etudiant</span></a>
+            {/ifacl2}
+        </p>
+        
     </div>
 
     <div class="block">
@@ -28,8 +38,6 @@
 </div>
 
 <p>
-    <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier l'etudiant</span></a>
-    <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cet etudiant ?')"><span>Supprimer l'etudiant</span></a>
     <a href="{jurl $listAction}" class="button icon back"><span>Retourner à la liste des etudiants</span></a>
 </p>
 

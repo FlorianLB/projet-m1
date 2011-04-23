@@ -3,6 +3,12 @@ jClasses::inc('utils~customSQL');
 
 class ueCtrl extends jControllerDaoCrud {
  
+    public $pluginParams = array(
+        'delete' => array( 'jacl2.right' =>'ue.delete.ue'),
+        'editupdate' => array('jacl2.right' =>'ue.modify.ue'),
+        'create' => array('jacl2.right' =>'ue.create.ue')
+    );
+ 
     protected $dao = 'ue~ue';
  
     protected $form = 'ue~ueform';
@@ -91,6 +97,7 @@ class ueCtrl extends jControllerDaoCrud {
         $form->setReadOnly('formule');
         $form->setReadOnly('formule2');
         $form->setReadOnly('formule_salarie');
+        $form->setReadOnly('formule_endette');
     }
     
     protected function _delete($id, $resp) {
