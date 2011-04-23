@@ -36,7 +36,10 @@ class notes_etudiantZone extends jZone {
             
             $libelle['semestre'][$note->id_semestre] = $note->num_semestre;
             $libelle['formation'][$note->id_semestre] = $note->code_formation.' ('.$note->annee.')' ;
-            $libelle['ue'][$note->id_ue] = ($note->ue_libelle != '') ? $note->code_ue .' - ' .$note->ue_libelle : $note->code_ue;
+            $libelle['ue'][$note->id_semestre][$note->id_ue] = ($note->ue_libelle != '') ? $note->code_ue .' - ' .$note->ue_libelle : $note->code_ue;
+            
+            if(isset($dispense[$note->id_ue]))
+                $libelle['ue'][$note->id_semestre][$note->id_ue] .= " (DISP)";
         }
 
         $this->_tpl->assign('submitAction', 'etudiants~saisie_note:save_saisie');

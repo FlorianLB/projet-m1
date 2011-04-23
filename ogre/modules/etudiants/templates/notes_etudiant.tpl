@@ -11,7 +11,7 @@
                     <li>
                         <table>
                             <thead>
-                                <tr><th colspan="3">{$libelle['ue'][$id_ue]}</th></tr>
+                                <tr><th colspan="3">{$libelle['ue'][$id_s][$id_ue]}</th></tr>
                             </thead>
                             <tbody>
                         {foreach $notes as $note}
@@ -21,11 +21,10 @@
                             <tr class="{cycle array('odd', 'even')}">
                                 <td><label for="note_{$uniqid}">{$note->type_epreuve}</label></td>
                                 <td>
-                                     <input id="note_{$uniqid}" type="text" value="{if $note->valeur != ''}{if $note->valeur == -1}ABS{elseif $note->valeur == -2}DISP{else}{$note->valeur}{/if}{/if}" name="note[{$uniqid}]"/>
+                                     <input id="note_{$uniqid}" type="text" value="{if $note->valeur != ''}{if $note->valeur == -1}ABS{elseif $note->valeur == -2}DISP{else}{$note->valeur}{/if}{/if}" name="note[{$uniqid}]" {if $note->valeur == -2}disabled="disabled"{/if}/>
                                 </td>
                                 <td>
-                                    {if $note->valeur == -2}(dispensé)
-                                    {elseif $note->n_statut == 2}(importé){/if}
+                                    {if $note->n_statut == 2}(importé){/if}
                                 </td>
                             </tr>
                         {/foreach}
