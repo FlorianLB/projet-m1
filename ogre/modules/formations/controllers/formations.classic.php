@@ -58,6 +58,12 @@ class formationsCtrl extends jControllerDaoCrud {
         $factory->insert($semestre1);
         $factory->insert($semestre2);
         
+        $factoryCompensation = jDao::get('formations~compensation_semestre');
+        $compensation = jDao::createRecord('formations~compensation_semestre');
+        $compensation->id_semestre1 = $semestre1->id_semestre;
+        $compensation->id_semestre2 = $semestre2->id_semestre;
+        $factoryCompensation->insert($compensation);
+        
         jMessage::add('Formation créée !');
         
         Logger::log('creation_formation', $form->getData('code_formation'),  $form->getData('annee'));
@@ -74,11 +80,19 @@ class formationsCtrl extends jControllerDaoCrud {
         $factoryetudiant_semestre = jDao::get('etudiants~etudiants_semestre');
         
         $liste_semestre = $factorysemestre->getByFormation($id);
+        $factoryCompensation = jDao::get('formations~compensation_semestre');
+        
+        $i=0;
         foreach($liste_semestre as $semestre){
+            
             $factorysemestre_ue->deleteBySemestre($semestre->id_semestre);
+            $save_id_semestre[$i] = $semestre->id_semestre;
             $factorynote->deleteBySemestre($semestre->id_semestre);
             $factoryetudiant_semestre->deleteBySemestre($semestre->id_semestre);
+            $i++;
         }
+        
+        $factoryCompensation->delete($save_id_semestre[0],$save_id_semestre[1]);
         
         $factorysemestre->deleteByFormation($id);
         jMessage::add('La suppression a reussie !');
