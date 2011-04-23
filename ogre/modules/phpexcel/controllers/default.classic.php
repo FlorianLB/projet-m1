@@ -255,16 +255,19 @@ class defaultCtrl extends jController {
     
     function Nums2Case($NumCol,$Numligne){
         return PHPExcel_Cell::stringFromColumnIndex($NumCol-1) . $Numligne;
-        $s= "";
-        for ($i = 6; $i >= 0; $i += -1) {
-            $x = ((Pow(26, ($i + 1)) - 1) / 25) - 1;
-            
-            if ($NumCol > $x){
-                $s = $s . Chr((($NumCol - $x - 1) / Pow(26, $i)) % 26 + 65);
-            }
-        }
-        return $s . $Numligne;
+        //$s= "";
+        //for ($i = 6; $i >= 0; $i += -1) {
+        //    $x = ((Pow(26, ($i + 1)) - 1) / 25) - 1;
+        //    
+        //    if ($NumCol > $x){
+        //        $s = $s . Chr((($NumCol - $x - 1) / Pow(26, $i)) % 26 + 65);
+        //    }
+        //}
+        //return $s . $Numligne;
     }
+    function Num2Colone($NumCol){
+        return PHPExcel_Cell::stringFromColumnIndex($NumCol-1);
+    }    
     function FillColor($num){
         switch ($num %  5):
             case 0:
@@ -446,13 +449,13 @@ class defaultCtrl extends jController {
                 //rajouter une colone pour les credits de l'epreuve
                 $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Crédits");
                 $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(4);
-
+                
+                //on calcule le nom de colonne de moyenne avant de rentrer dans la boucle
+                $coloneMoyenne = $this->Num2Colone($CounterEpreuve);
                 for ($i = $DebutCounterEtudiant; $i < $CounterEtudiant; $i++) {
-                    //Le non de fonction doit etre en anglais les argument separe par des virgules
-                    $casemoyenne = $this->Nums2Case($CounterEpreuve,$i);
-                    $credit = $row->credits;
                     
-                    $Feuille->setCellValueByColumnAndRow($CounterEpreuve, $i ,'=IF('. $casemoyenne .'>=10,'. $row->credits .',"")');// ca marche
+                    //Le nom de fonction doit etre en anglais les arguments separe par des virgules
+                    $Feuille->setCellValueByColumnAndRow($CounterEpreuve, $i ,'=IF('. $coloneMoyenne . $i .'>=10,'. $row->credits .',"")');// ca marche
                     
                     
                 }
