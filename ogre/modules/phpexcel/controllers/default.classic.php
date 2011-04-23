@@ -135,7 +135,7 @@ class defaultCtrl extends jController {
         $Feuille = $objPHPExcel->setActiveSheetIndex(0);
 
         //on agrandit la taille de la ligne pour afficher plus d'info
-        $Feuille->getRowDimension( $CounterEpreuve)->setRowHeight(55);
+        $Feuille->getRowDimension($ligne_epreuve)->setRowHeight(55);
         //TODO Force cette taille ca si un nom est tros grand sa deborde
         $Feuille->getStyle('3')->applyFromArray($styleArrayAlignmentLigneEpreuve);
 
