@@ -406,5 +406,13 @@ class defaultCtrl extends jController {
         
 
     }  
-    
+    public function widget_exportformation() {
+        $form = jForms::fill('phpexcel~widget_exportformation');
+        $id_formation = $form->getData('id_formation');
+        
+        $rep = $this->getResponse('redirect');        
+        $rep->action = 'phpexcel~exportFormation';
+        $rep->params = array('id' => $id_formation);
+        return $rep;
+    }
 }
