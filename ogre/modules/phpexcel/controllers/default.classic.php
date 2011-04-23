@@ -254,6 +254,7 @@ class defaultCtrl extends jController {
     }  
     
     function Nums2Case($NumCol,$Numligne){
+        return PHPExcel_Cell::stringFromColumnIndex($NumCol-1) . $Numligne;
         $s= "";
         for ($i = 6; $i >= 0; $i += -1) {
             $x = ((Pow(26, ($i + 1)) - 1) / 25) - 1;
@@ -288,11 +289,14 @@ class defaultCtrl extends jController {
     }
     
     function exportFormation() {
+            
+            
         $id = $this->param('id', 0);
         
         $ligne_UE = 2;
         $ligne_epreuve = 3;
-        
+        $DebutCounterEtudiant = $ligne_epreuve + 1;
+
         
         $styleArrayBordureUE = array(
             'borders' => array(
@@ -374,7 +378,8 @@ class defaultCtrl extends jController {
         $tableau_etudiant_semestre = array();
         $tableau_etudiant = array();
         //asignier num par etudient
-        $CounterEtudiant = $ligne_epreuve + 1;
+        $CounterEtudiant = $DebutCounterEtudiant;
+        
         foreach ($Liste_etudiant_semestre as $row) {
             //jLog::dump($row,'Tableau etidient');
             if (array_key_exists($row->num_etudiant,$tableau_etudiant_semestre)){
@@ -441,6 +446,18 @@ class defaultCtrl extends jController {
                 //rajouter une colone pour les credits de l'epreuve
                 $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Crédits");
                 $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(4);
+
+                for ($i = $DebutCounterEtudiant; $i < $CounterEtudiant; $i++) {
+                    //Le non de fonction doit etre en anglais les argument separe par des virgules
+                    $casemoyenne = $this->Nums2Case($CounterEpreuve,$i);
+                    $credit = $row->credits;
+                    
+                    $Feuille->setCellValueByColumnAndRow($CounterEpreuve, $i ,'=IF('. $casemoyenne .'>=10,'. $row->credits .',"")');// ca marche
+                    
+                    
+                }
+
+                
                 
                 //merge les celulues de titre par matirere
                 $Feuille->mergeCells( $this->Nums2Case($conteurFusionTitre+2, $ligne_UE) . ":" . $this->Nums2Case($CounterEpreuve+1,$ligne_UE));
@@ -606,8 +623,7 @@ class defaultCtrl extends jController {
         
         
         
-        //$rep->body->assign('MAIN', $data);
-        //return $rep;
+
     }  
     
 }
