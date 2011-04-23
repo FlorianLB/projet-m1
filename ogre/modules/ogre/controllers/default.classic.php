@@ -35,6 +35,7 @@ class defaultCtrl extends jController {
         $content.= jZone::get('etudiants~recherche');
         $content.= jZone::get('etudiants~widget_etudiant');
         $content.= jZone::get('ue~widget_note');
+	$content.= jZone::get('phpexcel~widget_exportformation');
         $content.='</div>';
         /*
         $content .= '<h3 style="margin-top:50px;">A destination des testeurs</h3>
