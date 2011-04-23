@@ -2,11 +2,13 @@
 
 jClasses::inc('utils~customSQL');
 
-class AnneeSuivante(){
+class AnneeSuivante{
     
     function creationAnnee(){
     
-        $annee = customSQL::finDerniereAnnee();
+        $annee = customSQL::findDerniereAnnee();
+        Jlog::log("année");
+        jLog::dump($annee);
         //liste des derniere formation
         $formationList = jDao::get('formations~formation')->getByAnnee($annee);
         
@@ -15,6 +17,8 @@ class AnneeSuivante(){
         $annee = substr($annee,5,4);
         //on y ajoute "-année"
         $annee .= "-".($annee + 1);
+        Jlog::log("année2");
+        jLog::dump($annee);
         
         
         $factoryFormation = jDao::get('formations~formation');
@@ -65,7 +69,7 @@ class AnneeSuivante(){
                 }
                 $semestre_ue->id_ue = $ue->id_ue;
                 $semestre_ue->id_semestre = $ue->id_semestre;
-                $factorySemestre_ue->insert($semestre_ue)
+                $factorySemestre_ue->insert($semestre_ue);
                 
             }
             
@@ -84,7 +88,7 @@ class AnneeSuivante(){
                 }
                 $semestre_ue->id_ue = $ue->id_ue;
                 $semestre_ue->id_semestre = $ue->id_semestre;
-                $factorySemestre_ue->insert($semestre_ue)
+                $factorySemestre_ue->insert($semestre_ue);
                 
             }        
         }
