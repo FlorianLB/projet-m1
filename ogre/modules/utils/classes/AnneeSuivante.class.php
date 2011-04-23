@@ -4,11 +4,13 @@ jClasses::inc('utils~customSQL');
 
 class AnneeSuivante{
     
-    function creationAnnee(){
+    public static function creationAnnee(){
     
-        $annee = customSQL::findDerniereAnnee();
-        Jlog::log("année");
-        jLog::dump($annee);
+        $resultat = customSQL::findDerniereAnnee();
+        $annee = (array)$resultat->fetch();
+        //Jlog::log("année");
+        //jLog::dump($annee['MAX(annee)']);
+        $annee = $annee['MAX(annee)'];
         //liste des derniere formation
         $formationList = jDao::get('formations~formation')->getByAnnee($annee);
         
@@ -17,8 +19,8 @@ class AnneeSuivante{
         $annee = substr($annee,5,4);
         //on y ajoute "-année"
         $annee .= "-".($annee + 1);
-        Jlog::log("année2");
-        jLog::dump($annee);
+        //Jlog::log("année2");
+        //jLog::dump($annee);
         
         
         $factoryFormation = jDao::get('formations~formation');
@@ -57,8 +59,9 @@ class AnneeSuivante{
             // et on atache chaque ue au semestre 1 et 2
             $oldSemestre1 = jDao::get('formations~semestre')->getByFormationNum($oldFormation->id_formation,1);
             $ueList = jDao::get('ue~ue_semestre_ue')->getBySemestre($oldSemestre1->id_semestre);
-            
+
             foreach($ueList as $oldUe){
+                
                 $ue = jDao::get('ue~ue')->getLastUeByCode($oldUe->code_ue);
                 $semestre_ue = jDao::createRecord('ue~ue_semestre_ue');
                 if(customSQL::ueIsOptionelle($ue->id_ue,$oldSemestre1->id_semestre) == TRUE){
@@ -68,27 +71,27 @@ class AnneeSuivante{
                     $semestre_ue->optionelle = FALSE;
                 }
                 $semestre_ue->id_ue = $ue->id_ue;
-                $semestre_ue->id_semestre = $ue->id_semestre;
+                $semestre_ue->id_semestre = $semestre1->id_semestre;
                 $factorySemestre_ue->insert($semestre_ue);
                 
             }
             
             //semestre2
-            $oldSemestre = jDao::get('formations~semestre')->getByFormationNum($oldFormation->id_formation,2);
-            $ueList = jDao::get('ue~ue_semestre_ue')->getBySemestre($semestre2->id_semestre);
-            
-            foreach($ueList as $oldUe){
-                $ue = jDao::get('ue~ue')->getLastUeByCode($oldUe->code_ue);
-                $semestre_ue = jDao::createRecord('ue~ue_semestre_ue');
-                if(customSQL::ueIsOptionelle($ue->id_ue,$oldSemestre->id_semestre) == TRUE){
-                    $semestre_ue->optionelle = TRUE;                    
+            $oldSemestre2 = jDao::get('formations~semestre')->getByFormationNum($oldFormation->id_formation,2);
+            $ueList2 = jDao::get('ue~ue_semestre_ue')->getBySemestre($oldSemestre2->id_semestre);
+            foreach($ueList2 as $oldUe2){
+                
+                $ue2 = jDao::get('ue~ue')->getLastUeByCode($oldUe2->code_ue);
+                $semestre_ue2 = jDao::createRecord('ue~ue_semestre_ue');
+                if(customSQL::ueIsOptionelle($ue2->id_ue,$oldSemestre2->id_semestre) == TRUE){
+                    $semestre_ue2->optionelle = TRUE;                    
                 }
                 else{
-                    $semestre_ue->optionelle = FALSE;
+                    $semestre_ue2->optionelle = FALSE;
                 }
-                $semestre_ue->id_ue = $ue->id_ue;
-                $semestre_ue->id_semestre = $ue->id_semestre;
-                $factorySemestre_ue->insert($semestre_ue);
+                $semestre_ue2->id_ue = $ue2->id_ue;
+                $semestre_ue2->id_semestre = $semestre2->id_semestre;
+                $factorySemestre_ue->insert($semestre_ue2);
                 
             }        
         }
