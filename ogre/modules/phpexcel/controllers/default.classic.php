@@ -305,7 +305,7 @@ class defaultCtrl extends jController {
             
                 
             $Feuille->getStyle($this->Nums2Case($conteurFusionTitre+2, $ligne_UE) . ":" . $this->Nums2Case($CounterEpreuve+1,$CounterEtudiant-1))->applyFromArray($styleArrayBordureUE);
-            $Feuille->setCellValueByColumnAndRow($conteurFusionTitre+1,$ligne_UE, Semestre);
+            $Feuille->setCellValueByColumnAndRow($conteurFusionTitre+1,$ligne_UE, 'Semestre');
             $conteurFusionTitre = $CounterEpreuve;
             
     
