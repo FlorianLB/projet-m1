@@ -240,7 +240,7 @@ class customSQL{
         
         //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
         
-        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
+        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, se.optionelle as is_option, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
                         ON s.id_semestre = es.id_semestre

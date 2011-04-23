@@ -21,18 +21,29 @@
             </conditions>
         </method>
         
+        <method name="getByEtudiant" type="select">
+            <parameter name="num_etu" />
+            <conditions>
+                <eq property="num_etudiant" expr="$num_etu" />
+            </conditions>
+        </method>
+        
+        
+        
         <method name="deleteByEtudiant" type="delete">
                 <parameter name="num_etudiant" />
                 <conditions>
                     <eq property="num_etudiant" expr="$num_etudiant" />
                 </conditions>
         </method>
+        
         <method name="deleteBySemestre" type="delete">
             <parameter name="id_semestre" />
             <conditions>
                 <eq property="id_semestre" expr="$id_semestre" />
             </conditions>
         </method>
+        
         <method name="updateOption" type="update">
             <parameter name="num_etudiant"/>
             <parameter name="id_semestre"/>

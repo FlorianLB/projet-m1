@@ -15,13 +15,24 @@ class notes_etudiantZone extends jZone {
         //$this->_tpl->assign('foo','bar');
         
         jClasses::inc('utils~customSQL');
+        $num_etu = $this->param('num_etudiant');
+        $notes_regular = customSQL::findRegularNoteByEtudiant($num_etu);
         
-        $notes_regular = customSQL::findRegularNoteByEtudiant($this->param('num_etudiant'));
+        $options = array();
+        foreach( jDao::get('etudiants~etudiants_semestre')->getByEtudiant($num_etu) as $etu_sem){
+            if($etu_sem->options != '')
+                $options[$etu_sem->id_semestre] = explode(',', $etu_sem->options);
+        }
         
         $tmp = array();
         $libelle = array();
         $dispense = array();
         foreach($notes_regular as $note){
+            
+            //Si c'est une option et que l'etudiant ne la suit pas, on passe a la suivante
+            if($note->is_option == 1 && ((isset($options[$note->id_semestre]) && !in_array($note->code_ue, $options[$note->id_semestre])) || empty($options[$note->id_semestre])))
+                continue;
+            
             
             if(is_numeric($note->flag_dispense))
                 $note->valeur = -2 ;
@@ -30,7 +41,6 @@ class notes_etudiantZone extends jZone {
                 $note->valeur = -2 ;
                 $dispense[$note->id_ue] = 1;
             }
-            
             
             $tmp[$note->id_semestre][$note->id_ue][] = $note;
             
