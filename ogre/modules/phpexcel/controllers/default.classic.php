@@ -178,7 +178,11 @@ class defaultCtrl extends jController {
                 $CounterEtudiant ++;
             }
 
-        }    
+        }
+        
+
+        
+        
         //print_r($tableau_etudiant_semestre);
         //jLog::dump($tableau_etudiant,'Tableau etidient');
         
@@ -361,12 +365,20 @@ class defaultCtrl extends jController {
 
         
         
-        //remplire la liste d'etudients
-        $factoryEtudiants = jDao::get('etudiants~etudiants');
+
         
-        $conditions = jDao::createConditions();
-        $conditions->addCondition('num_etudiant', 'in', $tableau_etudiant);
-        $listEtudiants = $factoryEtudiants->findBy($conditions);
+        if ($CounterEtudiant == $DebutCounterEtudiant){
+            //jMessage::add("il n'y a pas d'etudiant dans cette formation", 'error');
+            //si il n'y a pas d'etudiant on fait une liste vide
+            $listEtudiants = array();
+        }else{
+            //remplire la liste d'etudients
+            $factoryEtudiants = jDao::get('etudiants~etudiants');
+            $conditions = jDao::createConditions();
+            $conditions->addCondition('num_etudiant', 'in', $tableau_etudiant);
+            $listEtudiants = $factoryEtudiants->findBy($conditions);
+        }
+        
         
         //jLog::dump($listEtudiants,'Tableau etidient');
         foreach ($listEtudiants as $row4) {
@@ -405,7 +417,8 @@ class defaultCtrl extends jController {
         
         
 
-    }  
+    }
+    
     public function widget_exportformation() {
         $form = jForms::fill('phpexcel~widget_exportformation');
         $id_formation = $form->getData('id_formation');
