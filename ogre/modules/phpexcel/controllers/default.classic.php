@@ -425,7 +425,7 @@ class defaultCtrl extends jController {
                 //pour chaque ue recuperles les id epreuve qui corespondent
                 $Liste_epreuve = jDao::get('ue~epreuve')->getByUe($row->id_ue);
                 foreach ($Liste_epreuve as $row2) {
-                    $tableau_epreuve[$row2->id_epreuve] = $CounterEpreuve;
+                    $tableau_epreuve[$row->id_semestre . '_' .$row2->id_epreuve] = $CounterEpreuve;
                     //$tableau_type_epreuve[$CounterEpreuve] = $row2->type_epreuve;
                     //asignier colone par epeuve
                     $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, $row2->type_epreuve);
@@ -564,9 +564,7 @@ class defaultCtrl extends jController {
         
         
         foreach ($liste_notes as $row3) {
-            
-            //$data .= $row->valeur . "<br>";
-            $Feuille->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], $row3->valeur);
+            $Feuille->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], $row3->valeur);
             $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_'.$row3->id_epreuve ."_". $row3->num_etudiant   ."_".  $row3->id_semestre                , $Feuille, $this->Nums2Case($tableau_epreuve[$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
         }
         
