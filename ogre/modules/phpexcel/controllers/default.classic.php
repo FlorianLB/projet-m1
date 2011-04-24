@@ -80,6 +80,7 @@ class defaultCtrl extends jController {
         $ligne_epreuve = 3;
         $DebutCounterEtudiant = $ligne_epreuve + 1;
 
+        $colonesTpDuJurry = array();
         
         $styleArrayBordureUE = array(
             'borders' => array(
@@ -268,39 +269,57 @@ class defaultCtrl extends jController {
 
             //Gestion de Resultat semestre
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Pt jury");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour les point du jurry
+            //on calcule le nom de la colonne
+            $coloneTpDuJurry = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneTpDuJurry . $ligne_epreuve, "Pt jury");
+            $Feuille->getColumnDimension($coloneTpDuJurry)->setWidth(7);
+            //sauve la colone des point du jurry car on en a besoitplus tard pour les celules nomee
+            $colonesTpDuJurry[] = $coloneTpDuJurry;
             $CounterEpreuve ++;
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Moy.");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour la moyenne
+            //on calcule le nom de la colonne
+            $coloneMoyenne = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneMoyenne . $ligne_epreuve, "Moy.");
+            $Feuille->getColumnDimension($coloneMoyenne)->setWidth(7);
             $CounterEpreuve ++;
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Crédits");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour les credit
+            //on calcule le nom de la colonne
+            $coloneCredit = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneCredit . $ligne_epreuve, "Crédits");
+            $Feuille->getColumnDimension($coloneCredit)->setWidth(7);
             $CounterEpreuve ++;
             
-                            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "DECIS");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour la desition du jury
+            //on calcule le nom de la colonne
+            $coloneDECIS = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneDECIS . $ligne_epreuve, "DECIS");
+            $Feuille->getColumnDimension($coloneDECIS)->setWidth(7);
             $CounterEpreuve ++;
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "mention");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour la mention
+            //on calcule le nom de la colonne
+            $coloneMention = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneMention . $ligne_epreuve, "mention");
+            $Feuille->getColumnDimension($coloneMention)->setWidth(7);
             $CounterEpreuve ++;
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Crédits semestre");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour les credit du semestre
+            //on calcule le nom de la colonne
+            $coloneCreditSemestre = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneCreditSemestre . $ligne_epreuve, "Crédits semestre");
+            $Feuille->getColumnDimension($coloneCreditSemestre)->setWidth(7);
+
             $CounterEpreuve ++;
             
-            //rajouter une colone pour 
-            $Feuille->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "CL");
-            $Feuille->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+            //rajouter une colone pour le Classement
+            //on calcule le nom de la colonne
+            $coloneCL = $this->Num2Colone($CounterEpreuve+1);
+            $Feuille->setCellValue($coloneCL . $ligne_epreuve, "CL");
+            $Feuille->getColumnDimension($coloneCL)->setWidth(7);
+            
             
             
             
@@ -311,6 +330,29 @@ class defaultCtrl extends jController {
             $Feuille->getStyle($this->Nums2Case($conteurFusionTitre+2, $ligne_UE) . ":" . $this->Nums2Case($CounterEpreuve+1,$CounterEtudiant-1))->applyFromArray($styleArrayBordureUE);
             $Feuille->setCellValueByColumnAndRow($conteurFusionTitre+1,$ligne_UE, 'Semestre');
             $conteurFusionTitre = $CounterEpreuve;
+            
+            
+            //on calcule le nom de colonne de moyenne avant de rentrer dans la boucle
+            //$coloneMoyenne = $this->Num2Colone($CounterEpreuve);
+            for ($i = $DebutCounterEtudiant; $i < $CounterEtudiant; $i++) {
+                //Le nom de fonction doit etre en anglais les arguments separe par des virgules
+                $Feuille->setCellValue($coloneDECIS . $i ,'=IF('. $coloneMoyenne . $i .'>=10,"ADMIS(E)","AJOURNE(E)")');// ca marche
+                $Feuille->setCellValue($coloneMention . $i ,'=IF('. $coloneMoyenne . $i .'>=10,IF('. $coloneMoyenne . $i .'<12,"PASABLE",IF('. $coloneMoyenne . $i .'<14,"Assez Bien",IF('. $coloneMoyenne . $i .'<16,"Bien","Très Bien"))),"")');// ca marche
+                $Feuille->setCellValue($coloneCreditSemestre . $i ,'=IF('. $coloneMoyenne . $i .'>=10,30,' . $coloneCredit.$i . ')');// ca marche
+                $Feuille->setCellValue($coloneCL . $i ,'=RANK('. $coloneMoyenne . $i .',' . $coloneMoyenne. '$' .$DebutCounterEtudiant . ':' .  $coloneMoyenne. '$' . ($CounterEtudiant -1) .  ')');// ca marche
+                //##############PT JURRY######
+                //on rejoute les celulenommer pour  les PT du jurry
+                //Atention on recuper le numero a partire de la celule du tableux
+                //$numetudient = $Feuille->getCell('C'.$i)->getValue(); 
+                //ou A partir du tableau
+                //$numetudient = array_search($i, $listEtudiants,true);
+                //TODO  Choisier la meillere solution en temps               
+                //$objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $numetudient   ."_".  $row3->id_semestre                , $Feuille, $this->Nums2Case($tableau_epreuve[$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
+                //ou plus tard avec sauvegarde des zone de TP du jury
+                //##############Calculle avec info etudient
+                
+            }
+            
             
     
             $CounterEpreuve ++;
@@ -378,16 +420,19 @@ class defaultCtrl extends jController {
             $conditions->addCondition('num_etudiant', 'in', $tableau_etudiant);
             $listEtudiants = $factoryEtudiants->findBy($conditions);
         }
-        
-        
+
         //jLog::dump($listEtudiants,'Tableau etidient');
         foreach ($listEtudiants as $row4) {
             
             //$data .= $row->valeur . "<br>";
-            $Feuille->setCellValueByColumnAndRow(0,$tableau_etudiant_semestre[$row4->num_etudiant], $row4->nom);
-            $Feuille->setCellValueByColumnAndRow(1,$tableau_etudiant_semestre[$row4->num_etudiant], $row4->prenom);
-            $Feuille->setCellValueByColumnAndRow(2,$tableau_etudiant_semestre[$row4->num_etudiant], $row4->num_etudiant);
-            //$objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_'.$row3->id_epreuve ."_". $row3->num_etudiant   ."_".  $row3->id_semestre                , $Feuille, $this->Nums2Case($tableau_epreuve[$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
+            $Feuille->setCellValue('A'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->nom);
+            $Feuille->setCellValue('B'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->prenom);
+            $Feuille->setCellValue('C'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->num_etudiant);
+            
+            //on rajoute aussi les case TP du Jurry ici car on a acess tres facilement au valeur  
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  1 , $Feuille, $colonesTpDuJurry[0].$tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  2 , $Feuille, $colonesTpDuJurry[1].$tableau_etudiant_semestre[$row4->num_etudiant] ) );
+
         }
         
         //on fixe les paneaux
