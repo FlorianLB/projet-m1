@@ -32,7 +32,7 @@
         updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>        
-        <method name="getNoteByEtuUeSem" type="select">
+        <method name="getNoteBySemEtuUe" type="select">
             <parameter name="id_semestre" />
             <parameter name="num_etudiant" />
             <parameter name="id_ue" />
