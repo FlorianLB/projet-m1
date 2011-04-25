@@ -87,10 +87,60 @@ class ueCtrl extends jControllerDaoCrud {
     }
     
     protected function _create($form, $resp, $tpl){
+        
+        /* Autocomplete sur les formules */
+        
+        $basepath = $GLOBALS['gJConfig']->urlengine['basePath'];
+        
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.core.min.js');
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.widget.min.js');
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.position.min.js');
+        $resp->addJSLink($basepath.'jelix/jquery/ui/jquery.ui.autocomplete.min.js');
+        
+        $resp->addCSSLink($basepath.'jelix/jquery/themes/smoothness/jquery.ui.all.css');
+        
+        $final = array();
+        jClasses::inc('utils~customSQL');
+        
+        //Formule
+        $tmp = array();
+        foreach(customSQL::getFormuleFrequente('formule') as $f){
+            if($f->formule != null)
+                $tmp[] = $f->formule;
+        }
+        $final[] = array('id' => 'jforms_ue_ueform_formule', 'data' => json_encode($tmp));
+        
+        //Formule rattrapage
+        $tmp = array();
+        foreach(customSQL::getFormuleFrequente('formule2') as $f){
+            if($f->formule2 != null)
+                $tmp[] = $f->formule2;
+        }
+        $final[] = array('id' => 'jforms_ue_ueform_formule2', 'data' => json_encode($tmp));
+        
+        //Formule salarié
+        $tmp = array();
+        foreach(customSQL::getFormuleFrequente('formule_salarie') as $f){
+            if($f->formule_salarie != null)
+                $tmp[] = $f->formule_salarie;
+        }
+        $final[] = array('id' => 'jforms_ue_ueform_formule_salarie', 'data' => json_encode($tmp));
+        
+        //Formule endetté
+        $tmp = array();
+        foreach(customSQL::getFormuleFrequente('formule_endette') as $f){
+            if($f->formule_endette != null)
+            $tmp[] = $f->formule_endette;
+        }
+        $final[] = array('id' => 'jforms_ue_ueform_formule_endette', 'data' => json_encode($tmp));
+        
+
+        $tpl->assign('formules', $final);
         $resp->setTitle('Créer une nouvelle UE');
     }
     
     protected function _editUpdate($form, $resp, $tpl){
+
         $resp->setTitle('Modifier une UE');
         
         $form->setReadOnly('formule');
