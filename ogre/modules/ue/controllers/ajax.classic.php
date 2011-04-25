@@ -53,15 +53,27 @@ class ajaxCtrl extends jController {
        $epreuves = jDao::get('ue~epreuve')->getByUe($this->param('ue'));
         
         $result = '';
+        $rattrapage = '';
+        
         $i = 0;
         foreach($epreuves as $e){
             $checked = ($i == 0) ? 'checked="checked"' : '';
-                
-            $result .= '
-                <label class="ui-button ui-widget" for="ep'.$e->id_epreuve.'">'.$e->type_epreuve.'</label>
-                <input id="ep'.$e->id_epreuve.'" type="radio" name="epreuves" value="'.$e->id_epreuve.'" '.$checked.'/>
-            ';
+              
+            if( $e->rattrapage == 0)  
+                $result .= '
+                    <label class="ui-button ui-widget" for="ep'.$e->id_epreuve.'">'.$e->type_epreuve.'</label>
+                    <input id="ep'.$e->id_epreuve.'" type="radio" name="epreuves" value="'.$e->id_epreuve.'" '.$checked.'/>
+                ';
+            else
+                $rattrapage .= '
+                    <label class="ui-button ui-widget" for="ep'.$e->id_epreuve.'">'.$e->type_epreuve.'</label>
+                    <input id="ep'.$e->id_epreuve.'" type="radio" name="epreuves" value="'.$e->id_epreuve.'" '.$checked.'/>
+                ';
             $i++;
+        }
+        if( !empty($rattrapage)){
+            $rattrapage = '<span> Rattrapage : ' . $rattrapage . '</span>';
+            $result .= $rattrapage;
         }
         
         $rep->addContent($result);

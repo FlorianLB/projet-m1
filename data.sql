@@ -58,22 +58,22 @@ INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 --
 -- Contenu de la table `epreuve`
 --
-INSERT INTO `epreuve` (`id_epreuve`, `id_ue`, `coeff`, `type_epreuve`) VALUES
-(1, 1, 1, 'PA1'),
-(2, 1, 2, 'PA2'),
-(3, 2, 1, 'PA1'),
-(4, 2, 1, 'PA2'),
-(5, 3, 1, 'PA1'),
-(6, 3, 2, 'PA2'),
-(7, 3, 1, 'EvC'),
-(8, 4, 2, 'PA'),
-(9, 4, 1, 'EvC'),
-(10, 5, 1, 'EvC'),
-(11, 6, 3, 'PA'),
-(12, 6, 1, 'TP'),
-(13, 7, 1, 'PA1'),
-(14, 7, 2, 'PA2'),
-(15, 7, 1, 'TP');
+INSERT INTO `epreuve` (`id_epreuve`, `id_ue`, `coeff`, `type_epreuve`, `rattrapage`) VALUES
+(1, 1, 1, 'PA1', 0),
+(2, 1, 2, 'PA2', 0),
+(3, 2, 1, 'PA1', 0),
+(4, 2, 1, 'PA2', 0),
+(5, 3, 1, 'PA1', 0),
+(6, 3, 2, 'PA2', 0),
+(7, 3, 1, 'EvC', 0),
+(8, 4, 2, 'PA', 0),
+(9, 4, 1, 'EvC', 0),
+(10, 5, 1, 'EvC', 0),
+(11, 6, 3, 'PA', 0),
+(12, 6, 1, 'TP', 0),
+(13, 7, 1, 'PA1', 0),
+(14, 7, 2, 'PA2', 0),
+(15, 7, 1, 'TP', 0);
 
 
 INSERT INTO `statut_semestre` (`statut`, `libelle`) VALUES

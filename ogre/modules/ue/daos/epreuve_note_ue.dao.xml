@@ -10,6 +10,7 @@
         <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="type_epreuve" fieldname="type_epreuve" datatype="varchar" required="true" maxlength="5"/>
+        <property name="rattrapage" fieldname="rattrapage" datatype="boolean" required="true" default="false" />
         
         <property table="ue" name="id_ue" fieldname="id_ue" datatype="mediumint" autoincrement="true"/>
         <property table="ue" name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
