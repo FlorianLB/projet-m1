@@ -103,6 +103,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`epreuve` (
   `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `type_epreuve` VARCHAR(5) NOT NULL ,
+  `rattrapage` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_epreuve`) ,
   INDEX `fk_epreuve_ue1` (`id_ue` ASC) ,
   CONSTRAINT `fk_epreuve_ue1`
@@ -120,8 +121,8 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`note` (
   `id_epreuve` MEDIUMINT UNSIGNED NOT NULL ,
   `num_etudiant` MEDIUMINT UNSIGNED NOT NULL ,
   `id_semestre` SMALLINT UNSIGNED NOT NULL ,
-  `valeur` DECIMAL(4,2) NOT NULL  ,
-  `statut` TINYINT NOT NULL DEFAULT '0' ,
+  `valeur` DECIMAL(4,2) NOT NULL ,
+  `statut` TINYINT NULL ,
   INDEX `fk_note_epreuve1` (`id_epreuve` ASC) ,
   INDEX `fk_note_semestre1` (`id_semestre` ASC) ,
   INDEX `fk_note_etudiants1` (`num_etudiant` ASC) ,

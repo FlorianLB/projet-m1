@@ -34,12 +34,9 @@ class ueCtrl extends jControllerDaoCrud {
      
      
     /**
-     * Après l'insertion de l'ue, on passe toute les ue avec le meme code en tant que non-active
      * On crée les epreuves avec leur coef en fonction de la formule
      */
     protected function _afterCreate($form, $id, $resp){
-        //TODO Modifier pour OldUeVersion
-        //jDao::get('ue~ue')->setOldUeVersion($id, $form->getData('code_ue'));
         
         //exctraction de la formule
         jClasses::inc('utils~Formule');
@@ -47,13 +44,12 @@ class ueCtrl extends jControllerDaoCrud {
         $formules[0] = Formule::parseFormuleUe($form->getData('formule'));
         $formules[1] = Formule::parseFormuleUe($form->getData('formule2'));
         $formules[2] = Formule::parseFormuleUe($form->getData('formule_salarie'));
+        $formules[3] = Formule::parseFormuleUe($form->getData('formule_endette'));
         //initialisation des dao
         $factory = jDao::get('ue~epreuve');
-        $epreuve = jDao::createRecord('ue~epreuve');
-       
         // pour chaques formules on cree les epreuves
 
-        foreach($formules as $formule){
+        foreach($formules as $i => $formule){
          //pour chaqun des element de la formule on crée une epreuve
             foreach($formule[2] as $epreuve_temp){
             //if(strtolower($var[$j][2][$i]) != "sup"){
@@ -62,7 +58,10 @@ class ueCtrl extends jControllerDaoCrud {
                     $epreuve->id_ue = $id;
                     $epreuve->coeff = 1;
                     $epreuve->type_epreuve = $epreuve_temp;
-                    $factory = jDao::get('ue~epreuve');
+	
+	if($i == 1)
+	    $epreuve->rattrapage = true;
+	    
                     $factory->insert($epreuve);
                 }
             }

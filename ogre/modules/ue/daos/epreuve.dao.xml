@@ -8,6 +8,8 @@
         <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
         <property name="type_epreuve" fieldname="type_epreuve" datatype="varchar" required="true" maxlength="5"/>
+        <property name="rattrapage" fieldname="rattrapage" datatype="boolean" required="true" default="false" />
+        
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""
         updatepattern="" insertpattern="" selectpattern=""/>-->
