@@ -9,7 +9,7 @@
         <property name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" autoincrement="true"/>
         <property name="id_ue" fieldname="id_ue" datatype="mediumint" required="true"/>
         <property name="coeff" fieldname="coeff" datatype="tinyint" required="true"/>
-        <property name="type_epreuve" fieldname="type_epreuve" datatype="varchar" required="true" maxlength="5"/>        
+        <property name="type_epreuve" fieldname="type_epreuve" datatype="varchar" required="true" maxlength="5"/>
         
         <property table="ue" name="id_ue" fieldname="id_ue" datatype="mediumint" autoincrement="true"/>
         <property table="ue" name="code_ue" fieldname="code_ue" datatype="varchar" required="true" maxlength="15"/>
@@ -25,7 +25,8 @@
         <property table="note" name="id_epreuve" fieldname="id_epreuve" datatype="mediumint" required="true"/>
         <property table="note" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property table="note" name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
-        <property table="note" name="valeur" fieldname="valeur" datatype="decimal" required="true"/>        
+        <property table="note" name="valeur" fieldname="valeur" datatype="decimal" required="true"/>
+        <property table="note" name="statut" fieldname="statut" datatype="tinyint" default="0" required="true"/>
         
         <!--<property name="" fieldname="" datatype="string/int/float/date"
         required="yes" maxlength="" minlength="" regexp="" sequence=""

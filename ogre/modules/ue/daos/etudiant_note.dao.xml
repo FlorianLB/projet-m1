@@ -11,6 +11,7 @@
         <property name="id_semestre" fieldname="id_semestre" datatype="smallint" required="true"/>
         <property name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property name="valeur" fieldname="valeur" datatype="decimal" required="true"/>
+        <property name="statut" fieldname="statut" datatype="tinyint" default="0" required="true"/>
 
         <property table="e" name="num_etudiant" fieldname="num_etudiant" datatype="mediumint" required="true"/>
         <property table="e" name="nom" fieldname="nom" datatype="varchar" required="true" maxlength="50"/>
