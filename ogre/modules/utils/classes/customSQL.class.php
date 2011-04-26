@@ -240,7 +240,7 @@ class customSQL{
         
         //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
         
-        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
+        $sql = 'SELECT DISTINCT es.*, n.valeur, n.statut as n_statut, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, se.optionelle as is_option, f.annee, f.code_formation, dp.id_epreuve as flag_dispense FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
                         ON s.id_semestre = es.id_semestre
@@ -275,8 +275,6 @@ class customSQL{
     public static function findDispenseByEtudiant($num_etudiant){
         $cnx = jDb::getConnection();
         
-        //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
-        
         $sql = 'SELECT DISTINCT es.*, ev.*, s.num_semestre, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.num_etudiant as flag_dispense FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
@@ -307,9 +305,7 @@ class customSQL{
 
     public static function findDispensePredefByEtudiant($num_etudiant){
         $cnx = jDb::getConnection();
-        
-        //TODO a affiner si l'UE est une option, verifier que l'etudiant est inscrit dans cette option
-        
+             
         $sql = 'SELECT DISTINCT es.*, s.num_semestre, ue.id_ue, ue.code_ue, ue.libelle as ue_libelle, f.annee, f.code_formation, dp.salarie, dp.endette, dp.commentaire FROM
                     etudiants_semestre es
                     INNER JOIN semestre s
@@ -337,5 +333,22 @@ class customSQL{
         $sql = 'SELECT MAX(annee) FROM formation';
         return $cnx->query($sql);
     }
+    
+    
+    public static function getFormuleFrequente($field, $number = 5){
+        $cnx = jDb::getConnection();
+        
+        
+        $sql = 'SELECT '.$field.', COUNT('.$field.') as count';
+        $sql .= ' FROM ue';
+        $sql .= ' GROUP BY '.$field;
+        $sql .= ' ORDER BY count DESC';
+        $sql .= ' LIMIT 0, '.$number;
+        
+        return $cnx->query($sql);
+    }
+    
+    
+    
 
 }

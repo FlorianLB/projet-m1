@@ -1,4 +1,3 @@
-<p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvel etudiant</span></a></p>
 <table class="records-list">
 <thead>
 <tr>

@@ -2,6 +2,13 @@
 
 class etudiantsCtrl extends jControllerDaoCrud {
  
+    public $pluginParams = array(
+        'delete' => array( 'jacl2.right' =>'etudiants.delete.etudiant'),
+        'editupdate' => array('jacl2.right' =>'etudiants.modify.etudiant'),
+        'create' => array('jacl2.right' =>'etudiants.create.etudiant')
+    );
+ 
+ 
     protected $dao = 'etudiants~etudiants';
  
     protected $form = 'etudiants~etudiants';

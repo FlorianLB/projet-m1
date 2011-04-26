@@ -1,8 +1,12 @@
 {formdatafull $form}
 
 <p>
-    <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier la formation</span></a>
-    <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette formation ?')"><span>Supprimer la formation</span></a>
+    {ifacl2 'formations.modify.formation'}
+        <a href="{jurl $editAction, array('id'=>$id)}" class="button icon edit"><span>Modifier la formation</span></a>
+    {/ifacl2}
+    {ifacl2 'formations.delete.formation'}
+        <a href="{jurl $deleteAction, array('id'=>$id)}" class="button icon delete" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette formation ?')"><span>Supprimer la formation</span></a>
+    {/ifacl2}
     <a href="{jurl 'phpexcel~exportFormation', array('id'=>$id)}" class="button icon excel"><span>Exporter PV</span></a>
 </p>
 

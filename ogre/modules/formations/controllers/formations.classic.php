@@ -1,6 +1,12 @@
 <?php
 
 class formationsCtrl extends jControllerDaoCrud {
+    
+    public $pluginParams = array(
+        'delete' => array( 'jacl2.right' =>'formations.delete.formation'),
+        'editupdate' => array('jacl2.right' =>'formations.modify.formation'),
+        'create' => array('jacl2.right' =>'formations.create.formation')
+    );
  
     protected $dao = 'formations~formation';
  

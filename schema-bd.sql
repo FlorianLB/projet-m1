@@ -103,6 +103,7 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`epreuve` (
   `id_ue` MEDIUMINT UNSIGNED NOT NULL ,
   `coeff` TINYINT NOT NULL ,
   `type_epreuve` VARCHAR(5) NOT NULL ,
+  `rattrapage` TINYINT(1) NOT NULL ,
   PRIMARY KEY (`id_epreuve`) ,
   INDEX `fk_epreuve_ue1` (`id_ue` ASC) ,
   CONSTRAINT `fk_epreuve_ue1`

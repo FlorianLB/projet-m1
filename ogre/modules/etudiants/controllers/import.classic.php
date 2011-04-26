@@ -166,6 +166,8 @@ class importCtrl extends jController {
                                 //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
                                 if($moy>10){
                                     //TODO IMPORT NOTE
+                                    
+                                    //Creation de la dispense
                                     $dispense_factory=Jdao::get('etudiants~dispense');
                                     $dispense = jDao::createRecord('etudiants~dispense');
                                     $dispense->num_etudiant = $instance->num_etudiant;
@@ -176,7 +178,9 @@ class importCtrl extends jController {
                                     //Verifie qu'on prends bien la bonne ue
                                     $ue_factory=Jdao::get('ue~ue');
                                     $ue=$ue_factory->get($key);
-                                    $dispense->id_ue =$ue_factory->getLastUe($ue->code_ue);
+                                    $dispense->id_ue = $ue_factory->getLastUe($ue->code_ue);
+                                    //Insertion de la dispense
+                                    $dispense_factory->insert($dispense);
                                 }
                             }
                         break;

@@ -58,22 +58,22 @@ INSERT INTO `semestre_ue` (`id_ue`, `id_semestre`, `optionelle`) VALUES
 --
 -- Contenu de la table `epreuve`
 --
-INSERT INTO `epreuve` (`id_epreuve`, `id_ue`, `coeff`, `type_epreuve`) VALUES
-(1, 1, 1, 'PA1'),
-(2, 1, 2, 'PA2'),
-(3, 2, 1, 'PA1'),
-(4, 2, 1, 'PA2'),
-(5, 3, 1, 'PA1'),
-(6, 3, 2, 'PA2'),
-(7, 3, 1, 'EvC'),
-(8, 4, 2, 'PA'),
-(9, 4, 1, 'EvC'),
-(10, 5, 1, 'EvC'),
-(11, 6, 3, 'PA'),
-(12, 6, 1, 'TP'),
-(13, 7, 1, 'PA1'),
-(14, 7, 2, 'PA2'),
-(15, 7, 1, 'TP');
+INSERT INTO `epreuve` (`id_epreuve`, `id_ue`, `coeff`, `type_epreuve`, `rattrapage`) VALUES
+(1, 1, 1, 'PA1', 0),
+(2, 1, 2, 'PA2', 0),
+(3, 2, 1, 'PA1', 0),
+(4, 2, 1, 'PA2', 0),
+(5, 3, 1, 'PA1', 0),
+(6, 3, 2, 'PA2', 0),
+(7, 3, 1, 'EvC', 0),
+(8, 4, 2, 'PA', 0),
+(9, 4, 1, 'EvC', 0),
+(10, 5, 1, 'EvC', 0),
+(11, 6, 3, 'PA', 0),
+(12, 6, 1, 'TP', 0),
+(13, 7, 1, 'PA1', 0),
+(14, 7, 2, 'PA2', 0),
+(15, 7, 1, 'TP', 0);
 
 
 INSERT INTO `statut_semestre` (`statut`, `libelle`) VALUES
@@ -127,10 +127,12 @@ INSERT INTO `etudiants_semestre` (`num_etudiant`, `id_semestre`, `statut`, `opti
 -- Contenu de la table `jacl2_group`
 --
 INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `code`, `grouptype`, `ownerlogin`) VALUES
+(0, 'anonymous', 'anonymous', 0, NULL),
 (1, 'admins', 'admins', 0, NULL),
 (2, 'users', 'users', 1, NULL),
-(0, 'anonymous', 'anonymous', 0, NULL),
-(4, 'admin', NULL, 2, 'admin');
+(4, 'user1', 'user1', 2, 'user1'),
+(5, 'user2', 'user2', 2, 'user2'),
+(6, 'user3', 'user3', 2, 'user3');
 
 --
 -- Contenu de la table `jacl2_rights`
@@ -145,15 +147,29 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('auth.user.change.password', 1, ''),
 ('auth.user.change.password', 2, ''),
 ('auth.user.modify', 1, ''),
-('auth.user.modify', 2, ''),
 ('auth.user.view', 1, ''),
 ('auth.user.view', 2, ''),
-('auth.users.change.password', 1, ''),
 ('auth.users.create', 1, ''),
 ('auth.users.delete', 1, ''),
 ('auth.users.list', 1, ''),
 ('auth.users.modify', 1, ''),
-('auth.users.view', 1, '');
+
+('etudiants.delete.etudiant', 1, ''),
+('etudiants.modify.etudiant', 1, ''),
+('etudiants.modify.etudiant', 2, ''),
+('etudiants.create.etudiant', 1, ''),
+('etudiants.create.etudiant', 2, ''),
+('ue.delete.ue', 1, ''),
+('ue.modify.ue', 1, ''),
+('ue.modify.ue', 2, ''),
+('ue.create.ue', 1, ''),
+('ue.create.ue', 2, ''),
+('formations.delete.formation', 1, ''),
+('formations.modify.formation', 1, ''),
+('formations.modify.formation', 2, ''),
+('formations.create.formation', 1, ''),
+('formations.create.formation', 2, '')
+;
 
 --
 -- Contenu de la table `jacl2_subject`
@@ -173,15 +189,29 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('auth.users.change.password', 'jelix~auth.acl.users.change.password'),
 ('auth.user.view', 'jelix~auth.acl.user.view'),
 ('auth.user.modify', 'jelix~auth.acl.user.modify'),
-('auth.user.change.password', 'jelix~auth.acl.user.change.password');
+('auth.user.change.password', 'jelix~auth.acl.user.change.password'),
+
+('etudiants.delete.etudiant', 'ogre~acl2db.etudiants.delete.etudiant'),
+('etudiants.modify.etudiant', 'ogre~acl2db.etudiants.modify.etudiant'),
+('etudiants.create.etudiant', 'ogre~acl2db.etudiants.create.etudiant'),
+('ue.delete.ue', 'ogre~acl2db.ue.delete.ue'),
+('ue.modify.ue', 'ogre~acl2db.ue.modify.ue'),
+('ue.create.ue', 'ogre~acl2db.ue.create.ue'),
+('formations.delete.formation', 'ogre~acl2db.formations.delete.formation'),
+('formations.modify.formation', 'ogre~acl2db.formations.modify.formation'),
+('formations.create.formation', 'ogre~acl2db.formations.create.formation')
+;
 
 --
 -- Contenu de la table `jacl2_user_group`
 --
 INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 ('user1', 1),
+('user1', 4),
 ('user2', 2),
-('user3', 2);
+('user2', 5),
+('user3', 2),
+('user3', 6);
 
 
 

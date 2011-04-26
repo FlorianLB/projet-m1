@@ -51,6 +51,8 @@ class Moyenne{
         if(!customSQL::DispenseExiste($id_semestre,$num_etudiant,$id_ue)){
             $formule = $ue_factory->get($id_ue)->formule;
         }else{
+            //$test=customSQL::DispenseType($id_semestre,$num_etudiant,$id_ue);
+            //eval('$formule = $ue_factory->get($id_ue)->$test;');
             switch(customSQL::DispenseType($id_semestre,$num_etudiant,$id_ue)){
                 case 'salarie' : $formule = $ue_factory->get($id_ue)->formule_salarie;
                 case 'endette' : $formule = $ue_factory->get($id_ue)->formule_endette;
@@ -63,7 +65,7 @@ class Moyenne{
         $formule_tmp=Formule::parseFormuleUeSup($formule);
         
         //on recupere les notes de l'ue
-        $liste_note = $epreuve_note_ue_factory->getNoteByEtuUeSem($id_semestre,$num_etudiant,$id_ue);
+        $liste_note = $epreuve_note_ue_factory->getNoteBySemEtuUe($id_semestre,$num_etudiant,$id_ue);
         foreach($liste_note as $note){
             //On mets la valeur de chaque note dans un tableau si il y a dispense note = -1
             if(!customSQL::DispensePersoExiste($id_semestre,$num_etudiant,$note->id_epreuve)){

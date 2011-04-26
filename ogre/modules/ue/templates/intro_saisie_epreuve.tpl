@@ -25,7 +25,7 @@
     </p>
 
 
-<p>{formsubmit}</p>
+<div>{formsubmit}</div>
 
 {/form}
 

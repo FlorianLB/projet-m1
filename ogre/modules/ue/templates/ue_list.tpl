@@ -1,4 +1,6 @@
-<p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvelle UE</span></a></p>
+{ifacl2 'ue.create.ue'}
+    <p><a class="button icon add" href="{jurl $createAction}"><span>Créer une nouvelle UE</span></a></p>
+{/ifacl2}
 <table class="records-list">
 <thead>
 <tr>
