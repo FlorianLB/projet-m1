@@ -100,7 +100,7 @@ class ueCtrl extends jControllerDaoCrud {
         $resp->addCSSLink($basepath.'jelix/jquery/themes/smoothness/jquery.ui.all.css');
         
         $final = array();
-        jClasses::inc('utils~customSQL');
+        jClasses::inc('utils~customSQL'); 
         
         //Formule
         $tmp = array();

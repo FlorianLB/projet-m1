@@ -43,11 +43,11 @@
 	<label>Telephone</label>
 </input>
 
-
+<!--
 <checkboxes ref="formations">
 	<label>Formation</label>
 	<datasource class="formations~ListData"/>
-</checkboxes>
+</checkboxes>-->
 
 <submit ref="_submit">
 	<label>Ok</label>

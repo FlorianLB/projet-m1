@@ -1,8 +1,8 @@
 ﻿TODO :
 
-- gérer le decochage dans l'inscriptions semestre + cochage des formations sur la fiche modif etudiant (Julien)
+- gérer le decochage dans l'inscriptions semestre (Julien)
 
-- gérer les options dans l'affichage de saisie des notes (Flo) ( ===> fait pour la saisie de note/etudiant )
+- gérer les options/dispense dans la saisie de notes/epreuve (Flo) 
 
 - faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (?)
 
@@ -13,3 +13,7 @@
 - Créer un script/ensemble de scripts qui démarre une nouvelle année (?) done
 
 - Gérer correctement les SUP (et les formules en général)
+
+- faire l'import geisha (Rémi)
+
+- cree le bouton de changement d'année (Rémi)
