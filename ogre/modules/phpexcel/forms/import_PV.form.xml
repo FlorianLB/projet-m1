@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+  <upload required="true" ref="excel_pv" mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" maxsize="4000000"><!---->
+        <label>Fichier PV</label>
+  </upload>
+
+
+    <submit ref="_submit">
+              <label>Importer</label>
+    </submit>
+</form>
