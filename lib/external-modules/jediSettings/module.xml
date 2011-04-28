@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="jediSettings@florianlb" name="jediSettings" createdate="2011-01-02">
+        <version>0.1</version>
+        <label>jediSettings</label>
+        <description lang="en_EN" >Simple system of settings</description>
+        <copyright>2011 Florian Lonqueu-Brochard</copyright>
+        <creator name="Florian Lonqueu-Brochard" active="true"/>
+    </info>
+    <dependencies>
+        <jelix minversion="1.2" maxversion="1.*"/>
+    </dependencies>
+</module>

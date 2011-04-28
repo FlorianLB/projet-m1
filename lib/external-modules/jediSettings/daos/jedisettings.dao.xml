@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="jedisettings" realname="jedisettings" primarykey="key" />
+    </datasources>
+    <record>
+        <property name="key" fieldname="key" datatype="varchar" required="true" maxlength="30"/>
+        <property name="value" fieldname="value" datatype="varchar" required="true" maxlength="250"/>
+        <property name="label" fieldname="label" datatype="varchar" required="true" maxlength="100"/>
+        <property name="last_update" fieldname="last_update" datatype="datetime" insertpattern="NOW()" updatepattern="NOW()" />
+    </record>
+    <factory>
+    </factory>
+</dao>

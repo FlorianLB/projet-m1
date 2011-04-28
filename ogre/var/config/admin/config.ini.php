@@ -19,8 +19,10 @@ jauthdb_admin.access=2
 jacl2db.access=2
 jacl2db.installparam=defaultuser
 jacl2db_admin.access=2
+jediSettings.access=2
+jediSettings_admin.access=2
 [simple_urlengine_entrypoints]
-admin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
+admin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jediSettings_admin~*@classic"
 
 [coordplugins]
 auth="admin/auth.coord.ini.php"
@@ -30,3 +32,5 @@ auth="admin/auth.coord.ini.php"
 jacl2="admin/jacl2.coord.ini.php"
 [acl2]
 driver=db
+
+

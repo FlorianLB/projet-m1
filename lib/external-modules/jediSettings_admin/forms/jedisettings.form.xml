@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+
+<input ref="label" required="true" maxlength="100">
+	<label locale='crud.form.label' />
+</input>
+
+<input ref="key" required="true" maxlength="30">
+	<label locale='crud.form.key' />
+</input>
+
+<input ref="value" required="true" maxlength="250">
+	<label locale='crud.form.value' />
+</input>
+
+<input ref="last_update">
+	<label locale='crud.form.datetime' />
+</input>
+
+<submit ref="_submit">
+	<label locale='crud.form.submit' />
+</submit>
+</form>

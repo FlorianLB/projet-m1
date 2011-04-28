@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="jediSettings_admin@florianlb" name="jediSettings" createdate="2011-01-02">
+        <version>0.1</version>
+        <label lang="en_EN">jediSettings_admin</label>
+        <description lang="en_EN" >Simple user-editable system for jediSettings via master_admin</description>
+        <license URL="">All right reserved</license>
+        <copyright>2011 Florian Lonqueu-Brochard</copyright>
+        <creator name="Florian Lonqueu-Brochard" active="true"/>
+    </info>
+    <dependencies>
+        <jelix minversion="1.2" maxversion="1.*"/>
+        <module name="jediSettings" />
+        <module name="jacl2db" />
+        <module name="master_admin" />
+    </dependencies>
+</module>

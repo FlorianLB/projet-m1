@@ -101,10 +101,11 @@ class ueCtrl extends jControllerDaoCrud {
         
         $final = array();
         jClasses::inc('utils~customSQL'); 
+        jClasses::inc('jediSettings~jediSettings');
         
         //Formule
         $tmp = array();
-        foreach(customSQL::getFormuleFrequente('formule') as $f){
+        foreach(customSQL::getFormuleFrequente('formule', jediSettings::get( 'nb.formules.creation.ue', 5)) as $f){
             if($f->formule != null)
                 $tmp[] = $f->formule;
         }

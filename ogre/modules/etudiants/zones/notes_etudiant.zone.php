@@ -24,7 +24,7 @@ class notes_etudiantZone extends jZone {
                 $options[$etu_sem->id_semestre] = explode(',', $etu_sem->options);
         }
         
-        $tmp = array();
+        $moyennes = $array_notes = array();
         $libelle = array();
         $dispense = array();
         foreach($notes_regular as $note){
@@ -42,7 +42,7 @@ class notes_etudiantZone extends jZone {
                 $dispense[$note->id_ue] = 1;
             }
             
-            $tmp[$note->id_semestre][$note->id_ue][] = $note;
+            $array_notes[$note->id_semestre][$note->id_ue][] = $note;
             
             $libelle['semestre'][$note->id_semestre] = $note->num_semestre;
             $libelle['formation'][$note->id_semestre] = $note->code_formation.' ('.$note->annee.')' ;
@@ -54,7 +54,8 @@ class notes_etudiantZone extends jZone {
 
         $this->_tpl->assign('submitAction', 'etudiants~saisie_note:save_saisie');
         $this->_tpl->assign('num_etudiant', $this->param('num_etudiant') );
-        $this->_tpl->assign('notes', $tmp);
+        $this->_tpl->assign('notes', $array_notes);
+        $this->_tpl->assign('moyennes', $moyennes);
         $this->_tpl->assign('libelle', $libelle);
     }
 }

@@ -23,6 +23,9 @@ utils.access=2
 phpexcel.access=2
 junittests.access=2
 jacl2db.access=2
+jediSettings.access=2
+master_admin.access=2
+jediSettings_admin.access=2
 [coordplugins]
 auth="index/auth.coord.ini.php"
 
@@ -31,3 +34,5 @@ auth="index/auth.coord.ini.php"
 
 
 jacl2="index/jacl2.coord.ini.php"
+
+

@@ -168,7 +168,8 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('formations.modify.formation', 1, ''),
 ('formations.modify.formation', 2, ''),
 ('formations.create.formation', 1, ''),
-('formations.create.formation', 2, '')
+('formations.create.formation', 2, ''),
+('jedi.settings.manage', 1, '')
 ;
 
 --
@@ -199,7 +200,8 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('ue.create.ue', 'ogre~acl2db.ue.create.ue'),
 ('formations.delete.formation', 'ogre~acl2db.formations.delete.formation'),
 ('formations.modify.formation', 'ogre~acl2db.formations.modify.formation'),
-('formations.create.formation', 'ogre~acl2db.formations.create.formation')
+('formations.create.formation', 'ogre~acl2db.formations.create.formation'),
+('jedi.settings.manage', 'jediSettings~acl.jedi.settings.manage')
 ;
 
 --

@@ -36,8 +36,12 @@ jacl2db_admin.installed=0
 jacl2db_admin.version=
 jauthdb_admin.installed=0
 jauthdb_admin.version=
-master_admin.installed=0
-master_admin.version=
+master_admin.installed=1
+master_admin.version=1.2
+jediSettings.installed=1
+jediSettings.version=0.1
+jediSettings_admin.installed=1
+jediSettings_admin.version=0.1
 [__modules_data]
 jelix.contexts="db:myapp"
 
@@ -60,6 +64,8 @@ ue.contexts=
 master_admin.contexts=
 jauthdb_admin.contexts="admin/auth.coord.ini.php"
 jacl2db.contexts="jacl2:admin/jacl2.coord.ini.php,db:myapp,jacl2:index/jacl2.coord.ini.php"
+jediSettings.contexts="db:myapp"
+jediSettings_admin.contexts="acl2,copyfile"
 [admin]
 jelix.installed=1
 jelix.version=1.2.2
@@ -100,3 +106,9 @@ master_admin.version=1.2
 
 phpexcel.installed=0
 phpexcel.version=
+
+jediSettings.installed=1
+jediSettings.version=0.1
+jediSettings_admin.installed=1
+jediSettings_admin.version=0.1
+

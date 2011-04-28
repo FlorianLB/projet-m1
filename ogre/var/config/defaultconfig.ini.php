@@ -136,7 +136,7 @@ simple_urlengine_https=
 index="@classic"
 
 
-admin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
+admin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jediSettings_admin~*@classic"
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
 ; should be include in the url or not
