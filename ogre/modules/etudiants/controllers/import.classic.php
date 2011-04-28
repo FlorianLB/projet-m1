@@ -37,6 +37,44 @@ class importCtrl extends jController {
         return $rep;
     }
     
+    function geisha() {
+        $rep = $this->getResponse('html');
+
+        $rep->setTitle("Import du fichier geisha");
+
+        $form = jForms::create('import_geisha');
+
+        $tpl = new jTpl();
+        $tpl->assign('form', $form);
+        $tpl->assign('submitAction', 'etudiants~import:doimport_geisha');
+
+        $rep->body->assign('MAIN', $tpl->fetch('etudiants~import_apogee'));
+
+        return $rep;
+    }
+    
+    function doimport_geisha(){
+        $rep = $this->getResponse('redirect');
+        
+        $form = jForms::fill('import_geisha');
+        
+        $name = $_FILES['csv_geisha']['tmp_name'];
+       
+       // jLog::dump($form);
+        jClasses::inc('utils~Geisha');
+        
+
+        $csvParser = new Geisha($name);
+        $csvParser->codeFormation(";",$form->getData('annee'));
+
+      //  Logger::log('import_pv', $name,$nbAjout);
+
+        jMessage::add("L'importation a reussie !");
+
+        $rep->action = 'etudiants~import:index3';
+        return $rep;
+    }
+    
     
     function doimport_pv(){
         $rep = $this->getResponse('redirect');

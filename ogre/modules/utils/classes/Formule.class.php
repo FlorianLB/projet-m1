@@ -21,7 +21,11 @@ class Formule{
             }
             $i++;
         }
-        
+        foreach($result[1] as $row){
+            if(empty($row)){
+                $row = "1";
+            }
+        }
 
         return $result;
     }

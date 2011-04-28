@@ -131,6 +131,8 @@ class NotePv{
                         $factorySemestre = jDao::get('formations~semestre');
                         $factorySemestre->insert($semestre1);
                         $factorySemestre->insert($semestre2);
+                        
+                        //TODO inséré compensation semestre
                     }
                     //sinon on va la cherché dans la base
                     else{
