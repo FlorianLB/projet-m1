@@ -7,7 +7,7 @@
 * @link      http://www.yourwebsite.undefined
 * @license    All right reserved
 */
-require_once (LIB_PATH.'phpexcel\PHPExcel.php');
+require_once (LIB_PATH.'phpexcel/PHPExcel.php');
 class defaultCtrl extends jController {
     /**
     *
