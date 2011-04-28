@@ -23,7 +23,7 @@ class importCtrl extends jController {
     }
     function doimport_pv(){
         $rep = $this->getResponse('redirect');
-        $rep->action = 'phpexcel~import:index';
+        $rep->action = 'ogre~index';
 
         $name = $_FILES['excel_pv']['tmp_name'];
         try {
