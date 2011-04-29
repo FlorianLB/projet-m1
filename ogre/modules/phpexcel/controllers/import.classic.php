@@ -24,7 +24,7 @@ class importCtrl extends jController {
     function doimport_pv(){
         $rep = $this->getResponse('redirect');
         $rep->action = 'ogre~index';
-
+        $nbnotemodifierr = 0;
         $name = $_FILES['excel_pv']['tmp_name'];
         try {
             /** Load $inputFileName to a PHPExcel Object  **/
@@ -41,13 +41,15 @@ class importCtrl extends jController {
                     $record = $factory_notes->get($id_epreuve, $num_etudiant, $id_semestre);
                     //$case = ;
                     $note = $row3->getWorksheet()->getCell($row3->getRange())->getValue();
-                    $record->valeur = $note;
-                    $factory_notes->update($record);
-                }
-
-            
-                jLog::Log($h . " " . $id_epreuve . " " . $num_etudiant . " " . $id_semestre . " : " . $note ); 
-            
+                    if($record->valeur != $note){
+                        
+                        $record->valeur = $note;
+                        $factory_notes->update($record);
+                        $nbnotemodifierr++;
+                        
+                    }
+                    
+                }            
                 
             }
             
@@ -55,7 +57,16 @@ class importCtrl extends jController {
             jMessage::add('Erreur lors du chargement du fichier : '.$e->getMessage(),'error' );
             return $rep;
         }
-        jMessage::add("L'importation a reussie du PV");
+        if ($nbnotemodifierr == 1){
+            
+            jMessage::add("L'importation du PV a reussie (1 note a été modifiée)");
+            
+        }else{
+            
+            jMessage::add("L'importation du PV a reussie ($nbnotemodifierr notes ont été modifiées )");
+            
+        }
+        
         
         return $rep;
     }
