@@ -34,6 +34,9 @@ class Moyenne{
         
     }
     
+    
+    
+    //TODO prendre en compte le fait qu'il puisse ne pas y avoir de note
     public static function calcMoyenne($id_semestre,$num_etudiant,$id_ue){
         
         jClasses::inc('utils~Formule');

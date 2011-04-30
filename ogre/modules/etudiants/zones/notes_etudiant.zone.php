@@ -15,6 +15,9 @@ class notes_etudiantZone extends jZone {
         //$this->_tpl->assign('foo','bar');
         
         jClasses::inc('utils~customSQL');
+        jClasses::inc('utils~Moyenne');
+        
+        
         $num_etu = $this->param('num_etudiant');
         $notes_regular = customSQL::findRegularNoteByEtudiant($num_etu);
         
@@ -50,6 +53,12 @@ class notes_etudiantZone extends jZone {
             
             if(isset($dispense[$note->id_ue]))
                 $libelle['ue'][$note->id_semestre][$note->id_ue] .= " (DISP)";
+                
+                
+            if(!isset($moyennes[$note->id_semestre][$note->id_ue])){
+                $moyennes[$note->id_semestre][$note->id_ue] = Moyenne::calcMoyenne($note->id_semestre, $num_etu, $note->id_ue);
+            }
+                
         }
 
         $this->_tpl->assign('submitAction', 'etudiants~saisie_note:save_saisie');

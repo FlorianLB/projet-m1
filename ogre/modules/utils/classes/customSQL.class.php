@@ -132,6 +132,16 @@ class customSQL{
             return true;
     }
     
+    
+    
+    /**
+     * Savoir si une UE est optionelle
+     * 
+     * @param int $id_ue       Identifiant de l'UE
+     * @param int $id_semestre Identifiant du semestre
+     * 
+     * @return int    Renvoit la valeur du champ "optionelle" de la BD (1 si optionelle, sinon 0)
+     */
     public static function ueIsOptionelle($id_ue,$id_semestre){
         $cnx = jDb::getConnection();
 
@@ -144,6 +154,14 @@ class customSQL{
 
     }
     
+    
+    /**
+     * Verification de l'existence d'une formation
+     * 
+     * @param string $code_formation Code de la formation à tester
+     * @param string $annee          Année à tester 
+     * @return boolean    True si la formation existe, sinon false
+     */
     public static function formationExisteDeja($code_formation, $annee){
         $cnx = jDb::getConnection();
         
@@ -158,8 +176,14 @@ class customSQL{
             return true;
     }
     
-    
-        public static function etudiantSemestreExisteDeja($num_etudiant, $id_semestre){
+    /**
+     * Verification de l'existence d'une epreuve
+     * 
+     * @param int $id_ue        Identifiant de l'ue
+     * @param string $type_epreuve Type de l'epreuve
+     * @return boolean    True si l'epreuve existe, false sinon
+     */
+    public static function etudiantSemestreExisteDeja($num_etudiant, $id_semestre){
         $cnx = jDb::getConnection();
         
         $sql = 'SELECT 1 FROM etudiants_semestre WHERE num_etudiant = '.$cnx->quote($num_etudiant).
@@ -173,7 +197,13 @@ class customSQL{
             return true;
     }
 
-    
+    /**
+     * Verification de l'existence d'une epreuve dans la base
+     * 
+     * @param int $id_ue        Identifiant de l'ue
+     * @param string $type_epreuve Type de l'epreuve
+     * @return boolean    True si l'epreuve existe, false sinon
+     */
     public static function epreuveExisteDeja($id_ue, $type_epreuve){
         $cnx = jDb::getConnection();
         
@@ -189,7 +219,11 @@ class customSQL{
     
     
     /**
-     * Renvoit la liste des etudiants inscrit pour une epreuve et leur note si ils en ont deja une
+     * Renvoit la liste des etudiants inscrit dans une epreuve et leur note 
+     * 
+     * @param int $id_epreuve  Identifiant de l'epreuve
+     * @param int $id_semestre Identifiant du semestre souhaité
+     * @return jDbResultSet   Le résultat de la requete, la note vaut null si il n'y en a pas
      */
     public static function findEtudiantsNoteByEpreuveSemestre($id_epreuve, $id_semestre){
         $cnx = jDb::getConnection();
@@ -212,9 +246,15 @@ class customSQL{
     /**
      * Renvoit la liste des inscriptions completes d'un etudiant, semestre par semestre
      */
+    
+    /**
+     * Renvoit la liste complete des inscriptions d'un etudiant par semestre
+     * 
+     * @param int $num_etudiant Numero de l'etudiant
+     * @return jDbResultSet    Le resultat de la requete, contenant la liste des inscriptions
+     */
     public static function getAllInscriptionsEtudiant($num_etudiant){
         $cnx = jDb::getConnection();
-        
         
         $sql = 'SELECT es.*, s.num_semestre, f.* , ss.*
                     FROM etudiants_semestre es
@@ -232,8 +272,12 @@ class customSQL{
     
     
     
+    
     /**
-     * Renvoit la liste des etudiants inscrit pour une epreuve et leur note si ils en ont deja une
+     * Renvoit la liste des notes d'un etudiant pour chaque epreuve pour les semetres dans lesquels l'etudiant est inscrit (normalement ou en dette)
+     * 
+     * @param int $num_etudiant Numéro de l'etudiant dont on veut les notes
+     * @return jDbResultSet Resultat de la requete, les notes n'existant pas ont la valeur null
      */
     public static function findRegularNoteByEtudiant($num_etudiant){
         $cnx = jDb::getConnection();

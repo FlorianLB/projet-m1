@@ -15,7 +15,7 @@
                                     <span>{$libelle['ue'][$id_s][$id_ue]}</span><br/>
                                     <span>
                                         <label for="moy_{$id_ue}">Moyenne</label>
-                                        <input id="moy_{$id_ue}" type="text" disabled="disabled"/>
+                                        <input id="moy_{$id_ue}" type="text" disabled="disabled" value="{$moyennes['ue'][$id_s][$id_ue]}"/>
                                     </span>
                                 </th></tr>
                             </thead>

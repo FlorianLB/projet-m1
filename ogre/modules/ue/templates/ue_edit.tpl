@@ -29,21 +29,17 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 {else}
 {formfull $form, $submitAction, array('id'=>$id)}
 {/if}
+
+
+
+
+
+
+
+
 
 
 
