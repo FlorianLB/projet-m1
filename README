@@ -4,7 +4,7 @@
 
 - gérer les options/dispense dans la saisie de notes/epreuve (Flo) 
 
-- faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (?)
+- faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (Julien)
 
 - generer le PV en .xls (Hector)
 
@@ -19,3 +19,8 @@
 - faire l'import geisha (Rémi)DONE
 
 - cree le bouton de changement d'année (Rémi)
+
+
+WARNING :
+
+- Probleme lors des modifications d'option d'un etudiant si celui-ci a des notes
