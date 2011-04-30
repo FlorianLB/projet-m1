@@ -7,7 +7,7 @@
 * @link      http://www.yourwebsite.undefined
 * @license    All right reserved
 */
-require_once (LIB_PATH.'phpexcel\PHPExcel.php');
+require_once (LIB_PATH.'phpexcel/PHPExcel.php');
 class defaultCtrl extends jController {
     /**
     *
@@ -391,7 +391,7 @@ class defaultCtrl extends jController {
         
         foreach ($liste_notes as $row3) {
             $Feuille->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], $row3->valeur);
-            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_'.$row3->id_epreuve ."_". $row3->num_etudiant   ."_".  $row3->id_semestre                , $Feuille, $this->Nums2Case($tableau_epreuve[$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_'.$row3->id_epreuve ."_". $row3->num_etudiant   ."_".  $row3->id_semestre                , $Feuille, $this->Nums2Case($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
         }
         
         

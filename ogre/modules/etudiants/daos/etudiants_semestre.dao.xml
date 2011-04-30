@@ -28,8 +28,6 @@
             </conditions>
         </method>
         
-        
-        
         <method name="deleteByEtudiant" type="delete">
                 <parameter name="num_etudiant" />
                 <conditions>

@@ -15,6 +15,9 @@ class NoteImport{
         $ue_factory = jDao::get('ue~ue');
         $epreuve_factory = jDao::get('ue~epreuve');
         
+        $etudiantsemsetre_factory = jDao::get('etudiants~etudiants_semestre');
+        $semestreue_factory = jDao::get('ue~semestre_ue');
+        
         //Recuperation des anciennes valeurs
         $old_ue = $ue_factory->get($id_ue);
         $old_epreuve = $epreuve_factory->get($id_epreuve);
@@ -23,6 +26,16 @@ class NoteImport{
         //Recuperation des nouvelles valeurs
         $new_ue=$ue_factory->getLastUeByCode($old_ue->code_ue);
         $new_epreuve = $epreuve_factory->getByUeAndType($new_ue->id_ue,$old_epreuve->type_epreuve);
+        //TODO Trouve le nouveau semestre A TESTER
+        $listesemestre_etudiant = $etudiantsemsetre_factory->getByEtudiant($num_etudiant);
+        foreach($listesemestre_etudiant as $etusemestre){
+            if( $etusemestre->statut=='DET' || $etusemestre->statut=='ENC' ){
+                $new_semestre = $semestreue_factory->get($new_ue->id_ue,$etusemestre->id_semestre);
+                if($new_semestre != null){
+                    break;
+                }
+            }
+        }
         
         //Si l'epreuve existe
         if($new_epreuve != NULL){
@@ -31,7 +44,7 @@ class NoteImport{
             $new_note->id_epreuve=$new_epreuve->id_epreuve;
             $new_note->num_etudiant=$num_etudiant;
             //TODO Recuperer l'id du semestre de la nouvelle ue
-            //$new_note->id_semestre=;
+            $new_note->id_semestre=$new_semestre->id_semestre;
             $new_note->valeur=$old_note->valeur;
             $new_note->statut=1;
             $note_factory->insert($new_note);

@@ -50,6 +50,13 @@ class Moyenne{
         $ue_factory = jDao::get('ue~ue');
         $coeff;
         
+        //Initialisation du tableau de note
+        $epreuve_factory = jDao::get('ue~epreuve');
+        $liste_epreuve = $epreuve_factory->getByUe($id_ue);
+        foreach($liste_epreuve as $epreuve){
+            $array_note[$epreuve->type_epreuve] = 0;
+        }
+        
        //Verifie si on doit appliqué la formule standard
         if(!customSQL::DispenseExiste($id_semestre,$num_etudiant,$id_ue)){
             $formule = $ue_factory->get($id_ue)->formule;
@@ -72,9 +79,15 @@ class Moyenne{
         foreach($liste_note as $note){
             //On mets la valeur de chaque note dans un tableau si il y a dispense note = -1
             if(!customSQL::DispensePersoExiste($id_semestre,$num_etudiant,$note->id_epreuve)){
-                $array_note[$note->type_epreuve] = $note->valeur;
+                if($note->valeur==-1){
+                    //Si absent on lui mets 0
+                    $array_note[$note->type_epreuve] = 0;
+                }else{
+                    $array_note[$note->type_epreuve] = $note->valeur;
+                }
             }
             else{
+                //Si dispencé on lui mets -1
                 $array_note[$note->type_epreuve] = -1;
             }
         }
@@ -95,15 +108,14 @@ class Moyenne{
                 }else{
                     $coeff[$nb_formule]=$coeff[$nb_formule]+$form[1][$i];
                 }
-                //On remplace dans la formule correspondante
                 $formule_exp[$nb_formule]=str_replace($form[0][$i],$form[1][$i].'*'.$array_note[$form[2][$i]],$formule_exp[$nb_formule]);
             }
             //Puis on rajoute le diviseur a la fin de la formule
             $formule_exp[$nb_formule]='('.$formule_exp[$nb_formule].')/'.$coeff[$nb_formule];
             $nb_formule++;
         }
-        //TODO Faire une boucle pour calculé les valeurs de chaque formule puis max ou alors le truc en dessous fonctionne
-        //Sa marche ???
+        
+        //Calcul de la moyenne
         $m = new EvalMath;
         for($i=0;$i<$nb_formule;$i++){
             $formule_exp[$i] = $m->e($formule_exp[$i]);
