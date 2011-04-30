@@ -31,8 +31,8 @@ class defaultCtrl extends jController {
         //    jLog::dump($var);
         //}
         
-       // jLog::dump(Moyenne::calcMoyenne(1,10905684,1));
-     //   jLog::dump(Moyenne::calcAllMoyenne(1,10905684));
+        //jLog::dump(Moyenne::calcMoyenne(1,10905684,1));
+        //jLog::dump(Moyenne::calcAllMoyenne(1,10905684));
         
         
        // $var = Formule::sup('Sup ((EvC + P2 ) /2 ; P2)');
