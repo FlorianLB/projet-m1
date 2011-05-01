@@ -18,6 +18,11 @@ class testUtilsFormule extends UnitTestCase {
             array('PA1', 'PA2', 'EvC')
         );
         $this->assertIdentical(Formule::parseFormuleUe($formule), $resultat_attendu);
+        
+        jLog::dump($resultat_attendu, 'Attendu');
+        jLog::dump(Formule::parseFormuleUe($formule), 'Obtenu');
+        
+        
     
         //Test3
         $formule = ' PA + 2*EvC + 1* TP';
