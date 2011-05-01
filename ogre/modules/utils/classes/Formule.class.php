@@ -44,6 +44,14 @@ class Formule{
             preg_match_all('/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/',$form_exp, $result[]);
         }
         
+        foreach($result as $res){
+            foreach($res[1] as &$row){
+                if(empty($row)){
+                    $row = "1";
+                }
+            }
+        }
+        
 /*  Commentez car supposé que les SUP ne sont pas écrit dans la formule
       $i = 0;
         foreach($result[2] as $row1){
