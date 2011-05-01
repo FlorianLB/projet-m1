@@ -202,13 +202,15 @@ class customSQL{
      * 
      * @param int $id_ue        Identifiant de l'ue
      * @param string $type_epreuve Type de l'epreuve
+     * @param boolean $rattrapage Doit-on verifier uniquement les notes de rattrapage (2eme session)
      * @return boolean    True si l'epreuve existe, false sinon
      */
-    public static function epreuveExisteDeja($id_ue, $type_epreuve){
+    public static function epreuveExisteDeja($id_ue, $type_epreuve, $rattrapage= false){
         $cnx = jDb::getConnection();
         
-        $sql = 'SELECT 1 FROM epreuve WHERE id_ue = '.$cnx->quote($id_ue).' and type_epreuve = '.$cnx->quote($type_epreuve);
-         
+        $sql = 'SELECT 1 FROM epreuve WHERE id_ue = '.$cnx->quote($id_ue).' AND type_epreuve = '.$cnx->quote($type_epreuve);
+        if($rattrapage)
+            $sql .= ' AND rattrapage = 1';
         $rs = $cnx->query($sql);
        
         if(!$rs->fetch())

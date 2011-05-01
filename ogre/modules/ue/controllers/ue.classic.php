@@ -52,8 +52,8 @@ class ueCtrl extends jControllerDaoCrud {
         foreach($formules as $i => $formule){
          //pour chaqun des element de la formule on crée une epreuve
             foreach($formule[2] as $epreuve_temp){
-            //if(strtolower($var[$j][2][$i]) != "sup"){
-                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp)){
+                
+                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp) || ( $i == 1 && !customSQL::epreuveExisteDeja($id,$epreuve_temp, true))){
                     $epreuve = jDao::createRecord('ue~epreuve');
                     $epreuve->id_ue = $id;
                     $epreuve->coeff = 1;
@@ -99,6 +99,8 @@ class ueCtrl extends jControllerDaoCrud {
         
         $resp->addCSSLink($basepath.'jelix/jquery/themes/smoothness/jquery.ui.all.css');
         
+        $resp->addJSLink($basepath.'js/auto-ue.js');
+        
         $final = array();
         jClasses::inc('utils~customSQL'); 
         jClasses::inc('jediSettings~jediSettings');
@@ -142,8 +144,11 @@ class ueCtrl extends jControllerDaoCrud {
     
     protected function _editUpdate($form, $resp, $tpl){
 
+        $basepath = $GLOBALS['gJConfig']->urlengine['basePath'];
+        $resp->addJSLink($basepath.'js/auto-ue.js');
+
         $resp->setTitle('Modifier une UE');
-        
+ 
         $form->setReadOnly('formule');
         $form->setReadOnly('formule2');
         $form->setReadOnly('formule_salarie');
