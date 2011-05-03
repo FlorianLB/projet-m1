@@ -48,6 +48,8 @@ class NoteImport{
             $new_note->valeur=$old_note->valeur;
             $new_note->statut=1;
             $note_factory->insert($new_note);
+        }else{
+            //TODO Remplir la table probleme
         }
         
     }

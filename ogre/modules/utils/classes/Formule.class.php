@@ -21,7 +21,7 @@ class Formule{
             }
             $i++;
         }
-        foreach($result[1] as $row){
+        foreach($result[1] as &$row){
             if(empty($row)){
                 $row = "1";
             }
@@ -43,6 +43,16 @@ class Formule{
         foreach($formule_exp as $form_exp){
             preg_match_all('/([0-9])?[ *]*([a-zA-Z]+[0-9]?)/',$form_exp, $result[]);
         }
+        
+        foreach($result as &$res){
+            foreach($res[1] as &$row){
+                if(empty($row)){
+                    $row = "1";
+                }
+            }
+        }
+        
+        jLog::dump($result);
         
 /*  Commentez car supposé que les SUP ne sont pas écrit dans la formule
       $i = 0;
