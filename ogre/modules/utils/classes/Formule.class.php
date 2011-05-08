@@ -4,6 +4,7 @@ class Formule{
     
     //TODO les formules contenant des sup devront etre separer par des ;
     
+    
     public static function parseFormuleUe($formule){
         
         if(!is_string($formule))
@@ -29,7 +30,6 @@ class Formule{
 
         return $result;
     }
-    
     //Permet de recup chaque formule separement en cas de sup peux remplacé l'autre ???
     public static function parseFormuleUeSup($formule){
         

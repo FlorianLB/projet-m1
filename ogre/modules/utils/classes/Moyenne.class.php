@@ -2,6 +2,14 @@
 
 class Moyenne{
     
+    /**
+     * Calcule la moyenne de toute les ue d'un semestre pour un etudiant donnée
+     * 
+     * @param int $id_semestre  Id du semestre dont on veut calculé la moyenne
+     * @param int $num_etudiant Numero de l'etudiant dont on veut calculé la moyenne
+     * 
+     * @return Array    Renvoi un tableau contenant les moyennes de chaque ue de la façon suivante array['id_ue']=moyenne
+     */
     public static function calcAllMoyenne($id_semestre,$num_etudiant){
         
         $ue_semestre_ue_factory = jDao::get('ue~ue_semestre_ue');
@@ -35,22 +43,28 @@ class Moyenne{
     }
     
     
-    
-    //TODO prendre en compte le fait qu'il puisse ne pas y avoir de note
+        /**
+         * Calcule la moyenne d'un etudiant pour un semestre et une ue donnée, prends ne compte
+         * les dispences et autres formules.
+         * 
+         * @param int $id_semestre  Id du semestre a laquel apparetient l'ue dont on veut calculé la moyenne
+         * @param int $num_etudiant Numero de l'etudiant dont on veut calculé la moyenne
+         * @param int $id_ue        Id de l'ue dont on veut calculé la moyenne
+         * 
+         * @return int      Moyenne de l'ue pour l'etudiant et le semestre donné
+         */
     public static function calcMoyenne($id_semestre,$num_etudiant,$id_ue){
         
         jClasses::inc('utils~Formule');
         jClasses::inc('utils~EvalMath');
         //jClasses::inc('utils~customSQL');
         
-        //TODO appliqué la bonne formule au note
-        
         $epreuve_note_ue_factory = jDao::get('ue~epreuve_note_ue');
         $array_note = array();
         $ue_factory = jDao::get('ue~ue');
         $coeff;
         
-        //Initialisation du tableau de note
+        //Initialisation du tableau de note au cas ou la note n'existe pas
         $epreuve_factory = jDao::get('ue~epreuve');
         $liste_epreuve = $epreuve_factory->getByUe($id_ue);
         foreach($liste_epreuve as $epreuve){
@@ -100,7 +114,6 @@ class Moyenne{
             $coeff[$nb_formule]=0;
             //Pour chaque formule on parcours les coeff en verifiant que la note de ce coeff est != -1
             //si -1 on ajoute pas le coeff et on remet la note a 0 sinon on l'ajoute
-            //TODO MODIFIER LE PARSAGE POUR AVOIR LES COEFF 1
             //On remplace la note au passage
             for($i=0;$i<sizeof($form[1]); $i++){
                 if( $array_note[$form[2][$i]] == -1){
