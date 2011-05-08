@@ -1,0 +1,29 @@
+=== etudiants ===
+Cette table contient les infos administratives concernant les etudiants (nom, prenom, adresse, telephone, email, etc)
+
+RAS
+
+
+
+=== etudiants_semestre ===
+Cette table lie un étudiant à un semestre.
+
+- options : contient les code des UEs optionelles (auquelles l'etudiant est inscrit pour ce semestre) concaténés et séparés avec des ;
+- statut : contient le statut du semestre (les différents statuts sonts tockés dans la table statut_semestre)
+
+
+=== formation ===
+Une formation correspond à la combinaison d'un code de formation (ex: G1INFO) et d'une année (ex: 2010-2011)
+
+
+=== semestre ===
+Un semestre est composé d'un code de formation et d'un numero de semestre (1 ou 2)
+
+
+=== semestre_ue ===
+Cette table lie un semestre a une UE
+
+- optionelle : renseigne sur le fait que cette ue est optionelle pour ce semestre
+
+=== ue ===
+
