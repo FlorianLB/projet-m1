@@ -3,7 +3,11 @@
 class customSQL{
     
     
-    
+    /**
+     * Trouve tout les codes de formations existants
+     * 
+     * @return jDbResultSet    Le resultat de la requete contenant les codes de formations
+     */
     public static function findAllDistinctCodeFormation(){
         $cnx = jDb::getConnection();
         
@@ -14,7 +18,10 @@ class customSQL{
     
     
     /**
-     * Retourne vrai si l'etudiant existe deja dans la base
+     * Verifie si l'etudiant existe deja dans la base
+     *
+     *  @param int Numero de l'etudiant
+     * @return boolean True si l'etudiant existe dans la base, sinon false
      */
     public static function etudiantsExisteDeja($num_etudiant){
         $cnx = jDb::getConnection();
@@ -30,9 +37,18 @@ class customSQL{
     }
     
     /**
-     * Retourne vrai si l'etudiant a une dispence pour l'ue de ce semestre TODO Voir si peut retourné la dispence
+     * Verifie si l'etudiant a une dispence pour une ue d'un semestre donné
+     * 
+     * @param int $id_semestre  Identifiant du semestre
+     * @param int $num_etudiant Numero étudiant
+     * @param int $id_ue        Identifiant du semestre
+     * 
+     * @return boolean    true si il existe une dispense, false sinon
      */
     public static function DispenseExiste($id_semestre,$num_etudiant,$id_ue){
+        
+        //TODO Voir si on peut retourné la dispence plutot
+        
         $cnx = jDb::getConnection();
         
         $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
@@ -47,6 +63,16 @@ class customSQL{
             return true;
     }
     
+    
+    /**
+     * Verifie si l'etudiant a une deja validé une ue d'un semestre donné
+     * 
+     * @param int $id_semestre  Identifiant du semestre
+     * @param int $num_etudiant Numero étudiant
+     * @param int $id_ue        Identifiant du semestre
+     * 
+     * @return boolean    true si il existe une dispense, false sinon
+     */
     public static function DispenseValideExiste($id_semestre,$num_etudiant,$id_ue){
         $cnx = jDb::getConnection();
         
@@ -82,6 +108,16 @@ class customSQL{
         }
     }
     
+    
+    /**
+     * Verifie si l'etudiant a une dispence specifique a une epreuve pour un semestre donné
+     * 
+     * @param int $id_semestre  Identifiant du semestre
+     * @param int $num_etudiant Numero étudiant
+     * @param int $id_epreuve        Identifiant de l'epreuve
+     * 
+     * @return boolean    true si il existe une dispense, false sinon
+     */
     public static function DispensePersoExiste($id_semestre,$num_etudiant,$id_epreuve){
         $cnx = jDb::getConnection();
         
@@ -156,11 +192,11 @@ class customSQL{
     
     
     /**
-     * Verification de l'existence d'une formation
+     * Verification de l'existence d'une formation pour une année donné
      * 
      * @param string $code_formation Code de la formation à tester
      * @param string $annee          Année à tester 
-     * @return boolean    True si la formation existe, sinon false
+     * @return boolean    True si la formation, sinon false
      */
     public static function formationExisteDeja($code_formation, $annee){
         $cnx = jDb::getConnection();
@@ -177,11 +213,11 @@ class customSQL{
     }
     
     /**
-     * Verification de l'existence d'une epreuve
-     * 
-     * @param int $id_ue        Identifiant de l'ue
-     * @param string $type_epreuve Type de l'epreuve
-     * @return boolean    True si l'epreuve existe, false sinon
+     * Verification de l'existence d'une inscription d'un etudiant pour un semestre donné
+     *
+     * @param int nUmero de l'etudiant
+     * ^param int Identifiant du semestre
+     * @return boolean    True si le tuple existe dans la base, false sinon
      */
     public static function etudiantSemestreExisteDeja($num_etudiant, $id_semestre){
         $cnx = jDb::getConnection();

@@ -336,6 +336,20 @@ CREATE  TABLE IF NOT EXISTS `ogre`.`dispense` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `ogre`.`jedisettings`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ogre`.`jedisettings` (
+  `key` VARCHAR(30) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `value` VARCHAR(250) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `label` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci' NOT NULL ,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`key`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_unicode_ci;
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

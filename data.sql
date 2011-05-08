@@ -216,5 +216,11 @@ INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 ('user3', 6);
 
 
+--
+-- Contenu de la table `jedisettings`
+--
+INSERT INTO `jedisettings` (`key`, `value`, `label`, `last_update`) VALUES
+('nb.formules.creation.ue', '5', 'Nombre de formules les plus fréquentes à afficher', '2011-04-28 23:12:57');
+
 
 
