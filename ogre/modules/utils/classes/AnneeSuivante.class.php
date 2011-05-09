@@ -4,6 +4,13 @@ jClasses::inc('utils~customSQL');
 
 class AnneeSuivante{
     
+    /**
+     * Recree toutes les formations pour l'année suivante
+     *  et associe les UEs aux semestres
+     *
+     *
+     */
+    
     public static function creationAnnee(){
     
         $resultat = customSQL::findDerniereAnnee();

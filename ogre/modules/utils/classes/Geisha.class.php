@@ -10,6 +10,12 @@ class Geisha{
         $this->fichier = $fichier;
     }
     
+    /**
+     * Parse le fichier CSV Geisha
+     *
+     * @param string $annee crée toutes les UEs a pour l'année indiqué
+     */
+    
     public function codeFormation($delimiter = ";", $annee ){
         
         $factoryFormation = jDao::get('formations~formation');
