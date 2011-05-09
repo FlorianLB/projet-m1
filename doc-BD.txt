@@ -26,4 +26,34 @@ Cette table lie un semestre a une UE
 - optionelle : renseigne sur le fait que cette ue est optionelle pour ce semestre
 
 === ue ===
+Cette table represente une UE. Une UE est totalement indépendante des différentes formations afin qu'il soit possible d'avoir une UE commune a plusieurs formations différentes.
+Certaines UE partage le meme code_ue, ce sont en réalité la meme UE mais avec des versions différentes. La version la plus récente est celle qu'il faut prendre en compte
+
+- annee : annee de création de cette UE (permet de connaitre la derniere "version" de l'UE)
+
+
+=== epreuve ===
+Une epreuve est lié a une UE.
+
+=== note ===
+Une note est lié à un semestre, un étudiant et une epreuve
+
+- valeur : valeur de la note (-1 si l'eleve etait ABS)
+- statut : 0 = note normale; 1 = note importé
+
+=== dispense ===
+Une ligne dans cette table signifie qu'un etudiant est dispensé d'une UE pour un semestre donné.
+
+- salarie (boolean/tynint) : pour savoir si cette dispense est de type salarie ou non
+- endette (boolean/tynint) : pour savoir si cette dispense est de type endette ou non
+- valide (boolean/tynint) : pour savoir si cette dispense est causé par le fait que cette UE a deja été validé
+
+=== dispense_perso ===
+Une ligne dans cette table signifie qu'un etudiant est dispensé d'une certaine epreuve pour un semestre donné.
+
+=== statut_semestre ===
+Contient les différents statuts possible pour un semestre
+
+=== compensation_semestre ===
+Non utilisé pour l'instant. Doit contenir un couple de semestre qui se compense.
 
