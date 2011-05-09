@@ -1,4 +1,4 @@
-=== etudiants ===
+﻿=== etudiants ===
 Cette table contient les infos administratives concernant les etudiants (nom, prenom, adresse, telephone, email, etc)
 
 RAS
@@ -17,13 +17,13 @@ Une formation correspond à la combinaison d'un code de formation (ex: G1INFO) e
 
 
 === semestre ===
-Un semestre est composé d'un code de formation et d'un numero de semestre (1 ou 2)
+Un semestre est composé d'un code de formation et d'un numéro de semestre (1 ou 2)
 
 
 === semestre_ue ===
 Cette table lie un semestre a une UE
 
-- optionelle : renseigne sur le fait que cette ue est optionelle pour ce semestre
+- optionnelle : renseigne sur le fait que cette UE est optionnelle pour ce semestre
 
-=== ue ===
+=== UE ===
 
