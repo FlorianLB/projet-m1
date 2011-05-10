@@ -2,6 +2,15 @@
 
 class NoteImport{
     
+    /**
+     * Exporte toute les notes (par epreuve) d'une ue vers la meme ue plus recente ou relié a la nouvelle année de l'etudiant
+     * 
+     * @param int $id_semestre  id du semestre des notes a exporté
+     * @param int $num_etudiant num de l'etudiant des notes a exporté
+     * @param int $id_ue        id de l'ue des notes a exporté
+     * 
+     * 
+     */    
     public static function importAllNotes($id_semestre,$num_etudiant,$id_ue){
         $epreuve_note_ue_factory = jDao::get('ue~epreuve_note_ue');
         $liste_note = $epreuve_note_ue_factory->getNoteByEtuUeSem($id_semestre,$num_etudiant,$id_ue);
@@ -9,7 +18,18 @@ class NoteImport{
             importEpreuveNote($id_semestre,$num_etudiant,$id_ue,$note->epreuve);
         }
     }
-    
+
+    /**
+     * Exporte la note d'une epreuve d'un etudiant donnée pour un semestre et une ue vers
+     * la meme ue dans la nouvelle formation de l'etudiant
+     * 
+     * @param int $id_semestre  id du semestre des notes a exporté
+     * @param int $num_etudiant num de l'etudiant des notes a exporté
+     * @param int $id_ue        id de l'ue des notes a exporté
+     * @param int $id_epreuve   id de l'epreuve dont on veut exporté la note
+     * 
+     * 
+     */
     public static function importEpreuveNote($id_semestre,$num_etudiant,$id_ue,$id_epreuve){
         $note_factory = jDao::get('ue~note');
         $ue_factory = jDao::get('ue~ue');

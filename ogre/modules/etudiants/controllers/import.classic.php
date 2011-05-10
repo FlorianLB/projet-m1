@@ -169,9 +169,8 @@ class importCtrl extends jController {
                     $etudiant_semestre->statut = "ENC";
                     $factoryetu_semestre->insert($etudiant_semestre);
                 }
-                
+            //Si L'etudiant existe deja
             }else{
-
                 //Recuperation des derniers formations de l'etudiants
                 $etu_sem_for = $etudiant_formation_factory->getLastFormationByEtudiant($etu->num_etudiant);
                 $i=0;
@@ -186,7 +185,8 @@ class importCtrl extends jController {
                         case "ADM":$countADM++;break;
                         case "AJC":
                             $countADM++;
-                            //TODO import note et inscription semsetre suivant pris en charge par ADM
+                            //import note et inscription semestre en DET,
+                            //L'inscription a l'année suivant pris en charge par ADM
                             $liste_semestre = $factorysemestre->getByFormation($factoryformation->getOneLastFormationByCode($instance->code_formation)->id_formation);
                             foreach($liste_semestre as $semestre){
                                 if($semestre->num_semestre == $instance->num_semestre){
@@ -195,16 +195,17 @@ class importCtrl extends jController {
                                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                                     $etudiant_semestre->id_semestre = $semestre->id_semestre;
                                     $etudiant_semestre->statut = "DET";
+                                    //Insertion dans la bd
                                     $factoryetu_semestre->insert($etudiant_semestre);
                                 }
                             }
-                            //TODO Calcul de la moyenne puis ajouts de la dispense si necessaire
+                            //Calcul de la moyenne puis ajouts de la dispense si necessaire
                             $moyenne=Moyenne::calcAllMoyenne($instance->id_semestre,$instance->num_etudiant);
                             foreach($moyenne as $key => $moy){
                                 //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
                                 if($moy>10){
-                                    //TODO IMPORT NOTE
-                                    
+                                    //IMPORT NOTE
+                                    NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
                                     //Creation de la dispense
                                     $dispense_factory=Jdao::get('etudiants~dispense');
                                     $dispense = jDao::createRecord('etudiants~dispense');
@@ -229,13 +230,38 @@ class importCtrl extends jController {
                     
                     
                 }
+                //Si en cours on ne modifie rien
                 if($i==$countENC){
-                    //TODO RIEN
+                    //RIEN
                 }else if ($i==$countAJO){
+                    //Si l'etudiant est ajournée
                     //Creations des futur entree de la bd
                     $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
-                    //TODO Garder ses notes Ou Pas en cas de Ajourne
+                    //Garder ses notes en cas de Ajourne
+                    //Calcul de la moyenne puis ajouts de la dispense si necessaire
+                    $moyenne=Moyenne::calcAllMoyenne($instance->id_semestre,$instance->num_etudiant);
+                    foreach($moyenne as $key => $moy){
+                        //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue et dispense
+                        if($moy>10){
+                            //IMPORT NOTE
+                            NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
+                            //Creation de la dispense
+                            $dispense_factory=Jdao::get('etudiants~dispense');
+                            $dispense = jDao::createRecord('etudiants~dispense');
+                            $dispense->num_etudiant = $instance->num_etudiant;
+                            $dispense->id_semestre = $etudiant_semestre->id_semestre;
+                            $dispense->valide = TRUE;
+                            $dispense->commentaire = "Ue deja valide l'année d'avant";
+                            //$dispense->endette ?
+                            //Verifie qu'on prends bien la bonne ue
+                            $ue_factory=Jdao::get('ue~ue');
+                            $ue=$ue_factory->get($key);
+                            $dispense->id_ue = $ue_factory->getLastUe($ue->code_ue);
+                            //Insertion de la dispense
+                            $dispense_factory->insert($dispense);
+                        }
+                    }
                     $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                     foreach($idform as $idformee)
                         $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
@@ -247,6 +273,7 @@ class importCtrl extends jController {
                     }
                     
                 }else if ($i==$countADM){
+                    //Si il est admis
                     //Creations des futur entree de la bd
                     $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
@@ -264,13 +291,6 @@ class importCtrl extends jController {
                 }
                 
             }
-                
-                
-                // teste pour la gestion des dates
-               /* if($nb > 10 && $nb < 20){
-                    jLog::dump($etu);
-                    jLog::dump($etudiant);
-                }*/
                 $nb++;
         }
 
