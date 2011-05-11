@@ -53,7 +53,7 @@ class ueCtrl extends jControllerDaoCrud {
          //pour chaqun des element de la formule on crée une epreuve
             foreach($formule[2] as $epreuve_temp){
                 
-                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp) || ( $i == 1 && !customSQL::epreuveExisteDeja($id,$epreuve_temp, true))){
+                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp) ){
                     $epreuve = jDao::createRecord('ue~epreuve');
                     $epreuve->id_ue = $id;
                     $epreuve->coeff = 1;

@@ -13,7 +13,7 @@ class testSettings extends UnitTestCase {
         
         $maxValueLength = jediSettings::$maxValueLength;
         $very_long_value = '';
-        for ($i = 0; $i < $maxValueLength + 1; $i++) {
+        for ($i = 0; $i < $maxValueLength + 5; $i++) {
             $very_long_value .= 'o';
         }
         $dummy_array = array('lol' => 'jelix', 'id' => 25);

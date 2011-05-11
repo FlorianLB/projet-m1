@@ -31,11 +31,15 @@ Certaines UE partage le meme code_ue, ce sont en réalité la meme UE mais avec 
 
 - annee : annee de création de cette UE (permet de connaitre la derniere "version" de l'UE)
 
+- formule : formule standard utilisé
+- formule2 : formule utilisé pour la 2eme session (rattrapage)
+- formule_salarie : formule utilisé si l'etudiant est inscrit comme salarie pour cette UE
+- formule_endette : formule utilisé si l'etudiant est inscrit comme endette pour cette UE
 
 === epreuve ===
 Une epreuve est lié a une UE.
 
-
+- rattrapage (boolean/tynint) : pour savoir si c'est une epreuve specifique au rattrapage (2eme session)
 === note ===
 Une note est lié à un semestre, un étudiant et une epreuve
 
