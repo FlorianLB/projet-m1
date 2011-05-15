@@ -32,7 +32,6 @@
             <parameter name="num_etudiant"/>
             <conditions>
                 <eq property="num_etudiant" expr="$num_etudiant" />
-		<eq property="annee" expr="(select Max(f.annee) from formation as f where f.code_formation = formation.code_formation)"/>
             </conditions>
         </method>
 

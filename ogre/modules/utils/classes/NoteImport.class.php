@@ -13,9 +13,9 @@ class NoteImport{
      */    
     public static function importAllNotes($id_semestre,$num_etudiant,$id_ue){
         $epreuve_note_ue_factory = jDao::get('ue~epreuve_note_ue');
-        $liste_note = $epreuve_note_ue_factory->getNoteByEtuUeSem($id_semestre,$num_etudiant,$id_ue);
+        $liste_note = $epreuve_note_ue_factory->getNoteBySemEtuUe($id_semestre,$num_etudiant,$id_ue);
         foreach($liste_note as $note){
-            importEpreuveNote($id_semestre,$num_etudiant,$id_ue,$note->epreuve);
+            NoteImport::importEpreuveNote($id_semestre,$num_etudiant,$id_ue,$note->id_epreuve);
         }
     }
 
@@ -26,7 +26,7 @@ class NoteImport{
      * @param int $id_semestre  id du semestre des notes a exporté
      * @param int $num_etudiant num de l'etudiant des notes a exporté
      * @param int $id_ue        id de l'ue des notes a exporté
-     * @param int $id_epreuve   id de l'epreuve dont on veut exporté la note
+     * @param int $id_epreuve   id de l'epreuve que l'on veut importé
      * 
      * 
      */
@@ -40,11 +40,14 @@ class NoteImport{
         
         //Recuperation des anciennes valeurs
         $old_ue = $ue_factory->get($id_ue);
+        
         $old_epreuve = $epreuve_factory->get($id_epreuve);
+        
         $old_note = $note_factory->get($id_epreuve,$num_etudiant,$id_semestre);
         
         //Recuperation des nouvelles valeurs
         $new_ue=$ue_factory->getLastUeByCode($old_ue->code_ue);
+        
         $new_epreuve = $epreuve_factory->getByUeAndType($new_ue->id_ue,$old_epreuve->type_epreuve);
         //TODO Trouve le nouveau semestre A TESTER
         $listesemestre_etudiant = $etudiantsemsetre_factory->getByEtudiant($num_etudiant);

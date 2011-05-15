@@ -118,6 +118,8 @@ class importCtrl extends jController {
 
         jClasses::inc('utils~etudiantsApogee');
         jClasses::inc('utils~customSQL');
+        jClasses::inc('utils~Moyenne');
+        jClasses::inc('utils~NoteImport');
 
         $csvParser = new etudiantsApogee(JELIX_APP_VAR_PATH.'uploads/csv_apogee/'.$name);
         $etudiants = $csvParser->parse();
@@ -179,6 +181,7 @@ class importCtrl extends jController {
                 $countADM=0;
                 foreach($etu_sem_for as $instance ){
                     switch($instance->statut){
+                        //TODO Verifier si pas deja fais !!!!
                         case "ENC":
                         case "DET":$countENC++;break;
                         case "AJO":$countAJO++;break;
@@ -203,7 +206,7 @@ class importCtrl extends jController {
                             $moyenne=Moyenne::calcAllMoyenne($instance->id_semestre,$instance->num_etudiant);
                             foreach($moyenne as $key => $moy){
                                 //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
-                                if($moy>10){
+                                if($moy>=10){
                                     //IMPORT NOTE
                                     NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
                                     //Creation de la dispense
@@ -217,7 +220,7 @@ class importCtrl extends jController {
                                     //Verifie qu'on prends bien la bonne ue
                                     $ue_factory=Jdao::get('ue~ue');
                                     $ue=$ue_factory->get($key);
-                                    $dispense->id_ue = $ue_factory->getLastUe($ue->code_ue);
+                                    $dispense->id_ue = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
                                     //Insertion de la dispense
                                     $dispense_factory->insert($dispense);
                                 }
@@ -238,12 +241,21 @@ class importCtrl extends jController {
                     //Creations des futur entree de la bd
                     $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
+                    $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
+                    foreach($idform as $idformee)
+                        $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
+                    //Creation et insertion dans la table etudiant_semestre
+                    foreach($liste_semestre as $semestre){
+                        $etudiant_semestre->id_semestre = $semestre->id_semestre;
+                        $etudiant_semestre->statut = "ENC";
+                        $factoryetu_semestre->insert($etudiant_semestre);
+                    }
                     //Garder ses notes en cas de Ajourne
                     //Calcul de la moyenne puis ajouts de la dispense si necessaire
                     $moyenne=Moyenne::calcAllMoyenne($instance->id_semestre,$instance->num_etudiant);
                     foreach($moyenne as $key => $moy){
                         //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue et dispense
-                        if($moy>10){
+                        if($moy>=10){
                             //IMPORT NOTE
                             NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
                             //Creation de la dispense
@@ -257,19 +269,10 @@ class importCtrl extends jController {
                             //Verifie qu'on prends bien la bonne ue
                             $ue_factory=Jdao::get('ue~ue');
                             $ue=$ue_factory->get($key);
-                            $dispense->id_ue = $ue_factory->getLastUe($ue->code_ue);
+                            $dispense->id_ue = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
                             //Insertion de la dispense
                             $dispense_factory->insert($dispense);
                         }
-                    }
-                    $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
-                    foreach($idform as $idformee)
-                        $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
-                    //Creation et insertion dans la table etudiant_semestre
-                    foreach($liste_semestre as $semestre){
-                        $etudiant_semestre->id_semestre = $semestre->id_semestre;
-                        $etudiant_semestre->statut = "ENC";
-                        $factoryetu_semestre->insert($etudiant_semestre);
                     }
                     
                 }else if ($i==$countADM){
