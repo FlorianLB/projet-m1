@@ -193,13 +193,15 @@ class importCtrl extends jController {
                             $liste_semestre = $factorysemestre->getByFormation($factoryformation->getOneLastFormationByCode($instance->code_formation)->id_formation);
                             foreach($liste_semestre as $semestre){
                                 if($semestre->num_semestre == $instance->num_semestre){
-                                    //Creations des futur entree de la bd
+                                    //Creations des futur entree de la bd     
                                     $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');
                                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                                     $etudiant_semestre->id_semestre = $semestre->id_semestre;
                                     $etudiant_semestre->statut = "DET";
-                                    //Insertion dans la bd
-                                    $factoryetu_semestre->insert($etudiant_semestre);
+                                    //Insertion dans la bd si necessaire
+                                    if(!customSQL::etudiantSemestreExisteDeja($etu->num_etudiant,$semestre->id_semestre)){
+                                        $factoryetu_semestre->insert($etudiant_semestre);
+                                    }
                                 }
                             }
                             //Calcul de la moyenne puis ajouts de la dispense si necessaire
@@ -207,22 +209,25 @@ class importCtrl extends jController {
                             foreach($moyenne as $key => $moy){
                                 //Si moyenne superieur a 10 on importe les notes dans la nouvelle ue ? et dispense
                                 if($moy>=10){
-                                    //IMPORT NOTE
-                                    NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
-                                    //Creation de la dispense
-                                    $dispense_factory=Jdao::get('etudiants~dispense');
-                                    $dispense = jDao::createRecord('etudiants~dispense');
-                                    $dispense->num_etudiant = $instance->num_etudiant;
-                                    $dispense->id_semestre = $etudiant_semestre->id_semestre;
-                                    $dispense->valide = TRUE;
-                                    $dispense->commentaire = "Ue deja valide l'année d'avant";
-                                    //$dispense->endette ?
                                     //Verifie qu'on prends bien la bonne ue
                                     $ue_factory=Jdao::get('ue~ue');
                                     $ue=$ue_factory->get($key);
-                                    $dispense->id_ue = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
-                                    //Insertion de la dispense
-                                    $dispense_factory->insert($dispense);
+                                    $tmp_ue_id = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
+                                    //IMPORT NOTE
+                                    NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
+                                    //Creation de la dispense si necessaire
+                                    if(!customSQL::DispenseValideExiste($etudiant_semestre->id_semestre,$instance->num_etudiant,$tmp_ue_id)){
+                                        $dispense_factory=Jdao::get('etudiants~dispense');
+                                        $dispense = jDao::createRecord('etudiants~dispense');
+                                        $dispense->num_etudiant = $instance->num_etudiant;
+                                        $dispense->id_semestre = $etudiant_semestre->id_semestre;
+                                        $dispense->valide = TRUE;
+                                        $dispense->commentaire = "Ue deja valide l'année d'avant";
+                                        //$dispense->endette ?
+                                        $dispense->id_ue = $tmp_ue_id;
+                                        //Insertion de la dispense
+                                        $dispense_factory->insert($dispense);
+                                    }
                                 }
                             }
                         break;
@@ -238,17 +243,19 @@ class importCtrl extends jController {
                     //RIEN
                 }else if ($i==$countAJO){
                     //Si l'etudiant est ajournée
-                    //Creations des futur entree de la bd
+                    //Creations des futur entree de la bd si necessaire
                     $etudiant_semestre = jDao::createRecord('etudiants~etudiants_semestre');                    
                     $etudiant_semestre->num_etudiant = $etu->num_etudiant;
                     $idform = $factoryformation->getLastFormationByCode(utf8_encode($etu->formation));
                     foreach($idform as $idformee)
                         $liste_semestre = $factorysemestre->getByFormation($idformee->id_formation);
                     //Creation et insertion dans la table etudiant_semestre
-                    foreach($liste_semestre as $semestre){
+                    foreach($liste_semestre as $semestre){                        
                         $etudiant_semestre->id_semestre = $semestre->id_semestre;
                         $etudiant_semestre->statut = "ENC";
-                        $factoryetu_semestre->insert($etudiant_semestre);
+                        if(!customSQL::etudiantSemestreExisteDeja($etu->num_etudiant,$semestre->id_semestre)){
+                            $factoryetu_semestre->insert($etudiant_semestre);
+                        }
                     }
                     //Garder ses notes en cas de Ajourne
                     //Calcul de la moyenne puis ajouts de la dispense si necessaire
@@ -258,20 +265,23 @@ class importCtrl extends jController {
                         if($moy>=10){
                             //IMPORT NOTE
                             NoteImport::importAllNotes($instance->id_semestre,$instance->num_etudiant,$key);
-                            //Creation de la dispense
-                            $dispense_factory=Jdao::get('etudiants~dispense');
-                            $dispense = jDao::createRecord('etudiants~dispense');
-                            $dispense->num_etudiant = $instance->num_etudiant;
-                            $dispense->id_semestre = $etudiant_semestre->id_semestre;
-                            $dispense->valide = TRUE;
-                            $dispense->commentaire = "Ue deja valide l'année d'avant";
-                            //$dispense->endette ?
-                            //Verifie qu'on prends bien la bonne ue
+                            //Creation de la dispense si necessaire
                             $ue_factory=Jdao::get('ue~ue');
                             $ue=$ue_factory->get($key);
-                            $dispense->id_ue = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
-                            //Insertion de la dispense
-                            $dispense_factory->insert($dispense);
+                            $tmp_ue_id = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
+                            if(!customSQL::DispenseValideExiste($etudiant_semestre->id_semestre,$instance->num_etudiant,$tmp_ue_id)){
+                                $dispense_factory=Jdao::get('etudiants~dispense');
+                                $dispense = jDao::createRecord('etudiants~dispense');
+                                $dispense->num_etudiant = $instance->num_etudiant;
+                                $dispense->id_semestre = $etudiant_semestre->id_semestre;
+                                $dispense->valide = TRUE;
+                                $dispense->commentaire = "Ue deja valide l'année d'avant";
+                                //$dispense->endette ?
+                                //Verifie qu'on prends bien la bonne ue
+                                $dispense->id_ue = $tmp_ue_id;
+                                //Insertion de la dispense
+                                $dispense_factory->insert($dispense);
+                            }
                         }
                     }
                     
@@ -288,7 +298,9 @@ class importCtrl extends jController {
                     foreach($liste_semestre as $semestre){
                         $etudiant_semestre->id_semestre = $semestre->id_semestre;
                         $etudiant_semestre->statut = "ENC";
-                        $factoryetu_semestre->insert($etudiant_semestre);
+                        if(!customSQL::etudiantSemestreExisteDeja($etu->num_etudiant,$semestre->id_semestre)){
+                            $factoryetu_semestre->insert($etudiant_semestre);
+                        }
                     }
                     
                 }

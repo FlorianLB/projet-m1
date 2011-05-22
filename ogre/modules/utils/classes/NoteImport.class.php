@@ -60,8 +60,8 @@ class NoteImport{
             }
         }
         
-        //Si l'epreuve existe
-        if($new_epreuve != NULL){
+        //Si l'epreuve existe et la note n'existe pas deja
+        if($new_epreuve != NULL && !customSQL::noteExisteDeja($new_epreuve->id_epreuve,$new_semestre->id_semestre,$num_etudiant)){
             //On la crée avec le statut a 1 pour note importé
             $new_note = jDao::createRecord('ue~note');
             $new_note->id_epreuve=$new_epreuve->id_epreuve;
