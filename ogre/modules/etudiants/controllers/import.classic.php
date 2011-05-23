@@ -71,7 +71,7 @@ class importCtrl extends jController {
 
         jMessage::add("L'importation a reussie !");
 
-        $rep->action = 'etudiants~import:index3';
+        $rep->action = 'ogre~default:index';
         return $rep;
     }
     
