@@ -1,22 +1,9 @@
 ﻿TODO :
 
-- gérer le decochage dans l'inscriptions semestre (Julien)
-
-- gérer les options/dispense dans la saisie de notes/epreuve (Flo) 
-
-- faire une classe qui permet de calculer la moyenne d'un etudiant a une UE, (parsage de la moyenne, controle des dispenses, etc) (Julien)
-
-- generer le PV en .xls (Hector)
-
-- faire l'import PV des notes mises à jour (Hector)
-
-- Ajout des raisons aux dispenses (?)
-
-- Gérer correctement les SUP (et les formules en général)
-
-- cree le bouton de changement d'année (Rémi)
-
-
-WARNING :
-
-- Probleme lors des modifications d'option d'un etudiant si celui-ci a des notes
+-	2eme session
+-	Import notes (changement de CC)
+-	Changement du CC en cours d’année
+-	Formule dynamique dans les PVs
+-	Generer feuille d'emargement
+-	Envoyer convocation par mail
+-	Gerer les groupes d'etudiants
