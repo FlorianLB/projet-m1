@@ -41,8 +41,24 @@ class notes_etudiantZone extends jZone {
                 $note->valeur = -2 ;
                 
             if(isset($dispense[$note->id_ue]) || customSQL::DispenseExiste($note->id_semestre, $note->num_etudiant, $note->id_ue)){
-                $note->valeur = -2 ;
-                $dispense[$note->id_ue] = 1;
+                
+                if(isset($dispense[$note->id_ue]))
+                    $type = $dispense[$note->id_ue];
+                else
+                    $type = customSQL::DispenseType($note->id_semestre, $note->num_etudiant, $note->id_ue);
+                
+                if($type == 'salarie'){
+                    if( $note->type == 'EvC')
+                        $note->valeur = -2 ;
+                }
+                elseif($type == 'endette'){
+                    if( $note->type == 'EvC' OR $note->type == 'TP')
+                        $note->valeur = -2 ;
+                }
+                else
+                    $note->valeur = -2 ;
+                
+                $dispense[$note->id_ue] = $type;
             }
             
             $array_notes[$note->id_semestre][$note->id_ue][] = $note;
