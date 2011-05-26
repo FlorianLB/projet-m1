@@ -17,7 +17,7 @@ class anneeCtrl extends jController {
 
         jClasses::inc('utils~AnneeSuivante');
         
-        jMessage::add("Nouvelle année crée");
+        jMessage::add("Nouvelle année créée");
         AnneeSuivante::creationAnnee();
         $rep->action = 'ogre~default:index';
                 return $rep;
