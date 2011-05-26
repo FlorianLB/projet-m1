@@ -149,10 +149,6 @@ class ueCtrl extends jControllerDaoCrud {
 
         $resp->setTitle('Modifier une UE');
  
-        $form->setReadOnly('formule');
-        $form->setReadOnly('formule2');
-        $form->setReadOnly('formule_salarie');
-        $form->setReadOnly('formule_endette');
     }
     
     protected function _delete($id, $resp) {

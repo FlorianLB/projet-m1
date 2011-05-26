@@ -65,7 +65,7 @@ class customSQL{
     
     
     /**
-     * Verifie si l'etudiant a une deja validé une ue d'un semestre donné
+     * Verifie si l'etudiant a une dispense deja validé une ue d'un semestre donné
      * 
      * @param int $id_semestre  Identifiant du semestre
      * @param int $num_etudiant Numero étudiant
@@ -79,6 +79,31 @@ class customSQL{
         $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
                 ' and id_semestre = '.$cnx->quote($id_semestre).
                 ' and id_ue = '.$cnx->quote($id_ue).' and valide = TRUE';
+         
+        $rs = $cnx->query($sql);
+       
+        if(!$rs->fetch())
+            return false;
+        else
+            return true;
+        
+    }
+    
+    /**
+     * Verifie si l'etudiant a une dispense endette une ue d'un semestre donné
+     * 
+     * @param int $id_semestre  Identifiant du semestre
+     * @param int $num_etudiant Numero étudiant
+     * @param int $id_ue        Identifiant du semestre
+     * 
+     * @return boolean    true si il existe une dispense, false sinon
+     */
+    public static function DispensEndetteExiste($id_semestre,$num_etudiant,$id_ue){
+        $cnx = jDb::getConnection();
+        
+        $sql = 'SELECT 1 FROM dispense WHERE num_etudiant = '.$cnx->quote($num_etudiant).
+                ' and id_semestre = '.$cnx->quote($id_semestre).
+                ' and id_ue = '.$cnx->quote($id_ue).' and endette = TRUE';
          
         $rs = $cnx->query($sql);
        

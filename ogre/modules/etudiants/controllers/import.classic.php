@@ -228,6 +228,23 @@ class importCtrl extends jController {
                                         //Insertion de la dispense
                                         $dispense_factory->insert($dispense);
                                     }
+                                }else{
+                                    //Verifie qu'on prends bien la bonne ue
+                                    $ue_factory=Jdao::get('ue~ue');
+                                    $ue=$ue_factory->get($key);
+                                    $tmp_ue_id = $ue_factory->getLastUeByCode($ue->code_ue)->id_ue;
+                                    //Creation de la dispense si necessaire
+                                        if(!customSQL::DispensEndetteExiste($etudiant_semestre->id_semestre,$instance->num_etudiant,$tmp_ue_id)){
+                                        $dispense_factory=Jdao::get('etudiants~dispense');
+                                        $dispense = jDao::createRecord('etudiants~dispense');
+                                        $dispense->num_etudiant = $instance->num_etudiant;
+                                        $dispense->id_semestre = $etudiant_semestre->id_semestre;
+                                        $dispense->endette = TRUE;
+                                        $dispense->commentaire = "AJC";
+                                        $dispense->id_ue = $tmp_ue_id;
+                                        //Insertion de la dispense
+                                        $dispense_factory->insert($dispense);
+                                    }
                                 }
                             }
                         break;
