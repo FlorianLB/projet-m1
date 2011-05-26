@@ -77,6 +77,9 @@ logFile=error.log
 ;exception    = ECHOQUIET LOGFILE TRACE EXIT
 
 default="ECHO LOGFILE TRACE"
+warning      = LOGFILE TRACE
+notice       = LOGFILE TRACE
+
 
 ;[compilation]
 ;checkCacheFiletime  = on
