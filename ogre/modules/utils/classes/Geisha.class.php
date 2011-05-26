@@ -26,6 +26,8 @@ class Geisha{
         $factoryCompensation = jDao::get('formations~compensation_semestre');
         $factoryUe = jDao::get('ue~ue');
         $derniereFormation = "";
+        $list_code = array();
+        $i = 0;
         
         if (($handle = fopen($this->fichier, "r")) !== FALSE) {
             //boucle sur les lignes du fichier
@@ -60,14 +62,18 @@ class Geisha{
                 //    $compensation->id_semestre2 = $semestre2->id_semestre;
                 //    $factoryCompensation->insert($compensation);
                 //}
-                $ue = jDao::createRecord('ue~ue');
-                $ue->code_ue = utf8_encode(strtoupper($line[3]));
-                $ue->libelle = utf8_encode($line[4]);
-                $ue->credits = 1;
-                $ue->coeff = 1;
-                //$ue->libelle = $line[$colonne];
-                $ue->annee = substr($annee,0,4);
-                $factoryUe->insert($ue); 
+                if(!in_array(utf8_encode(strtoupper($line[3])),$list_code)){
+                    $ue = jDao::createRecord('ue~ue');
+                    $ue->code_ue = utf8_encode(strtoupper($line[3]));
+                    $list_code[$i] = $ue->code_ue;
+                    $i++;
+                    $ue->libelle = utf8_encode($line[4]);
+                    $ue->credits = 1;
+                    $ue->coeff = 1;
+                    //$ue->libelle = $line[$colonne];
+                    $ue->annee = substr($annee,0,4);
+                    $factoryUe->insert($ue);
+                }
             }   
         }
     }
