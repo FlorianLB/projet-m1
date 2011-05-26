@@ -48,11 +48,11 @@ class notes_etudiantZone extends jZone {
                     $type = customSQL::DispenseType($note->id_semestre, $note->num_etudiant, $note->id_ue);
                 
                 if($type == 'salarie'){
-                    if( $note->type == 'EvC')
+                    if( $note->type_epreuve == 'EvC')
                         $note->valeur = -2 ;
                 }
                 elseif($type == 'endette'){
-                    if( $note->type == 'EvC' OR $note->type == 'TP')
+                    if( $note->type_epreuve == 'EvC' OR $note->type_epreuve == 'TP')
                         $note->valeur = -2 ;
                 }
                 else
