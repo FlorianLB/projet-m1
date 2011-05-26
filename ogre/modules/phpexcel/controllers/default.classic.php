@@ -72,7 +72,8 @@ class defaultCtrl extends jController {
     }
     
     function exportFormation() {
-            
+        jClasses::inc('utils~customSQL');
+        jClasses::inc('utils~Moyenne');    
             
         $id = $this->param('id', 0);
         
@@ -81,6 +82,8 @@ class defaultCtrl extends jController {
         $DebutCounterEtudiant = $ligne_epreuve + 1;
 
         $colonesTpDuJurry = array();
+        $colonesMoyennesSemestre = array();
+        $Coef_UE = array();
         
         $styleArrayBordureUE = array(
             'borders' => array(
@@ -141,14 +144,15 @@ class defaultCtrl extends jController {
         $FeuilleSession1->getRowDimension($ligne_epreuve)->setRowHeight(55);
         //TODO Force cette taille ca si un nom est tros grand sa deborde
         $FeuilleSession1->getStyle('3')->applyFromArray($styleArrayAlignmentLigneEpreuve);
-
+        
         //recupere les deux semestre de la formation
         $Liste_semestres = jDao::get('formations~semestre')->getByFormation($id);
-        $tableau_semestre= array();
+        $tableau_semestre = array();
+        $tableau_semestre_num_semestre = array();
         foreach ($Liste_semestres as $semestre) {
             $tableau_semestre[] = $semestre->id_semestre;
+            $tableau_semestre_num_semestre[$semestre->id_semestre]=$semestre->num_semestre;
         }
-        
         //recuper liste etudient par semestre
         $factory_etudiant_semestre = jDao::get('etudiants~etudiants_semestre');
         
@@ -192,6 +196,7 @@ class defaultCtrl extends jController {
         
         //on  prepar les variables
         $tableau_epreuve = array();
+        $tableau_MoyenneUE = array();//[$row->id_semestre . '_' .$row2->id_epreuve]
         $CounterEpreuve = 7; //on laise das case pour les etudients num , nom, premom
         
         
@@ -208,7 +213,7 @@ class defaultCtrl extends jController {
             //$tableau_type_epreuve = array();
             //$tableau_Nom_Ue = array();
             foreach ($Liste_ue as $row) {
-                
+                $Coef_UE[$row->id_ue] = $row->coeff;
                 //pour chaque ue recuperles les id epreuve qui corespondent
                 $Liste_epreuve = jDao::get('ue~epreuve')->getByUe($row->id_ue);
                 foreach ($Liste_epreuve as $row2) {
@@ -228,10 +233,12 @@ class defaultCtrl extends jController {
                 //rajouter une colone pour la moyenne de l'UE
                 $FeuilleSession1->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, $row->libelle);
                 $FeuilleSession1->getColumnDimensionByColumn($CounterEpreuve)->setWidth(7);
+                
                 //Rempli les moyenne avec une couleur
                 //$FeuilleSession1->getStyle($this->Nums2Case($CounterEpreuve+1, $ligne_UE+1) . ":" . $this->Nums2Case($CounterEpreuve+1,$CounterEtudiant-1))->applyFromArray($styleArrayCouleurMoyenneUE);
                 $FeuilleSession1->getStyle($this->Nums2Case($CounterEpreuve+1, $ligne_UE+1) . ":" . $this->Nums2Case($CounterEpreuve+1,$CounterEtudiant-1))->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB($this->FillColor($row->id_ue));
-    
+                $tableau_MoyenneUE[$row->id_semestre . '_' .$row->id_ue]=$CounterEpreuve;
+                
                 $CounterEpreuve ++;
                 //rajouter une colone pour les credits de l'epreuve
                 $FeuilleSession1->setCellValueByColumnAndRow($CounterEpreuve,$ligne_epreuve, "Crédits");
@@ -242,8 +249,8 @@ class defaultCtrl extends jController {
                 for ($i = $DebutCounterEtudiant; $i < $CounterEtudiant; $i++) {
                     
                     //Le nom de fonction doit etre en anglais les arguments separe par des virgules
-                    $FeuilleSession1->setCellValueByColumnAndRow($CounterEpreuve, $i ,'=IF('. $coloneMoyenne . $i .'>=10,'. $row->credits .',"")');// ca marche
-                    
+                    //formul credit
+                    $FeuilleSession1->setCellValueByColumnAndRow($CounterEpreuve, $i ,'=IF(AND('. $coloneMoyenne . $i .'>=10,'. $coloneMoyenne . $i .'<20),'. $row->credits .',"")');// ca marche
                     
                 }
 
@@ -285,6 +292,7 @@ class defaultCtrl extends jController {
             $coloneMoyenne = $this->Num2Colone($CounterEpreuve+1);
             $FeuilleSession1->setCellValue($coloneMoyenne . $ligne_epreuve, "Moy.");
             $FeuilleSession1->getColumnDimension($coloneMoyenne)->setWidth(7);
+            $colonesMoyennesSemestre[] = $coloneMoyenne;
             $CounterEpreuve ++;
             
             //rajouter une colone pour les credit
@@ -389,10 +397,13 @@ class defaultCtrl extends jController {
         $conditions->addCondition('id_semestre', 'in', $tableau_semestre);  
         $liste_notes =  $factory_notes->findBy($conditions);
     
-        
-        
         foreach ($liste_notes as $row3) {
-            $FeuilleSession1->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], $row3->valeur);
+            if($row3->valeur == -1){
+                $FeuilleSession1->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], 'ABS');
+        }else{
+                $FeuilleSession1->setCellValueByColumnAndRow($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve],$tableau_etudiant_semestre[$row3->num_etudiant], $row3->valeur);
+            }
+            
             $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_'.$row3->id_epreuve ."_". $row3->num_etudiant   ."_".  $row3->id_semestre                , $FeuilleSession1, $this->Nums2Case($tableau_epreuve[$row3->id_semestre . '_' .$row3->id_epreuve]+1,$tableau_etudiant_semestre[$row3->num_etudiant])) );
         }
         
@@ -416,7 +427,6 @@ class defaultCtrl extends jController {
        
 
         
-        
 
         
         if ($CounterEtudiant == $DebutCounterEtudiant){
@@ -430,21 +440,64 @@ class defaultCtrl extends jController {
             $conditions->addCondition('num_etudiant', 'in', $tableau_etudiant);
             $listEtudiants = $factoryEtudiants->findBy($conditions);
         }
-
-        //jLog::dump($listEtudiants,'Tableau etidient');
+        
+        
         foreach ($listEtudiants as $row4) {
-            
             //$data .= $row->valeur . "<br>";
             $FeuilleSession1->setCellValue('A'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->nom);
             $FeuilleSession1->setCellValue('B'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->prenom);
             $FeuilleSession1->setCellValue('C'.$tableau_etudiant_semestre[$row4->num_etudiant], $row4->num_etudiant);
             
             //on rajoute aussi les case TP du Jurry ici car on a acess tres facilement au valeur  
-            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  1 , $FeuilleSession1, $colonesTpDuJurry[0].$tableau_etudiant_semestre[$row4->num_etudiant] ) );
-            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  2 , $FeuilleSession1, $colonesTpDuJurry[1].$tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  1 , $FeuilleSession1, $colonesTpDuJurry[0] . $tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_PTJURRY_'. $row4->num_etudiant   .'_'.  2 , $FeuilleSession1, $colonesTpDuJurry[1] . $tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            
+            
+            
+            //moyennetotal
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_MoyGen_'. $row4->num_etudiant   .'_'.  1 , $FeuilleSession1, $colonesMoyennesSemestre[0] . $tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            $objPHPExcel->addNamedRange( new PHPExcel_NamedRange('H_MoyGen_'. $row4->num_etudiant   .'_'.  2 , $FeuilleSession1, $colonesMoyennesSemestre[1].$tableau_etudiant_semestre[$row4->num_etudiant] ) );
+            
+            //on met a dispence toute les moyenne
+            //jLog::dump($tableau_MoyenneUE,"$tableau_MoyenneUE");
+            foreach($tableau_MoyenneUE as $uncasedemoyennedeue){
+                $FeuilleSession1->setCellValueByColumnAndRow($uncasedemoyennedeue,$tableau_etudiant_semestre[$row4->num_etudiant], "OPTION");              
+            }
+            //$colonesMoyennesSemestre
+            $moyennesEtudiantSemestreTotal = "";
+            foreach ($tableau_semestre as $unsemestre){
+               $moyennesEtudiantSemestre = Moyenne::calcAllMoyenne($unsemestre,$row4->num_etudiant);
+                //si il n'es pas dispencee on met la moyenne
+                //jLog::dump($Coef_UE,'$Coef_UE');
+                $fdsfdsmoyenne = "=((";
+                $coeftotal = 0; 
+                foreach ($moyennesEtudiantSemestre as $id_ueetudient => $moyenneue) {
+                    
+                    //jLog::log("-->".$moyenneue . "<--moyenneue"  );
+                    if($moyenneue === false){
+                         $FeuilleSession1->setCellValueByColumnAndRow($tableau_MoyenneUE[$unsemestre . '_' .$id_ueetudient],$tableau_etudiant_semestre[$row4->num_etudiant], "DIS");
+                    }else{
+                        $FeuilleSession1->setCellValueByColumnAndRow($tableau_MoyenneUE[$unsemestre . '_' .$id_ueetudient],$tableau_etudiant_semestre[$row4->num_etudiant], $moyenneue);
+                        $coeftotal = $coeftotal + $Coef_UE[$id_ueetudient];
+                        
+                        $fdsfdsmoyenne = $fdsfdsmoyenne . $moyenneue . '*' . $Coef_UE[$id_ueetudient]. '+' ;
+                    }
+                    //if ($moyenneue != false ){
 
+                        
+                    //}
+                    
+                    
+                }
+                //remplace le plus pas divise et ajouter le total de div
+                $fdsfdsmoyenne = substr_replace($fdsfdsmoyenne,')/'.$coeftotal.")+" . $colonesTpDuJurry[$tableau_semestre_num_semestre[$unsemestre]-1].$tableau_etudiant_semestre[$row4->num_etudiant],-1);
+                $FeuilleSession1->setCellValue($colonesMoyennesSemestre[$tableau_semestre_num_semestre[$unsemestre]-1].$tableau_etudiant_semestre[$row4->num_etudiant],$fdsfdsmoyenne);
+            }
+            
+            
+            
         }
-        
+
         //on fixe les paneaux
         $FeuilleSession1->freezePane($this->Nums2Case(4,4));    
         $FeuilleSession2->freezePane($this->Nums2Case(4,4));
