@@ -23,7 +23,8 @@ class defaultCtrl extends jController {
         
         AnneeSuivante::creationAnnee();
         
-       //$var = Formule::parseFormuleUe('SUP ( 2PA1 + 2 PE2 + 3 * evc)');
+       //$var = Formule::parseFormuleUeSup('SUP ( 2PA1 + 2 PE2 + 3 * evc)');
+       //jLog::dump($var);
         //$vars = jDao::get('ue~epreuve')->getByUeAndType(9,"CTP1");
         //jLog::dump($vars);
         //foreach($vars as $var){
@@ -32,7 +33,7 @@ class defaultCtrl extends jController {
         //}
         
         //jLog::dump(Moyenne::calcMoyenne(1,10905684,1));
-        //jLog::dump(Moyenne::calcAllMoyenne(1,10905684));
+        //jLog::dump(Moyenne::calcAllMoyenne(2,10408769));
         
         
        // $var = Formule::sup('Sup ((EvC + P2 ) /2 ; P2)');

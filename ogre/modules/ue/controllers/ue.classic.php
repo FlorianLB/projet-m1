@@ -69,6 +69,49 @@ class ueCtrl extends jControllerDaoCrud {
         
 	jMessage::add("La creation a reussie !");
     }
+    
+    /**
+     * On mets a jours les epreuves avec leur coef en fonction de la formule
+     */
+    protected function _afterUpdate($form, $id, $resp){
+        
+        //exctraction de la formule
+        jClasses::inc('utils~Formule');
+        $formules = array();
+        $formules[0] = Formule::parseFormuleUe($form->getData('formule'));
+        $formules[1] = Formule::parseFormuleUe($form->getData('formule2'));
+        $formules[2] = Formule::parseFormuleUe($form->getData('formule_salarie'));
+        $formules[3] = Formule::parseFormuleUe($form->getData('formule_endette'));
+        //initialisation des dao
+        $factory_note = jDao::get('ue~note');
+        $factory = jDao::get('ue~epreuve');
+        $listeep = $factory->getByUe($id);
+        foreach($listeep as $ep){
+            $factory_note->deleteByEpreuve($ep->id_epreuve);
+        }
+        $factory->deleteByUe($id);
+        // pour chaques formules on cree les epreuves
+
+        foreach($formules as $i => $formule){
+         //pour chaqun des element de la formule on crée une epreuve
+            foreach($formule[2] as $epreuve_temp){
+                
+                if(!customSQL::epreuveExisteDeja($id,$epreuve_temp) ){
+                    $epreuve = jDao::createRecord('ue~epreuve');
+                    $epreuve->id_ue = $id;
+                    $epreuve->coeff = 1;
+                    $epreuve->type_epreuve = $epreuve_temp;
+	
+	if($i == 1)
+	    $epreuve->rattrapage = true;
+	    
+                    $factory->insert($epreuve);
+                }
+            }
+        }
+        
+	jMessage::add("La creation a reussie !");
+    }
  
  
     protected function _index($resp, $tpl){
