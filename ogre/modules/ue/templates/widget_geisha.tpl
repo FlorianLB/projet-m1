@@ -7,7 +7,8 @@
             <p> {ctrl_label 'csv_geisha'} : {ctrl_control 'csv_geisha'}  <span class="spacer-left"></span><span class="spacer-left">{formsubmit}</span></p>
      
             <p> {ctrl_label 'annee'} : {ctrl_control 'annee'} <span class="spacer-left"></span><span class="spacer-left"></p>
-     
+            <p> <a href="{jurl 'formations~annee:index'}">Generation de la nouvelle année</a></p>
+          
         {/form}
     </div>
     
