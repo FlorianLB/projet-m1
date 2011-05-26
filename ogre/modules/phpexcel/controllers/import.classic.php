@@ -34,10 +34,17 @@ class importCtrl extends jController {
             $listenotes = $objPHPExcel->getNamedRanges();
             //$data = "";
             $factory_notes = jDao::get('ue~note');
+            
+            $notesS1 = array();
+            $notesS2 = array();
+            $list_idsemestre = array();
+            
             foreach($listenotes as $row3){
                 //jLog::dump($row3->getName(),'une notes');
                 $nomCeluleNomee = $row3->getName();
                 list($h, $id_epreuve, $num_etudiant, $id_semestre) = explode("_", $nomCeluleNomee);
+                
+                
                 switch($id_epreuve){
                     case 'PTJURRY' :
                         //TODO
@@ -45,22 +52,44 @@ class importCtrl extends jController {
                     case 'MoyGen' :
                         //faire ici la vaalidation du semestre
                         $moyenne = $row3->getWorksheet()->getCell($row3->getRange())->getCalculatedValue();
-                        if($moyenne >= 10 ){
-                            $nbEleveAdmis++;
-                            $factory_etudiant_semestre = jDao::get('etudiants~etudiants_semestre');
-                            
-                            $conditions = jDao::createConditions();
-                            $conditions->addCondition('num_etudiant', '=', $num_etudiant);
-                            $conditions->addCondition('id_semestre', '=', $id_semestre);
-                            
-                            $unsemestreetudiant = $factory_etudiant_semestre->findBy($conditions);
-
-                            foreach ($unsemestreetudiant as $row) {
-                                $row->statut = 'ADM';
-                                $factory_etudiant_semestre->update($row);
-                            }
+                        $list_idsemestre[$id_semestre] = 0 ;
+                        $temsddsdkeys = array_keys($list_idsemestre);
+                        if ($id_semestre == $temsddsdkeys[0]){
+                            $notesS1[$num_etudiant] = $moyenne;
+                           
+                        }else{
+                            $notesS2[$num_etudiant] = $moyenne;
                         }
-                        jLog::dump($moyenne);
+                        //if($moyenne >= 10 ){
+                        //    $nbEleveAdmis++;
+                        //    $factory_etudiant_semestre = jDao::get('etudiants~etudiants_semestre');
+                        //    
+                        //    $conditions = jDao::createConditions();
+                        //    $conditions->addCondition('num_etudiant', '=', $num_etudiant);
+                        //    $conditions->addCondition('id_semestre', '=', $id_semestre);
+                        //    
+                        //    $unsemestreetudiant = $factory_etudiant_semestre->findBy($conditions);
+                        //
+                        //    foreach ($unsemestreetudiant as $row) {
+                        //        $row->statut = 'ADM';
+                        //        $factory_etudiant_semestre->update($row);
+                        //    }
+                        //}else{
+                        //    $factory_etudiant_semestre = jDao::get('etudiants~etudiants_semestre');
+                        //    
+                        //    $conditions = jDao::createConditions();
+                        //    $conditions->addCondition('num_etudiant', '=', $num_etudiant);
+                        //    $conditions->addCondition('id_semestre', '=', $id_semestre);
+                        //    
+                        //    $unsemestreetudiant = $factory_etudiant_semestre->findBy($conditions);
+                        //
+                        //    foreach ($unsemestreetudiant as $row) {
+                        //        $row->statut = 'AJO';
+                        //        $factory_etudiant_semestre->update($row);
+                        //    }                            
+                        //    
+                        //}
+                        
                         break;
                     
                     default :
@@ -81,6 +110,26 @@ class importCtrl extends jController {
                 //
                 //    
                 //}            
+                jLog::dump($list_idsemestre);
+            }
+            foreach ($notesS1 as $id_etudient => $moyenneue) {
+                $list_idsemestre[$id_semestre] = 0 ;
+                $temsddsdkeys = array_keys($list_idsemestre);
+                if(($moyenneue >= 10) and ($notesS2[$id_etudient] >= 10)){
+                    //on valide les deux semestre
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[0],"ADM");
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[1],"ADM");
+                    $nbEleveAdmis++;
+                }elseif(($moyenneue >= 10) and ($notesS2[$id_etudient] < 10)){
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[0],"ADM");
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[1],"AJC");                    
+                }elseif(($moyenneue < 10) and ($notesS2[$id_etudient] >= 10)){
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[0],"AJC");
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[1],"ADM");                  
+                }elseif(($moyenneue < 10) and ($notesS2[$id_etudient] < 10)){
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[0],"AJO");
+                    $this->MarksemestreAs($id_etudient,$temsddsdkeys[1],"AJO");                  
+                }
                 
             }
             
@@ -110,7 +159,27 @@ class importCtrl extends jController {
         jMessage::add($message);
         return $rep;
     }
+    function MarksemestreAs($etudient,$semestre,$valeur ){
+        $factory_etudiant_semestre = jDao::get('etudiants~etudiants_semestre');
+        
+        $conditions = jDao::createConditions();
+        $conditions->addCondition('num_etudiant', '=', $etudient);
+        $conditions->addCondition('id_semestre', '=', $semestre);
+        
+        $unsemestreetudiant = $factory_etudiant_semestre->findBy($conditions);
+    
+        foreach ($unsemestreetudiant as $row) {
+            $row->statut = $valeur;
+            $factory_etudiant_semestre->update($row);
+        }                            
+        
+        
+        
+        
+    }
  
     
 }
+
+
 
