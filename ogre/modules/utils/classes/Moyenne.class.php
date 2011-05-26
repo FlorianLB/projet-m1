@@ -27,7 +27,7 @@ class Moyenne{
                 //Verification si l'ue est optionnel
                 if(customSQL::ueIsOptionelle($ue->id_ue,$id_semestre)){
                     //Si oui verifie que l'etudiant est inscrit
-                    if(strstr($ue->code_ue,$etudiant_semestre->options) != FALSE){
+                    if(strstr($etudiant_semestre->options,$ue->code_ue) != FALSE){
                         //On calcule la moyenne
                         $array_moyenne[$ue->id_ue] = Moyenne::calcMoyenne($id_semestre,$num_etudiant,$ue->id_ue);
                     }
