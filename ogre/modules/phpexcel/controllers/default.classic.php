@@ -347,6 +347,7 @@ class defaultCtrl extends jController {
             for ($i = $DebutCounterEtudiant; $i < $CounterEtudiant; $i++) {
                 //Le nom de fonction doit etre en anglais les arguments separe par des virgules
                 $FeuilleSession1->setCellValue($coloneDECIS . $i ,'=IF('. $coloneMoyenne . $i .'>=10,"ADMIS(E)","AJOURNE(E)")');// ca marche
+                $FeuilleSession1->setCellValue($coloneTpDuJurry . $i ,0);// ca marche
                 $FeuilleSession1->setCellValue($coloneMention . $i ,'=IF('. $coloneMoyenne . $i .'>=10,IF('. $coloneMoyenne . $i .'<12,"PASABLE",IF('. $coloneMoyenne . $i .'<14,"Assez Bien",IF('. $coloneMoyenne . $i .'<16,"Bien","Très Bien"))),"")');// ca marche
                 $FeuilleSession1->setCellValue($coloneCreditSemestre . $i ,'=IF('. $coloneMoyenne . $i .'>=10,30,' . $coloneCredit.$i . ')');// ca marche
                 $FeuilleSession1->setCellValue($coloneCL . $i ,'=RANK('. $coloneMoyenne . $i .',' . $coloneMoyenne. '$' .$DebutCounterEtudiant . ':' .  $coloneMoyenne. '$' . ($CounterEtudiant -1) .  ')');// ca marche
