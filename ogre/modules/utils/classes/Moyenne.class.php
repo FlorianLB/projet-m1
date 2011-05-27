@@ -78,8 +78,8 @@ class Moyenne{
             //$test=customSQL::DispenseType($id_semestre,$num_etudiant,$id_ue);
             //eval('$formule = $ue_factory->get($id_ue)->$test;');
             switch(customSQL::DispenseType($id_semestre,$num_etudiant,$id_ue)){
-                case 'salarie' : $formule = $ue_factory->get($id_ue)->formule_salarie;
-                case 'endette' : $formule = $ue_factory->get($id_ue)->formule_endette;
+                case 'endette' : $formule = $ue_factory->get($id_ue)->formule_endette;break;
+                case 'salarie' : $formule = $ue_factory->get($id_ue)->formule_salarie;break;
                 case 'valide' : 
                 default : return false;
                             break;
